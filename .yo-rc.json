@@ -1,0 +1,10 @@
+{
+  "generator-jhipster-module": {
+    "promptValues": {
+      "githubName": "bhangun",
+      "authorName": "bhangun hartani",
+      "authorEmail": "bhangunh@gmail.com",
+      "authorUrl": "https://bhangun.blogspot.com"
+    }
+  }
+}

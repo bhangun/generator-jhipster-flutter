@@ -1,0 +1,2 @@
+hello flutter:entity sub generator!
+It's dummy.txt
