@@ -134,7 +134,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/administration/account/user.helper.dart`, `${this.packageFolder}/lib/administration/account/user.helper.dart`);
             this.template(`${flutterDir}lib/administration/account/user.list.dart`, `${this.packageFolder}/lib/administration/account/user.list.dart`);
             this.template(`${flutterDir}lib/administration/account/user.register.dart`, `${this.packageFolder}/lib/administration/account/user.register.dart`);
-            this.template(`${flutterDir}lib/administration/account.dart`, `${this.packageFolder}/lib/administration/account.dart`);
+
             this.template(`${flutterDir}lib/administration/dashboard.dart`, `${this.packageFolder}/lib/administration/dashboard.dart`);
 
             this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);
@@ -149,9 +149,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/services/connection.dart`, `${this.packageFolder}/lib/services/connection.dart`);
             this.template(`${flutterDir}lib/services/helper.dart`, `${this.packageFolder}/lib/services/helper.dart`);
             this.template(`${flutterDir}lib/services/routes.dart`, `${this.packageFolder}/lib/services/routes.dart`);
-            this.template(`${flutterDir}lib/services/services.dart`, `${this.packageFolder}/lib/services/services.dart`);
-            this.template(`${flutterDir}lib/services/common.dart`, `${this.packageFolder}/lib/services/common.dart`);
-            
+
             this.template(`${flutterDir}lib/themes/default.theme.dart`, `${this.packageFolder}/lib/themes/default.theme.dart`);
             this.template(`${flutterDir}lib/widgets/drawer.dart`, `${this.packageFolder}/lib/widgets/drawer.dart`);
             this.template(`${flutterDir}lib/widgets/label_below_icon.dart`, `${this.packageFolder}/lib/widgets/label_below_icon.dart`);

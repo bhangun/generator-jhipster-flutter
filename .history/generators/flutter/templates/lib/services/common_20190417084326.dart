@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import '../administration/dashboard.dart';
+import 'package:jh_flutter_sample/administration/dashboard.dart';
 
 import '../services/connection.dart';
 import '../services/helper.dart';

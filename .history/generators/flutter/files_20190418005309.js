@@ -134,7 +134,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/administration/account/user.helper.dart`, `${this.packageFolder}/lib/administration/account/user.helper.dart`);
             this.template(`${flutterDir}lib/administration/account/user.list.dart`, `${this.packageFolder}/lib/administration/account/user.list.dart`);
             this.template(`${flutterDir}lib/administration/account/user.register.dart`, `${this.packageFolder}/lib/administration/account/user.register.dart`);
-            this.template(`${flutterDir}lib/administration/account.dart`, `${this.packageFolder}/lib/administration/account.dart`);
+
             this.template(`${flutterDir}lib/administration/dashboard.dart`, `${this.packageFolder}/lib/administration/dashboard.dart`);
 
             this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);

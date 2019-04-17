@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../administration/dashboard.dart';
+import 'package:jh_flutter_sample/administration/dashboard.dart';
 import 'helper.dart';
 import '../services/config.dart';
 

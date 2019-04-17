@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../administration/account/user.helper.dart';
-import '../services/common.dart' as auth;
+import 'package:jh_flutter_sample/administration/account/user.helper.dart';
+import 'package:jh_flutter_sample/services/common.dart' as auth;
 import 'package:flutter_svg/flutter_svg.dart';
 import '../widgets/logo_anim.dart';
 

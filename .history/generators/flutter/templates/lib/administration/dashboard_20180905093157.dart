@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'package:charts_flutter/flutter.dart';
-import '../services/common.dart';
+import 'package:jh_flutter_sample/services/common.dart';
 
 class Dashboard extends StatelessWidget {
   @override
