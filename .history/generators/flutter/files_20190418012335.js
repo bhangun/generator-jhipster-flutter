@@ -45,8 +45,10 @@ function writeFiles() {
         writeGlobalFiles() {
             this.template('gitignore', `${this.packageFolder}/.gitignore`);
             this.template('metadata', `${this.packageFolder}/.metadata`);
+            // this.template('packages', `${this.packageFolder}/.packages`);
             this.template('apps_android.iml', `${this.packageFolder}/apps_android.iml`);
             this.template('apps.iml', `${this.packageFolder}/apps.iml`);
+            // this.template('pubspec.lock', `${this.packageFolder}/pubspec.lock`);
             this.template('pubspec.yaml', `${this.packageFolder}/pubspec.yaml`);
             this.template('README.md', `${this.packageFolder}/README.md`);
         },
@@ -75,6 +77,7 @@ function writeFiles() {
             this.template(`${flutterDir}android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`, `${this.packageFolder}/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png`);
             this.template(`${flutterDir}android/app/src/main/res/values/styles.xml`, `${this.packageFolder}/android/app/src/main/res/values/styles.xml`);
 
+            // this.template(`${flutterDir}android/gradle/wrapper/gradle-wrapper.jar`, `${flutterNewDir}android/gradle/wrapper/gradle-wrapper.jar`);
             this.template(`${flutterDir}android/gradle/wrapper/gradle-wrapper.properties`, `${this.packageFolder}/android/gradle/wrapper/gradle-wrapper.properties`);
 
             // assets
@@ -141,6 +144,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/pages/home.dart`, `${this.packageFolder}/lib/pages/home.dart`);
             this.template(`${flutterDir}lib/pages/login.dart`, `${this.packageFolder}/lib/pages/login.dart`);
 
+            // this.template(`${flutterDir}lib/services/authentication.dart`, `${this.packageFolder}/lib/services/authentication.dart`);
             this.template(`${flutterDir}lib/services/config.dart`, `${this.packageFolder}/lib/services/config.dart`);
             this.template(`${flutterDir}lib/services/connection.dart`, `${this.packageFolder}/lib/services/connection.dart`);
             this.template(`${flutterDir}lib/services/helper.dart`, `${this.packageFolder}/lib/services/helper.dart`);

@@ -1,4 +1,4 @@
-package <%= packageName %>.<%= appsName %>;
+package com.example.jhflutter02;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
