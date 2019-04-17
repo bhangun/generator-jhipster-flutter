@@ -27,18 +27,20 @@ class _EntityState extends State<Entity> {
           title: Text(_title),
         ),
         body: Center(
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: listChild(context))),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: listChild(context)
+          )
+        ),
         drawer: CommonDrawer(
           accountEmail: "bhangun@gmail.com",
           accountName: "Bismillah",
-        )
-    );
+        ));
   }
 
   // iconBox
-  Widget iconBox(IconData icon, String label, Size size) => SizedBox.fromSize(
+  Widget iconBox(IconData icon,String label,Size size) =>
+      SizedBox.fromSize(
         size: Size.square(size.width / 3.3),
         child: Card(
           color: Colors.grey.shade300,
@@ -53,7 +55,7 @@ class _EntityState extends State<Entity> {
       );
 
   // listChild
-  listChild(BuildContext context) {
+  listChild(BuildContext context){
     Size size = MediaQuery.of(context).size;
     return <Widget>[
       iconBox(Icons.pie_chart, "Dashboard", size),

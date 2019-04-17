@@ -46,7 +46,7 @@ class CommonDrawer extends StatelessWidget {
     list.add(_header(""));
     list.add(_listTitle("Register", context,"/users"));
     list.add(_listTitle("User", context,"/users"));
-    list.add(_listTitle("Dashboard", context,"/dashboard"));
+    list.add(_listTitle("Dashboard 2", context,"/dashboard"));
     list.add(_listTitle("Logout", context,"/login"));
     return list;
   }

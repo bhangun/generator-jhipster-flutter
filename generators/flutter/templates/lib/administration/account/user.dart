@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 
-class Entity {
-  const Entity(
-      {@required this.id,
+class User {
+  const User(
+      {this.id,
       @required this.login,
       @required this.firstName,
       @required this.lastName,
@@ -15,8 +15,7 @@ class Entity {
       this.createdDate,
       this.lastModifiedBy,
       this.lastModifiedDate})
-      : assert(id != null),
-        assert(login != null),
+      : assert(login != null),
         assert(firstName != null),
         assert(lastName != null),
         assert(email != null),
@@ -41,8 +40,8 @@ class Entity {
   final String lastModifiedBy;
   final DateTime lastModifiedDate;
 
-  factory Entity.fromJson(Map<String, dynamic> json) {
-    return Entity(
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
         id: json['id'],
         login: json['login'],
         firstName: json['firstName'],
@@ -61,6 +60,55 @@ class Entity {
             ? DateTime.parse(json['lastModifiedDate'])
             : null);
   }
+
+  Map<String, dynamic> toJson() => {
+        '"id"': '"$id"',
+        '"login"': '"$login"',
+        '"firstName"': '"$firstName"',
+        '"lastName"': '"$lastName"',
+        '"email"': '"$email"',
+        '"imageUrl"': '"$imageUrl"',
+        '"activated"': '"$activated"',
+        '"langKey"': '"$langKey"',
+        '"authorities"': '$authorities',
+        '"createdBy"': '"$createdBy"',
+        '"createdDate"': '"' + createdDate.toIso8601String() + 'Z"',
+        '"lastModifiedBy"': '"$lastModifiedBy"',
+        '"lastModifiedDate"': '"' + lastModifiedDate.toIso8601String() + 'Z"'
+      };
 }
 
+/*
+"id" : 3,
+  "login" : "admin",
+  "firstName" : "Administrator",
+  "lastName" : "Administrator",
+  "email" : "admin@localhost",
+  "imageUrl" : "",
+  "activated" : true,
+  "langKey" : "en",
+  "createdBy" : "system",
+  "createdDate" : "2018-07-02T07:46:23.273Z",
+  "lastModifiedBy" : "system",
+  "lastModifiedDate" : null,
+  "authorities" : [ "ROLE_USER", "ROLE_ADMIN" ]
 
+
+  {
+  "activated": true,
+  "authorities": [
+    "string"
+  ],
+  "createdBy": "string",
+  "createdDate": "2019-04-17T09:49:53.653Z",
+  "email": "string",
+  "firstName": "string",
+  "id": 0,
+  "imageUrl": "string",
+  "langKey": "string",
+  "lastModifiedBy": "string",
+  "lastModifiedDate": "2019-04-17T09:49:53.653Z",
+  "lastName": "string",
+  "login": "string"
+}
+ */

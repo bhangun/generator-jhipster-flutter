@@ -1,107 +1,90 @@
 import 'package:flutter/material.dart';
+import 'package:jh_flutter_sample/administration/account/user.helper.dart';
+import 'package:jh_flutter_sample/services/common.dart' as auth;
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jh_flutter_sample/blocs/app_bloc/app.dart';
-import '../blocs/auth_bloc/auth.dart';
+import '../widgets/logo_anim.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  State<LoginPage> createState() => LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
-
-   AuthenticationBloc _authBloc;
-   ApplicationBloc _appBloc;
+class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  final String _token = "";
 
   @override
   Widget build(BuildContext context) {
-     _authBloc = BlocProvider.of<AuthenticationBloc>(context);
-      _appBloc = BlocProvider.of<ApplicationBloc>(context);
-    
-    return BlocBuilder<AuthenticationEvent, AuthenticationState>(
-      bloc: _authBloc,
-      builder: (BuildContext context, AuthenticationState loginState) {
-
-        if (loginState.token.isNotEmpty) {
-          _authBloc.onLogin(token: loginState.token);
-          _appBloc.onLoggedIn(token: loginState.token);
-        }
-
-        if (loginState.error.isNotEmpty) {
-          _onWidgetDidBuild(() {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(
-                content: Text('${loginState.error}'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          });
-        }
-        return _form(loginState);
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Widget _form(AuthenticationState loginState) {
     return Scaffold(
-      body: Form(
-      child: Column(
-        children: [
-          SizedBox(height: 80.0),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
+          children: <Widget>[
+            SizedBox(height: 200.0),
             Column(
               children: <Widget>[
-                SvgPicture.asset('assets/logo-jhipster.svg', 
-                width: MediaQuery.of(context).size.width/4,
-                height: MediaQuery.of(context).size.height/4,),
-                SizedBox(height: 16.0),
-                //Text('Flutter'),
+                SvgPicture.asset('assets/images/logo-jhipster.svg'),
+                //LogoApp()
               ],
             ),
-          TextFormField(
-            decoration: InputDecoration(labelText: 'username'),
-            controller: _usernameController,
-          ),
-          TextFormField(
-            decoration: InputDecoration(labelText: 'password'),
-            controller: _passwordController,
-            obscureText: true,
-          ),
-          Checkbox(
-            value: loginState.rememberMe,
-            onChanged: _authBloc.rememberMe(),
-          ),
-          RaisedButton(
-            onPressed: loginState.isLoginButtonEnabled ? _onLoginButtonPressed : null,
-            child: Text('Login'),
-          ),
-          Container(
-            child: loginState.isLoading ? CircularProgressIndicator() : null,
-          ),
-        ],
+            SizedBox(height: 50.0),
+            TextField(
+              controller: _usernameController,
+              decoration: InputDecoration(
+                filled: true,
+                labelText: 'Username',
+              ),
+            ),
+            SizedBox(height: 12.0),
+            TextField(
+              controller: _passwordController,
+              decoration: InputDecoration(
+                filled: true,
+                labelText: 'Password',
+              ),
+              obscureText: true,
+            ),
+            ButtonBar(
+              children: <Widget>[
+                FlatButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    _usernameController.clear();
+                    _passwordController.clear();
+                  },
+                ),
+                FlatButton(
+                  child: Text('Login'),
+                  onPressed: () {
+                    try {
+                      auth
+                          .login(_usernameController.text,
+                              _passwordController.text, false)
+                          .then((bool v) {
+                        if (v) {
+                          _usernameController.clear();
+                          _passwordController.clear();
+                          Navigator.pop(context);
+                        } else
+                          Navigator.of(context).pop();
+                      });
+                    } catch (e) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                ),
+              ],
+            ),
+            FlatButton(
+              child: Text('Forgot Password?'),
+              onPressed: () {
+
+              },
+            ),
+          ],
+        ),
       ),
-    )
-    );
-  }
-
-  void _onWidgetDidBuild(Function callback) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      callback();
-    });
-  }
-
-  _onLoginButtonPressed() {
-    _authBloc.onLoginButtonPressed(
-      username: _usernameController.text,
-      password: _passwordController.text,
-     // rememberMe: v
     );
   }
 }

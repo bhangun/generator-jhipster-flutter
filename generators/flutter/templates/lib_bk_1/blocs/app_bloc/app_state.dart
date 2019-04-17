@@ -1,4 +1,4 @@
-import 'package:jh_flutter_sample/models/user.dart';
+import 'package:../../models/user.dart';
 import 'package:meta/meta.dart';
 
 class ApplicationState {

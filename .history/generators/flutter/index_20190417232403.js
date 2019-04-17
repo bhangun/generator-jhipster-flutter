@@ -37,7 +37,6 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.baseName = this.config.get('baseName');
                 this.appsName = this.config.get('appsName');
                 this.packageName = this.config.get('packageName');
                 this.packageFolder = this.config.get('packageFolder');
@@ -60,8 +59,7 @@ module.exports = class extends BaseGenerator {
     // if (useBlueprint) return;
         return {
             saveConfig() {
-                this.config.set('baseName', this.baseName);
-                this.config.set('appsName', this.appsName);
+                this.config.set('appsName', this.baseName);
                 this.config.set('packageName', this.packageName);
                 this.config.set('packageFolder', this.packageFolder);
             }

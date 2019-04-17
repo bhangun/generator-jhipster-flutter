@@ -1,8 +1,8 @@
 const chalk = require('chalk');
-const packagejs = require('../../package.json');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
+const packagejs = require('../../package.json');
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -22,11 +22,11 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.yellow('   _ _     ')}${chalk.bold.cyan('    ______      __  __           ')}`);
                 this.log(`${chalk.bold.yellow('  (_) |__  ')}${chalk.bold.cyan('   / __/ /_  __/ /_/ /____  _____')}`);
                 this.log(`${chalk.bold.yellow('  | | \'_ \\   ')}${chalk.bold.cyan('/ /_/ / / / / __/ __/ _ \\/ ___/')}`);
-                this.log(`${chalk.bold.yellow('  | | | | |')}${chalk.bold.blue(' / __/ / /_/ / /_/ /_/  __/ /    ')}`);
-                this.log(`${chalk.bold.yellow(' _/ |_| |_|')}${chalk.bold.blue('/_/ /_/\\__,_/\\__/\\__/\\___/_/     ')}`);
-                this.log(`${chalk.bold.yellow('|__/       ')}${chalk.bold.blue('                                 ')}`);
+                this.log(`${chalk.bold.yellow('  | | | | |')}${chalk.bold.cyan(' / __/ / /_/ / /_/ /_/  __/ /    ')}`);
+                this.log(`${chalk.bold.yellow(' _/ |_| |_|')}${chalk.bold.cyan('/_/ /_/\\__,_/\\__/\\__/\\___/_/     ')}`);
+                this.log(`${chalk.bold.yellow('|__/       ')}${chalk.bold.cyan('                                 ')}`);
                 // Have Yeoman greet the user.
-                this.log(`\nWelcome 1 to the ${chalk.bold.yellow('JHipster Flutter')} module generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
             checkJhipster() {
                 const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
@@ -51,8 +51,7 @@ module.exports = class extends BaseGenerator {
             {
                 type: 'input',
                 name: 'packageName',
-                validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ?
-                    true : 'The package name you have provided is not a valid Java package name.'),
+                validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ? true : 'The package name you have provided is not a valid Java package name.'),
                 message: 'What is your package name?',
                 default: this.jhipsterAppConfig.packageName,
                 store: true
@@ -84,15 +83,7 @@ module.exports = class extends BaseGenerator {
                 this.config.set('packageName', this.props.packageName);
                 this.config.set('path', this.props.path);
                 this.config.set('packageFolder', `${this.props.path}${this.props.appsName}`);
-                this.log('-------00------');
-                this.log('-------00------');
-
-                this.config.set('anehyah', 'dsdfsdsfdsdf');
-
-                this.config.set('namamu', 'bhangun');
-                this.config.set('cobalgah', 'bhangun');
-
-                this.config.set('ahkglg', 'qwqwqwqwqwqw');
+                this.config.set('baseName', 'dsdfsdsfdsdf');
             }
         };
     }
@@ -119,8 +110,6 @@ module.exports = class extends BaseGenerator {
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         // variable from questions
         // show all variables
-
-        this.log('------22-------$this.config.appsName');
         this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
         this.log(`packageName=${this.packageName}`);
@@ -134,7 +123,7 @@ module.exports = class extends BaseGenerator {
 
         this.composeWith(require.resolve('../flutter'));
 
-        this.log(this.config.get('basis') + ' <><>??;;;;;??<><> ' + this.baseName);
+        this.log(`${this.config.get('basis')} <><>??;;;;;??<><> ${this.baseName}`);
 
         try {
             this.registerModule('generator-jhipster-flutter', 'entity', 'post', 'entity', 'Generate Mobile Apps for Android & iOS using Flutter & Dart Language');
@@ -147,8 +136,7 @@ module.exports = class extends BaseGenerator {
     install() {}
 
     end() {
-        this.log(this.config.get('baseName') + ' <><>????<><> ' + this.baseName);
-        
+        this.log(`${this.config.get('baseName')} <><>????<><> ${this.baseName}`);
         this.log('End of flutter generator');
     }
 };
