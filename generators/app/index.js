@@ -105,8 +105,8 @@ module.exports = class extends BaseGenerator {
         this.buildTool = this.props.buildTool;
 
         // use constants from generator-constants.js
-        const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.path}/`;
-        const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
+        /* const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.path}/`;
+        const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR; */
         // variable from questions
         // show all variables
         this.log('\n--- some config read from config ---');
@@ -116,10 +116,6 @@ module.exports = class extends BaseGenerator {
         this.log(`packageFolder=${this.packageFolder}`);
         this.log(`buildTool=${this.buildTool}`);
 
-        this.log('\n--- some const ---');
-        this.log(`javaDir=${javaDir}`);
-        this.log(`resourceDir=${resourceDir}`);
-
         this.composeWith(require.resolve('../flutter'));
 
         try {
@@ -128,7 +124,6 @@ module.exports = class extends BaseGenerator {
             this.log(`${chalk.red.bold('WARN!')} Could not register as a jhipster entity post creation hook...\n`);
         }
     }
-
 
     install() {}
 
