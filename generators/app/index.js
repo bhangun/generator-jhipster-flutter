@@ -70,11 +70,8 @@ module.exports = class extends BaseGenerator {
         const done = this.async();
         this.prompt(prompts).then((props) => {
             this.props = props;
-            // this.log(this.props.packageName);
             done();
         });
-
-        this.config.set('basis', 'bbbbb');
     }
 
     get configuring() {
@@ -86,7 +83,6 @@ module.exports = class extends BaseGenerator {
                 this.config.set('packageName', this.props.packageName);
                 this.config.set('path', this.props.path);
                 this.config.set('packageFolder', `${this.props.path}${this.props.appsName}`);
-                this.config.set('baseName', 'dsdfsdsfdsdf');
             }
         };
     }
@@ -126,10 +122,8 @@ module.exports = class extends BaseGenerator {
 
         this.composeWith(require.resolve('../flutter'));
 
-        this.log(`${this.config.get('basis')} <><>??;;;;;??<><> ${this.baseName}`);
-
         try {
-            this.registerModule('generator-jhipster-flutter', 'entity', 'post', 'entity', 'Generate Mobile Apps for Android & iOS using Flutter & Dart Language');
+            this.registerModule('generator-jhipster-kutilang', 'entity', 'post', 'entity', 'Generate Mobile Apps for Android & iOS using Flutter & Dart Language and JHipster as a backend');
         } catch (err) {
             this.log(`${chalk.red.bold('WARN!')} Could not register as a jhipster entity post creation hook...\n`);
         }
@@ -139,7 +133,6 @@ module.exports = class extends BaseGenerator {
     install() {}
 
     end() {
-        this.log(`${this.config.get('baseName')} <><>????<><> ${this.baseName}`);
         this.log('End of flutter generator');
     }
 };
