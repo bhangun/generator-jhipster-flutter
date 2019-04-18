@@ -1,13 +1,13 @@
 {
-  "name": "generator-jhipster-flutter",
+  "name": "generator-jhipster-kutilang",
   "version": "0.0.0",
-  "description": "Generate mobile Apps (iOS/Android) for JHipster ",
+  "description": "Generate mobile Apps (iOS/Android) using Flutter for JHipster backend ",
   "keywords": [
     "yeoman-generator",
     "jhipster-module",
     "jhipster-5"
   ],
-  "homepage": "https://github.com/bhangun/generator-jhipster-flutter",
+  "homepage": "https://github.com/bhangun/generator-jhipster-kutilang",
   "author": {
     "name": "bhangun hartani",
     "email": "bhangunh@gmail.com",
@@ -19,7 +19,7 @@
   "main": "generators/app/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bhangun/generator-jhipster-flutter.git"
+    "url": "git+https://github.com/bhangun/generator-jhipster-kutilang.git"
   },
   "dependencies": {
     "axios": "0.18.0",
@@ -67,6 +67,6 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/bhangun/generator-jhipster-flutter/issues"
+    "url": "https://github.com/bhangun/generator-jhipster-jh-kutilang/issues"
   }
 }

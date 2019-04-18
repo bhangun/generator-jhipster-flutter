@@ -73,7 +73,9 @@ module.exports = class extends BaseGenerator {
     }
 
     install() {
+        this.spawnCommand('cd', `${this.packageFolder}/flutter`);
         this.spawnCommand('flutter', ['packages', 'get']);
+        this.spawnCommand('flutter', ['run']);
     }
 
     end() {

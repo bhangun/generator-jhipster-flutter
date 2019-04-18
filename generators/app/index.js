@@ -19,12 +19,36 @@ module.exports = class extends BaseGenerator {
                 }
             },
             displayLogo() {
-                this.log(`${chalk.bold.yellow('   _ _     ')}${chalk.bold.cyan('    ______      __  __           ')}`);
-                this.log(`${chalk.bold.yellow('  (_) |__  ')}${chalk.bold.cyan('   / __/ /_  __/ /_/ /____  _____')}`);
-                this.log(`${chalk.bold.yellow('  | | \'_ \\   ')}${chalk.bold.cyan('/ /_/ / / / / __/ __/ _ \\/ ___/')}`);
-                this.log(`${chalk.bold.yellow('  | | | | |')}${chalk.bold.cyan(' / __/ / /_/ / /_/ /_/  __/ /    ')}`);
-                this.log(`${chalk.bold.yellow(' _/ |_| |_|')}${chalk.bold.cyan('/_/ /_/\\__,_/\\__/\\__/\\___/_/     ')}`);
-                this.log(`${chalk.bold.yellow('|__/       ')}${chalk.bold.cyan('                                 ')}`);
+                // this.log(`${chalk.bold.yellow('   _ _     ')}${chalk.bold.cyan('    ______      __  __           ')}`);
+                // this.log(`${chalk.bold.yellow('  (_) |__  ')}${chalk.bold.cyan('   / __/ /_  __/ /_/ /____  _____')}`);
+                // this.log(`${chalk.bold.yellow('  | | \'_ \\   ')}${chalk.bold.cyan('/ /_/ / / / / __/ __/ _ \\/ ___/')}`);
+                // this.log(`${chalk.bold.yellow('  | | | | |')}${chalk.bold.cyan(' / __/ / /_/ / /_/ /_/  __/ /    ')}`);
+                // this.log(`${chalk.bold.yellow(' _/ |_| |_|')}${chalk.bold.cyan('/_/ /_/\\__,_/\\__/\\__/\\___/_/     ')}`);
+                // this.log(`${chalk.bold.yellow('|__/       ')}${chalk.bold.cyan('                                 ')}`);
+                /*
+                this.log(`${chalk.bold.yellow('_                 ')}`);
+                this.log(`${chalk.bold.yellow('| |                ')}`);
+                this.log(`${chalk.bold.yellow('| |__   ___  ___   ')}`);
+                this.log(`${chalk.bold.yellow('| \'_ \\ / _ \\/ _ \\  ')}`);
+                this.log(`${chalk.bold.yellow('| |_) |  __/ (_) | ')}`);
+                this.log(`${chalk.bold.yellow('|_.__/ \\___|\\___/  ')}`);
+
+                this.log(`${chalk.bold.yellow('___.                 ')}`);
+                this.log(`${chalk.bold.yellow('\\_ |__   ____  ____  ')}`);
+                this.log(`${chalk.bold.yellow(' | __ \\_/ __ \\/  _ \\ ')}`);
+                this.log(`${chalk.bold.yellow(' | \\_\\ \\  ___(  <_> )')}`);
+                this.log(`${chalk.bold.yellow(' |___  /\\___  >____/ ')}`);
+                this.log(`${chalk.bold.yellow('     \\/     \\/       ')}`);
+*/
+                this.log(`${chalk.bold.cyan('_          _   _ _                   ')}`);
+                this.log(`${chalk.bold.cyan('| |        | | (_) |                  ')}`);
+                this.log(`${chalk.bold.cyan('| | ___   _| |_ _| | __ _ _ __   __ _ ')}`);
+                this.log(`${chalk.bold.cyan('| |/ / | | | __| | |/ _` | \'_ \\ / _` |')}`);
+                this.log(`${chalk.bold.cyan('|   <| |_| | |_| | | (_| | | | | (_| |')}`);
+                this.log(`${chalk.bold.cyan('|_\\_\\\\__,_|\\__|_|_|\\__,_|_| |_|\\__,  |')}`);
+                this.log(`${chalk.bold.cyan('                                 __/ |')}`);
+                this.log(`${chalk.bold.cyan('                                |___/ ')}`);
+
                 // Have Yeoman greet the user.
                 this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
