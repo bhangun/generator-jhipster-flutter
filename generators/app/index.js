@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
-const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
+// const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const packagejs = require('../../package.json');
 
 module.exports = class extends BaseGenerator {
@@ -41,7 +41,44 @@ module.exports = class extends BaseGenerator {
         };
     }
 
+
+    /* regenerateEntities() {
+        if (this.withEntities) {
+            const options = this.options;
+            const configOptions = this.configOptions;
+            this.getExistingEntities().forEach(entity => {
+                this.composeWith(require.resolve('../entity'), {
+                    ...options,
+                    configOptions,
+                    regenerate: true,
+                    'skip-install': true,
+                    debug: this.isDebugEnabled,
+                    arguments: [entity.name]
+                });
+            });
+        }
+    }
+    composeClient() {
+                const context = this.context;
+                if (context.skipClient) return;
+                const configOptions = this.configOptions;
+
+                this.composeWith(require.resolve('../entity-client'), {
+                    context,
+                    configOptions,
+                    'skip-install': context.options['skip-install'],
+                    force: context.options.force,
+                    debug: context.isDebugEnabled
+                });
+            },
+ */
+
     prompting() {
+        this.getExistingEntities().forEach((entity) => {
+            this.log(entity.name);
+            this.log(entity);
+        });
+        // this.log(this.auditedEntities[0]);
         const appsName = `${this.jhipsterAppConfig.baseName}Apps`;
         const prompts = [
             {

@@ -1,6 +1,6 @@
 # generator-jhipster-kutilang
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> JHipster module, generate mobile Apps (iOS/Android) using Flutter for JHipster as a backend.
+> JHipster module, generate mobile Apps (iOS/Android) using Flutter and JHipster as a backend.
 
 # Introduction
 
@@ -8,9 +8,17 @@ This is a [JHipster](http://jhipster.github.io/) module, that is meant to be use
 
 # Prerequisites
 
+## JHipster
+
 As this is a [JHipster](http://jhipster.github.io/) module, we expect you have JHipster and its related tools already installed:
 
 - [Installing JHipster](https://jhipster.github.io/installation.html)
+
+## Flutter
+
+Mobile apps use [Flutter Framework](https://flutter.dev), please jump to [install](https://flutter.dev/docs/get-started/install/macos)
+
+
 
 # Installation
 
@@ -43,6 +51,8 @@ npm update -g generator-jhipster-kutilang
 ```
 
 # Usage
+
+
 
 # License
 
