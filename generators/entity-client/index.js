@@ -18,9 +18,9 @@
  */
 /* eslint-disable consistent-return */
 const chalk = require('chalk');
-const writeFiles = require('./files').writeFiles;
 const utils = require('generator-jhipster/generators/utils');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
+const writeFiles = require('./files').writeFiles;
 
 let useBlueprint;
 
@@ -100,12 +100,11 @@ module.exports = class extends BaseGenerator {
                     variableName += 'Collection';
                 }
                 const relationshipFieldName = `this.${entityInstance}.${relationship.relationshipFieldName}`;
-                const relationshipFieldNameIdCheck = dto === 'no' ?
-                    `!${relationshipFieldName} || !${relationshipFieldName}.id` :
-                    `!${relationshipFieldName}Id`;
+                const relationshipFieldNameIdCheck = dto === 'no'
+                    ? `!${relationshipFieldName} || !${relationshipFieldName}.id`
+                    : `!${relationshipFieldName}Id`;
 
-                query =
-                    `this.${relationship.otherEntityName}Service
+                query = `this.${relationship.otherEntityName}Service
             .query({filter: '${relationship.otherEntityRelationshipName.toLowerCase()}-is-null'})
             .subscribe(data => {
                 if (${relationshipFieldNameIdCheck}) {
@@ -123,8 +122,7 @@ module.exports = class extends BaseGenerator {
                 if (variableName === entityInstance) {
                     variableName += 'Collection';
                 }
-                query =
-                    `this.${relationship.otherEntityName}Service.query()
+                query = `this.${relationship.otherEntityName}Service.query()
             .subscribe(data => { this.${variableName} = data; }, (error) => this.onError(error));`;
             }
             if (variableName && !this.contains(queries, query)) {

@@ -53,6 +53,8 @@ npm update -g generator-jhipster-kutilang
 # Usage
 
 
+# Entity Generator
+To generate entities, run `yo jhipster-ionic:entity <name>`
 
 # License
 

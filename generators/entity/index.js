@@ -35,7 +35,6 @@ module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
         jhipsterUtils.copyObjectProps(this, this.options.context);
-
         // This makes `name` a required argument.
         this.argument('name', {
             type: String,
@@ -99,6 +98,8 @@ module.exports = class extends BaseGenerator {
         if (useBlueprint) return;
         return {
             getConfig() {
+                this.log('----initializing----');
+                this.log('----getConfig----');
                 const context = this.context;
                 context.useConfigurationFile = false;
                 this.env.options.appPath = this.config.get('appPath') || constants.CLIENT_MAIN_SRC_DIR;
@@ -158,6 +159,7 @@ module.exports = class extends BaseGenerator {
             },
 
             validateEntityName() {
+                this.log('----validateEntityName----');
                 const entityName = this.context.name;
                 if (!(/^([a-zA-Z0-9_]*)$/.test(entityName))) {
                     this.error(chalk.red('The entity name cannot contain special characters'));
@@ -173,6 +175,7 @@ module.exports = class extends BaseGenerator {
             },
 
             setupconsts() {
+                this.log('----setupconsts----');
                 const context = this.context;
                 const entityName = context.name;
                 // Specific Entity sub-generator constiables
@@ -218,6 +221,8 @@ module.exports = class extends BaseGenerator {
         if (useBlueprint) return;
         return {
             validateFile() {
+                this.log('----configuring----');
+                this.log('----validateFile----');
                 const context = this.context;
                 if (!context.useConfigurationFile) {
                     return;
@@ -329,6 +334,7 @@ module.exports = class extends BaseGenerator {
             },
 
             writeEntityJson() {
+                this.log('----writeEntityJson----');
                 const context = this.context;
                 if (context.useConfigurationFile && context.updateEntity === 'regenerate') {
                     return; // do not update if regenerating entity
@@ -367,6 +373,7 @@ module.exports = class extends BaseGenerator {
             },
 
             loadInMemoryData() {
+                this.log('----loadInMemoryData----');
                 const context = this.context;
                 const entityName = context.name;
                 const entityNamePluralizedAndSpinalCased = _.kebabCase(pluralize(entityName));
@@ -625,7 +632,8 @@ module.exports = class extends BaseGenerator {
                 context.pkType = this.getPkType(context.databaseType);
             },
 
-            insight() {
+            /* insight() {
+                // this.log('----insight----');
                 // track insights
                 const insight = this.insight();
                 const context = this.context;
@@ -636,7 +644,7 @@ module.exports = class extends BaseGenerator {
                 insight.track('entity/dto', context.dto);
                 insight.track('entity/service', context.service);
                 insight.track('entity/fluentMethods', context.fluentMethods);
-            }
+            } */
         };
     }
 
@@ -644,6 +652,8 @@ module.exports = class extends BaseGenerator {
         if (useBlueprint) return;
         return {
             composeClient() {
+                this.log('----writing----');
+                this.log('----composeClient----');
                 const context = this.context;
                 if (context.skipClient) return;
 
@@ -661,6 +671,8 @@ module.exports = class extends BaseGenerator {
         if (useBlueprint) return;
         return {
             afterRunHook() {
+                this.log('----install----');
+                this.log('----afterRunHook----');
                 const done = this.async();
                 try {
                     const modules = this.getModuleHooks();

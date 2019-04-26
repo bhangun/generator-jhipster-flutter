@@ -24,10 +24,10 @@ const _ = require('lodash');
 
 /* Constants use throughout */
 // const INTERPOLATE_REGEX = constants.INTERPOLATE_REGEX;
-const IONIC_DIR = 'src/pages/';
+const FLUTTER_DIR = 'lib/pages/';
 // const MODELS_DIR = 'src/models/';
 
-const CLIENT_IONIC_TEMPLATES_DIR = 'ionic';
+const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 
 /**
  * The default is to use a file path string. It implies use of the template method.
@@ -37,15 +37,15 @@ const CLIENT_IONIC_TEMPLATES_DIR = 'ionic';
 const ionicFiles = {
     client: [
         {
-            path: IONIC_DIR,
+            path: FLUTTER_DIR,
             templates: [
                 {
-                    file: 'entities/_entity.html',
+                    file: '_entity.js',
                     method: 'processHtml',
                     template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.html`
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.dart`
                 },
-                {
+               /*  {
                     file: 'entities/_entity.model.ts',
                     method: 'processHtml',
                     template: true,
@@ -94,7 +94,7 @@ const ionicFiles = {
                 {
                     file: 'entities/_index.ts',
                     renameTo: generator => `entities/${generator.entityFolderName}/index.ts`
-                }
+                } */
             ]
         }
     ]
@@ -119,7 +119,7 @@ function writeFiles() {
             if (this.skipClient) return;
 
             // write client side files for angular
-            this.writeFilesToDisk(ionicFiles, this, false, CLIENT_IONIC_TEMPLATES_DIR);
+            this.writeFilesToDisk(ionicFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
             this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
 
             // Copy for each
