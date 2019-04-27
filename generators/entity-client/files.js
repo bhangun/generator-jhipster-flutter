@@ -34,67 +34,15 @@ const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
  * For any other config an object { file:.., method:.., template:.. } can be used
  */
 
-const ionicFiles = {
+const flutterFiles = {
     client: [
         {
             path: FLUTTER_DIR,
             templates: [
                 {
-                    file: '_entity.js',
-                    method: 'processHtml',
-                    template: true,
+                    file: 'entity.js',
                     renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.dart`
                 },
-               /*  {
-                    file: 'entities/_entity.model.ts',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.model.ts`
-                },
-                {
-                    file: 'entities/_entity.module.ts',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.module.ts`
-                },
-                {
-                    file: 'entities/_entity.provider.ts',
-                    method: 'processHtml',
-                    template: true,
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.provider.ts`
-                },
-                {
-                    file: 'entities/_entity.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.ts`
-                },
-                {
-                    file: 'entities/_entity-detail.html',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.html`
-                },
-                {
-                    file: 'entities/_entity-detail.module.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.module.ts`
-                },
-                {
-                    file: 'entities/_entity-detail.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-detail.ts`
-                },
-                {
-                    file: 'entities/_entity-dialog.html',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.html`
-                },
-                {
-                    file: 'entities/_entity-dialog.module.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.module.ts`
-                },
-                {
-                    file: 'entities/_entity-dialog.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}-dialog.ts`
-                },
-                {
-                    file: 'entities/_index.ts',
-                    renameTo: generator => `entities/${generator.entityFolderName}/index.ts`
-                } */
             ]
         }
     ]
@@ -103,7 +51,7 @@ const ionicFiles = {
 
 module.exports = {
     writeFiles,
-    ionicFiles
+    flutterFiles
 };
 
 function writeFiles() {
@@ -119,7 +67,7 @@ function writeFiles() {
             if (this.skipClient) return;
 
             // write client side files for angular
-            this.writeFilesToDisk(ionicFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
+            this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
             this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
 
             // Copy for each

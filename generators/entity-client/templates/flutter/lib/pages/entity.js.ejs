@@ -19,6 +19,7 @@
 <%_
 const variables = {};
 const dartFields = {};
+const index = {};
 
 const defaultVariablesValues = {};
 let hasUserRelationship = false;
@@ -31,11 +32,13 @@ if (pkType === 'String') {
 variables['id'] = 'id';
 
 const id = {};
+var i=0;
 id['type'] = 'int';
 id['name'] = 'id';
+id['i']=i;
 dartFields['id'] = id;
-
 fields.forEach(field => {
+    i++;
     const varValue = {};
     const fieldType = field.fieldType;
     const fieldName = field.fieldName;
@@ -47,7 +50,7 @@ fields.forEach(field => {
         dartType = 'String';
     } else if ( fieldType === 'Instant') {
         dartType = 'DartTime';
-        desc = .toIso8601String() + 'Z';
+        desc = '.toIso8601String()' + 'Z';
     } else {
         dartType = fieldType ;
     } 
@@ -60,8 +63,13 @@ fields.forEach(field => {
     varValue['type'] = dartType;
     varValue['name'] = fieldName;
     varValue['desc'] = desc;
+    varValue['i']=i;
+    
     dartFields[fieldName] = varValue;
+    
 });
+
+
 
 relationships.forEach(relationship => {
     let fieldType;
@@ -95,42 +103,23 @@ _%>
 
 import 'package:flutter/foundation.dart';
 
-<%_ const enumsAlreadyDeclared = [];
-fields.forEach(field => {
-    if (field.fieldIsEnum && enumsAlreadyDeclared.indexOf(field.fieldType) === -1) {
-        enumsAlreadyDeclared.push(field.fieldType); _%>
-export const enum <%= field.fieldType %> {<%
-        const enums = field.fieldValues.split(',');
-        for (let i = 0; i < enums.length; i++) { %>
-    '<%= enums[i] %>'<%if (i < enums.length - 1) { %>,<% }
-        } %>
-}
- 
-<%_ }
-}); _%>
-
 class <%= entityAngularName %> {
 
-    <% for (idx in dartFields) { %>
-    final <%- dartFields[idx]['type'] %> this.<%- dartFields[idx]['name'] %>;<% } %>
-
-    const <%= entityAngularName %> ( { <% for (idx in dartFields) { %>
+    <% for (idx in dartFields) { %>final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% } %>
+    
+    const <%= entityAngularName %> ({ <% for (idx in dartFields) { %>
         this.<%- dartFields[idx]['name'] %>,<% } %>
-    })
+    }): assert(id != null),<% for (var i=0; i<fields.length; i++) { %>
+    assert(<%= fields[i].fieldName %> != null)<%if(i<fields.length-1){%><%=", "%><%} } %>;
 
     factory <%= entityAngularName %>.fromJson(Map<String, dynamic> json) {
         return <%= entityAngularName %>(
-            <% for (idx in dartFields) { %>
-            <%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],
-            <% } %>
-        )
-    };
+            <% for (idx in dartFields) { %><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],<% } %>
+        );
+    }
 
     Map<String, dynamic> toJson() => {
-        <% for (idx in dartFields) { %>
-        '"<%- dartFields[idx]['name'] %>"': '"$<%- dartFields[idx]['name'] %>"',
-        <% } %>
-    };
+        <% for (idx in dartFields) { %>'"<%- dartFields[idx]['name'] %>"': '"$<%- dartFields[idx]['name'] %>"',<% } %>};
 }
 
 

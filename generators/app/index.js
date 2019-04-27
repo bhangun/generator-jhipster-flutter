@@ -1,8 +1,10 @@
 const chalk = require('chalk');
 const semver = require('semver');
+const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 // const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 const packagejs = require('../../package.json');
+
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -13,10 +15,10 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.jhipsterAppConfig = this.getJhipsterAppConfig();
-                if (!this.jhipsterAppConfig) {
+                this.jhipsterAppConfig = this.getAllJhipsterConfig();
+                /*  if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
-                }
+                } */
             },
             displayLogo() {
                 this.log(`${chalk.bold.cyan('_          _   _ _                   ')}`);
@@ -74,10 +76,10 @@ module.exports = class extends BaseGenerator {
  */
 
     prompting() {
-        this.getExistingEntities().forEach((entity) => {
+        /* this.getExistingEntities().forEach((entity) => {
             this.log(entity.name);
             this.log(entity);
-        });
+        }); */
         // this.log(this.auditedEntities[0]);
         const appsName = `${this.jhipsterAppConfig.baseName}Apps`;
         const prompts = [
@@ -87,6 +89,23 @@ module.exports = class extends BaseGenerator {
                 message: 'What is your Flutter application name?',
                 default: appsName,
                 store: true
+            },
+            {
+                type: 'input',
+                name: 'directoryPath',
+                message: 'Where JHipster app directory is located?',
+                default: 'backend',
+                validate: (input) => {
+                    const path = this.destinationPath(input);
+                    if (shelljs.test('-d', path)) {
+                        const appsFolders = getAppFolder.call(this, input);
+                        if (appsFolders.length === 0) {
+                            return `No application found in ${path}`;
+                        }
+                        return true;
+                    }
+                    return `${path} is not a directory or doesn't exist`;
+                }
             },
             {
                 type: 'input',
@@ -119,12 +138,17 @@ module.exports = class extends BaseGenerator {
                 this.config.set('appsName', this.props.appsName);
                 this.config.set('packageName', this.props.packageName);
                 this.config.set('path', this.props.path);
+                this.config.set('directoryPath', this.props.directoryPath);
                 this.config.set('packageFolder', `${this.props.path}${this.props.appsName}`);
             }
         };
     }
 
     writing() {
+        const fromPath = `${this.props.directoryPath}/.yo-rc.json`;
+        this.log(fromPath);
+        this.jhipsterAppConfig = this.fs.readJSON(fromPath)['generator-jhipster'];
+
         // function to use directly template
         this.template = function (source, destination) {
             this.fs.copyTpl(
@@ -168,3 +192,28 @@ module.exports = class extends BaseGenerator {
         this.log('End of flutter generator');
     }
 };
+
+
+/**
+ * Get App Folders
+ * @param input path to join to destination path
+ * @returns {Array} array of string representing app folders
+ */
+function getAppFolder(input) {
+    const destinationPath = this.destinationPath(input);
+    const appsFolders = [];
+
+    if (shelljs.test('-f', `${destinationPath}/.yo-rc.json`)) {
+        try {
+            const fileData = this.fs.readJSON(`${destinationPath}/.yo-rc.json`);
+            if (fileData['generator-jhipster'].baseName !== undefined) {
+                appsFolders.push(destinationPath);
+            }
+        } catch (err) {
+            this.log(chalk.red(`The .yo-rc.json in ${destinationPath} can't be read!`));
+            this.debug('Error:', err);
+        }
+    }
+
+    return appsFolders;
+}
