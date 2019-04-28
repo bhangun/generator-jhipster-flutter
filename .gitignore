@@ -10,4 +10,5 @@ test/temp/
 *debug.log*
 .vscode
 .history
+.package-lock.json
 
