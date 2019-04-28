@@ -1,0 +1,87 @@
+import 'dart:async';
+import 'dart:convert';
+import '<%= entityAngularName.toLowerCase() %>.dart';
+import '../../entities/../../services/connection.dart';
+
+String API_ACCOUNT = 'account';
+
+// POST saveAccount
+const API_ACCOUNT_SAVE = "account";
+
+// POST changePassword
+const API_ACCOUNT_CHANGE_PASSWORD = "account/change-password";
+
+//POST finishPasswordReset
+const API_ACCOUNT_RESET_FINISH = "account/reset-password/finish";
+
+// POST requestPasswordReset
+const API_ACCOUNT_RESET_INIT = "account/reset-password/init";
+
+// GET activateAccount
+const API_ACTIVATE = "activate";
+
+// POST registerAccount
+const API_REGISTER = "register";
+
+// GET getActiveProfiles
+const API_PROFILE_INFO = "profile-info";
+
+// POST authorize
+//GET isAuthenticated
+const API_<%= entityAngularName.toUpperCase() %>S_AUTHENTICATE = "authenticate";
+
+// GET getAuthorities
+const API_<%= entityAngularName.toUpperCase() %>S_AUTHORITIES = "<%= entityAngularName.toLowerCase() %>s/authorities";
+
+// GET getAll<%= entityAngularName %>s
+// POST create<%= entityAngularName %>
+// PUT update<%= entityAngularName %>
+const API_<%= entityAngularName.toUpperCase() %>S = "<%= entityAngularName.toLowerCase() %>s";
+
+// GET get<%= entityAngularName %>
+// DELETE delete<%= entityAngularName %>
+const API_<%= entityAngularName.toUpperCase() %> = "<%= entityAngularName.toLowerCase() %>s/";
+
+//
+Future<<%= entityAngularName %>> <%= entityAngularName.toLowerCase() %>(String id) async {
+  var response = await restGet(API_<%= entityAngularName.toUpperCase() %> + id,true,false);
+  return <%= entityAngularName %>.fromJson(json.decode(response));
+}
+
+
+//
+Future<String> <%= entityAngularName.toLowerCase() %>s() async {
+  print("get <%= entityAngularName.toLowerCase() %>s");
+  return await restGet(API_<%= entityAngularName.toUpperCase() %>,true,false);
+}
+
+//
+create<%= entityAngularName %>(<%= entityAngularName %> <%= entityAngularName.toLowerCase() %>) async {
+  print("create");
+  return await restPost(API_<%= entityAngularName.toUpperCase() %>, <%= entityAngularName.toLowerCase() %>.toJson().toString(),true);
+}
+
+//
+update<%= entityAngularName %>(<%= entityAngularName %> <%= entityAngularName.toLowerCase() %>) async {
+  print("update");
+  return await restPut(API_<%= entityAngularName.toUpperCase() %>, <%= entityAngularName.toLowerCase() %>.toJson().toString(),true);
+}
+
+
+//
+delete<%= entityAngularName %>(<%= entityAngularName %> <%= entityAngularName.toLowerCase() %>) async {
+  return await restDelete(API_<%= entityAngularName.toUpperCase() %> + <%= entityAngularName.toLowerCase() %>.toJson().toString());
+}
+
+
+instantToDate(DateTime date){
+  return DateTime.parse(date.toString().substring(0,date.toString().length-1));
+}
+
+
+List<<%= entityAngularName %>> <%= entityAngularName.toLowerCase() %>sData(String data) {
+  final parsed =json.decode(data).cast<Map<String, dynamic>>();
+  List<<%= entityAngularName %>> lu= parsed.map<<%= entityAngularName %>>((json) => <%= entityAngularName %>.fromJson(json)).toList();
+  return lu;
+}
+

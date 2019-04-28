@@ -1,5 +1,5 @@
 Description:
-    Creates new Ionic client side components for a JHipster backend
+    Creates new Flutter client side components for a JHipster backend
 
 Example:
-    yo jhipster-ionic:entity Foo
+    yo jhipster-kutilang:entity Foo

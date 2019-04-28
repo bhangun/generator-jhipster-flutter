@@ -3,17 +3,17 @@ import '../../administration/account/user.form.dart';
 import 'user.helper.dart';
 import '../../administration/account/user.dart';
 
-class UserDetail extends StatelessWidget {
+class <%= entityAngularName %>Detail extends StatelessWidget {
   final int id;
   final String username;
-  User data;
-  UserDetail({@required this.id, @required this.username});
+  <%= entityAngularName %> data;
+  <%= entityAngularName %>Detail({@required this.id, @required this.username});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("User Detail"),
+          title: Text("<%= entityAngularName %> Detail"),
           elevation: 5.0, // Removing the drop shadow cast by the app bar.
         ),
         body: FutureBuilder(
@@ -28,14 +28,14 @@ class UserDetail extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => UserFormPage(data: data)));
+                    builder: (context) => <%= entityAngularName %>FormPage(data: data)));
           },
           tooltip: 'Add',
           child: Icon(Icons.edit),
         ));
   }
 
-  Widget userDetail(User _data) {
+  Widget userDetail(<%= entityAngularName %> _data) {
     data = _data;
     return ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.0),

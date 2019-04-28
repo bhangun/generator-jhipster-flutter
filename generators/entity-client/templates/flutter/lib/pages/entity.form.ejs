@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'user.helper.dart';
-import 'user.dart';
+import '<%= entityAngularName.toUpperCase() %>.helper.dart';
+import '<%= entityAngularName.toUpperCase() %>.dart';
 
-class UserFormPage extends StatefulWidget {
-  final User data;
+class <%= entityAngularName %>FormPage extends StatefulWidget {
+  final <%= entityAngularName %> data;
   bool isEdit = false;
-  UserFormPage({this.data});
+  <%= entityAngularName %>FormPage({this.data});
   @override
-  _UserFormPageState createState() => _UserFormPageState();
+  _<%= entityAngularName %>FormPageState createState() => _<%= entityAngularName %>FormPageState();
 }
 
-class _UserFormPageState extends State<UserFormPage> {
+class _<%= entityAngularName %>FormPageState extends State<<%= entityAngularName %>FormPage> {
   bool _activated = false;
-  final _username = TextEditingController();
+  final _<%= entityAngularName.toUpperCase() %>name = TextEditingController();
   final _firstname = TextEditingController();
   final _lastname = TextEditingController();
   final _email = TextEditingController();
@@ -21,17 +21,17 @@ class _UserFormPageState extends State<UserFormPage> {
   Widget build(BuildContext context) {
     if (widget.data != null) {
       widget.isEdit = true;
-      User user = widget.data;
+      <%= entityAngularName %> <%= entityAngularName.toUpperCase() %> = widget.data;
 
-      _username.text = user.login;
-      _firstname.text = user.firstName;
-      _lastname.text = user.lastName;
-      _email.text = user.email;
+      _<%= entityAngularName.toUpperCase() %>name.text = <%= entityAngularName.toUpperCase() %>.login;
+      _firstname.text = <%= entityAngularName.toUpperCase() %>.firstName;
+      _lastname.text = <%= entityAngularName.toUpperCase() %>.lastName;
+      _email.text = <%= entityAngularName.toUpperCase() %>.email;
     }
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Create User'),
+          title: Text('Create <%= entityAngularName %>'),
         ),
         body: SafeArea(
             child: ListView(
@@ -95,7 +95,7 @@ class _UserFormPageState extends State<UserFormPage> {
         print(widget.data.createdDate.toString() +
             "ediiiiiiittttt > " +
             widget.data.id.toString());
-        await updateUser(User(
+        await update<%= entityAngularName %>(<%= entityAngularName %>(
             id: widget.data.id,
             login: _username.text,
             firstName: _firstname.text,
@@ -110,7 +110,7 @@ class _UserFormPageState extends State<UserFormPage> {
             lastModifiedBy: _username.text,
             lastModifiedDate: DateTime.now()));
       } else {
-        await createUser(User(
+        await create<%= entityAngularName %>(<%= entityAngularName %>(
             login: _username.text,
             firstName: _firstname.text,
             lastName: _lastname.text,

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'user.detail.dart';
-import 'user.helper.dart';
-import 'user.dart';
+import '<%= entityAngularName.toLowerCase() %>.detail.dart';
+import '<%= entityAngularName.toLowerCase() %>.helper.dart';
+import '<%= entityAngularName.toLowerCase() %>.dart';
 import 'dart:convert';
-import 'user.form.dart';
+import '<%= entityAngularName.toLowerCase() %>.form.dart';
 
-class UserListPage extends StatefulWidget {
-  //UserListPage({Key key, this.title}) : super(key: key);
+class <%= entityAngularName %>ListPage extends StatefulWidget {
 
   @override
-  _UserListPageState createState() => _UserListPageState();
+  _<%= entityAngularName %>ListPageState createState() => _<%= entityAngularName %>ListPageState();
 }
 
-final String _title = "User List";
+final String _title = "<%= entityAngularName %> List";
 
-class _UserListPageState extends State<UserListPage> {
+class _<%= entityAngularName %>ListPageState extends State<<%= entityAngularName %>ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,16 +22,16 @@ class _UserListPageState extends State<UserListPage> {
           elevation: 5.0, // Removing the drop shadow cast by the app bar.
         ),
         body: FutureBuilder(
-            future: users(),
+            future: <%= entityAngularName.toLowerCase() %>s(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return snapshot.hasData
-                  ? UserList(data: snapshot.data)
+                  ? <%= entityAngularName %>List(data: snapshot.data)
                   : Center(child: CircularProgressIndicator());
             }),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => UserFormPage()));
+                MaterialPageRoute(builder: (context) => <%= entityAngularName %>FormPage()));
           },
           tooltip: 'Add',
           child: Icon(Icons.add),
@@ -50,7 +49,7 @@ Widget item(int id, String name, String role, BuildContext context) {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => UserDetail(
+                builder: (context) => <%= entityAngularName %>Detail(
                       id: id,
                       username: name,
                     )));
@@ -58,21 +57,21 @@ Widget item(int id, String name, String role, BuildContext context) {
       leading: Icon(Icons.person, size: 50,color: Colors.blue[500]));
 }
 
-class UserList extends StatelessWidget {
+class <%= entityAngularName %>List extends StatelessWidget {
   final String data;
-  UserList({this.data});
+  <%= entityAngularName %>List({this.data});
 
   @override
   Widget build(BuildContext context) {
     final parsed = json.decode(data).cast<Map<String, dynamic>>();
-    List<User> _items =
-        parsed.map<User>((json) => User.fromJson(json)).toList();
+    List<<%= entityAngularName %>> _items =
+        parsed.map<<%= entityAngularName %>>((json) => <%= entityAngularName %>.fromJson(json)).toList();
 
     return ListView.builder(
       itemCount: _items.length,
       itemBuilder: (context, index) {
-        final user = _items[index];
-        return item(user.id, user.login, user.email, context);
+        final <%= entityAngularName.toLowerCase() %> = _items[index];
+        return item(<%= entityAngularName.toLowerCase() %>.id, <%= entityAngularName.toLowerCase() %>.login, <%= entityAngularName.toLowerCase() %>.email, context);
       },
     );
   }

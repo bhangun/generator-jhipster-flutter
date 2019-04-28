@@ -40,9 +40,29 @@ const flutterFiles = {
             path: FLUTTER_DIR,
             templates: [
                 {
-                    file: 'entity.js',
+                    file: 'entity',
                     renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.dart`
                 },
+                {
+                    file: 'entity.list',
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.list.dart`
+                },
+                {
+                    file: 'entity.detail',
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.detail.dart`
+                },
+                {
+                    file: 'entity.form',
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.form.dart`
+                },
+                {
+                    file: 'entity.helper',
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.helper.dart`
+                },
+                /*  {
+                    file: 'index',
+                    renameTo: generator => `entities/${generator.entityFolderName}/index.dart`
+                }, */
             ]
         }
     ]
