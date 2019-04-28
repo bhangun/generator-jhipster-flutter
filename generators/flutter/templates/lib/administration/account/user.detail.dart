@@ -55,24 +55,3 @@ class UserDetail extends StatelessWidget {
         ]);
   }
 }
-
-
-/*
-
-GridView.count(
-              crossAxisCount: 2,
-              childAspectRatio: 1.0,
-              padding: const EdgeInsets.all(4.0),
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 4.0,
-              children: <Widget>[
-                Text(data.login),
-                Text(data.firstName),
-                Text(data.lastName),
-                Text(data.email),
-                Text(data.authorities.toString()),
-                Text(data.lastModifiedDate.toString()),
-                Text(data.createdDate.toString()),
-              ])
-        ]);
-* */
