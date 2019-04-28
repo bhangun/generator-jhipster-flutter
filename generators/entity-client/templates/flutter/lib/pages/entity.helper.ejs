@@ -3,35 +3,6 @@ import 'dart:convert';
 import '<%= entityAngularName.toLowerCase() %>.dart';
 import '../../entities/../../services/connection.dart';
 
-String API_ACCOUNT = 'account';
-
-// POST saveAccount
-const API_ACCOUNT_SAVE = "account";
-
-// POST changePassword
-const API_ACCOUNT_CHANGE_PASSWORD = "account/change-password";
-
-//POST finishPasswordReset
-const API_ACCOUNT_RESET_FINISH = "account/reset-password/finish";
-
-// POST requestPasswordReset
-const API_ACCOUNT_RESET_INIT = "account/reset-password/init";
-
-// GET activateAccount
-const API_ACTIVATE = "activate";
-
-// POST registerAccount
-const API_REGISTER = "register";
-
-// GET getActiveProfiles
-const API_PROFILE_INFO = "profile-info";
-
-// POST authorize
-//GET isAuthenticated
-const API_<%= entityAngularName.toUpperCase() %>S_AUTHENTICATE = "authenticate";
-
-// GET getAuthorities
-const API_<%= entityAngularName.toUpperCase() %>S_AUTHORITIES = "<%= entityAngularName.toLowerCase() %>s/authorities";
 
 // GET getAll<%= entityAngularName %>s
 // POST create<%= entityAngularName %>
