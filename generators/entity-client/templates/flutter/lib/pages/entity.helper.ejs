@@ -45,11 +45,6 @@ delete<%= entityAngularName %>(<%= entityAngularName %> <%= entityAngularName.to
 }
 
 
-instantToDate(DateTime date){
-  return DateTime.parse(date.toString().substring(0,date.toString().length-1));
-}
-
-
 List<<%= entityAngularName %>> <%= entityAngularName.toLowerCase() %>sData(String data) {
   final parsed =json.decode(data).cast<Map<String, dynamic>>();
   List<<%= entityAngularName %>> lu= parsed.map<<%= entityAngularName %>>((json) => <%= entityAngularName %>.fromJson(json)).toList();

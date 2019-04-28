@@ -1,32 +1,98 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = fieldType;
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+          dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+
+  relationships.forEach(relationship => {
+    let fieldType;
+    let fieldName;
+    const relationshipType = relationship.relationshipType;
+    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
+        if (relationship.otherEntityAngularName === 'User') {
+            fieldType = 'User[]';
+            hasUserRelationship = true;
+        } else {
+            fieldType = 'BaseEntity[]';
+        }
+        fieldName = relationship.relationshipFieldNamePlural;
+    } else {
+        if (dto === 'no') {
+            if (relationship.otherEntityAngularName === 'User') {
+                fieldType = 'User';
+                hasUserRelationship = true;
+            } else {
+                fieldType = 'BaseEntity';
+            }
+            fieldName = relationship.relationshipFieldName;
+        } else {
+            fieldType = dartKeyType;
+            fieldName = `${relationship.relationshipFieldName}Id`;
+        }
+    }
+    
+  });
+_%>
+
+
 import 'package:flutter/material.dart';
-import '<%= entityAngularName.toUpperCase() %>.helper.dart';
-import '<%= entityAngularName.toUpperCase() %>.dart';
+import '<%= entityAngularName.toLowerCase() %>.helper.dart';
+import '<%= entityAngularName.toLowerCase() %>.dart';
+import '../../services/services.dart';
 
 class <%= entityAngularName %>FormPage extends StatefulWidget {
   final <%= entityAngularName %> data;
-  bool isEdit = false;
   <%= entityAngularName %>FormPage({this.data});
   @override
   _<%= entityAngularName %>FormPageState createState() => _<%= entityAngularName %>FormPageState();
 }
 
 class _<%= entityAngularName %>FormPageState extends State<<%= entityAngularName %>FormPage> {
-  bool _activated = false;
-  final _<%= entityAngularName.toUpperCase() %>name = TextEditingController();
-  final _firstname = TextEditingController();
-  final _lastname = TextEditingController();
-  final _email = TextEditingController();
+  bool isEdited = false;<% for (idx in dartFields) { %>
+  <% if(idx=='id') {%>var _id; <%} else {%>
+  final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
 
   @override
   Widget build(BuildContext context) {
     if (widget.data != null) {
-      widget.isEdit = true;
-      <%= entityAngularName %> <%= entityAngularName.toUpperCase() %> = widget.data;
-
-      _<%= entityAngularName.toUpperCase() %>name.text = <%= entityAngularName.toUpperCase() %>.login;
-      _firstname.text = <%= entityAngularName.toUpperCase() %>.firstName;
-      _lastname.text = <%= entityAngularName.toUpperCase() %>.lastName;
-      _email.text = <%= entityAngularName.toUpperCase() %>.email;
+      isEdited = true;
+      <%= entityAngularName %> <%= entityAngularName.toLowerCase() %> = widget.data;<% for (idx in dartFields) { %>
+      _<%= dartFields[idx]['name'] %>.text = <%= entityAngularName.toLowerCase() %>.<%= dartFields[idx]['name'] %>;<%}%>
     }
 
     return Scaffold(
@@ -46,83 +112,29 @@ class _<%= entityAngularName %>FormPageState extends State<<%= entityAngularName
 
   _listChild() {
     return <Widget>[
-      SizedBox(height: 120.0),
+      SizedBox(height: 120.0),<% for (idx in dartFields) { %>
       TextField(
-        controller: _username,
+        controller: _<%= dartFields[idx]['name']%>,
         decoration: InputDecoration(
           filled: true,
-          labelText: 'Login',
+          labelText: '<%= dartFields[idx]['name']%>',
         ),
-      ),
-      TextField(
-        controller: _firstname,
-        decoration: InputDecoration(
-          filled: true,
-          labelText: 'First Name',
-        ),
-      ),
-      TextField(
-        controller: _lastname,
-        decoration: InputDecoration(
-          filled: true,
-          labelText: 'Last Name',
-        ),
-      ),
-      TextField(
-        controller: _email,
-        decoration: InputDecoration(
-          filled: true,
-          labelText: 'Email',
-        ),
-      ),
-      Checkbox(
-          value: _activated,
-          onChanged: (bool newValue) {
-            setState(() {
-              _activated = newValue;
-            });
-          }),
-      RaisedButton(
-          child: Text('Profile'),
-          onPressed: () {
-          }),
+      ), <%}%>
+
     ];
   }
 
   void _save() async {
     try {
-      if (widget.isEdit) {
-        print(widget.data.createdDate.toString() +
-            "ediiiiiiittttt > " +
-            widget.data.id.toString());
-        await update<%= entityAngularName %>(<%= entityAngularName %>(
-            id: widget.data.id,
-            login: _username.text,
-            firstName: _firstname.text,
-            lastName: _lastname.text,
-            email: _email.text,
-            activated: widget.data.activated,
-            createdBy: widget.data.createdBy,
-            createdDate: instantToDate(widget.data.createdDate),
-            langKey: widget.data.langKey,
-            imageUrl: "",
-            authorities: ['"ROLE_USER"'],
-            lastModifiedBy: _username.text,
-            lastModifiedDate: DateTime.now()));
+      if (isEdited) {
+        await update<%= entityAngularName %>(<%= entityAngularName %>(<% for (idx in dartFields) { %>
+          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}%>
+        ));
+        isEdited =false;  
       } else {
-        await create<%= entityAngularName %>(<%= entityAngularName %>(
-            login: _username.text,
-            firstName: _firstname.text,
-            lastName: _lastname.text,
-            email: _email.text,
-            imageUrl: "",
-            activated: _activated,
-            langKey: "en",
-            authorities: ['"ROLE_USER"'],
-            createdBy: "",
-            createdDate: DateTime.now(),
-            lastModifiedBy: "",
-            lastModifiedDate: DateTime.now()));
+        await create<%= entityAngularName %>(<%= entityAngularName %>(<% for (idx in dartFields) { %>
+          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}%>
+        ));
       }
     } catch (e) {
       print("gk bisa imel");
@@ -130,10 +142,7 @@ class _<%= entityAngularName %>FormPageState extends State<<%= entityAngularName
     Navigator.pop(context);
   }
 
-  void _clearForm() {
-    _username.clear();
-    _firstname.clear();
-    _lastname.clear();
-    _email.clear();
+  void _clearForm() {<% for (idx in dartFields) { %><% if(idx!='id') {%>
+    _<%= dartFields[idx]['name'] %>.clear();<%}%><%}%>
   }
 }

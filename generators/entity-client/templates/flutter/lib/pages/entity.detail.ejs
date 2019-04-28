@@ -1,3 +1,75 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = fieldType;
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+          dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+
+  relationships.forEach(relationship => {
+    let fieldType;
+    let fieldName;
+    const relationshipType = relationship.relationshipType;
+    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
+        if (relationship.otherEntityAngularName === 'User') {
+            fieldType = 'User[]';
+            hasUserRelationship = true;
+        } else {
+            fieldType = 'BaseEntity[]';
+        }
+        fieldName = relationship.relationshipFieldNamePlural;
+    } else {
+        if (dto === 'no') {
+            if (relationship.otherEntityAngularName === 'User') {
+                fieldType = 'User';
+                hasUserRelationship = true;
+            } else {
+                fieldType = 'BaseEntity';
+            }
+            fieldName = relationship.relationshipFieldName;
+        } else {
+            fieldType = dartKeyType;
+            fieldName = `${relationship.relationshipFieldName}Id`;
+        }
+    }
+    
+  });
+_%>
+
+
 import 'package:flutter/material.dart';
 import '../../administration/account/user.form.dart';
 import 'user.helper.dart';
