@@ -11,4 +11,4 @@ test/temp/
 .vscode
 .history
 .package-lock.json
-
+.DS_Store
