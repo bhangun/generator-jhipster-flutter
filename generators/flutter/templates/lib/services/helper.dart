@@ -28,5 +28,7 @@ Future<bool> isRole(String role) async {
   return b.contains(role);
 }
 
-
+instantToDate(DateTime date){
+  return DateTime.parse(date.toString().substring(0,date.toString().length-1));
+}
 
