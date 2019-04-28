@@ -52,9 +52,14 @@ npm update -g generator-jhipster-kutilang
 
 # Usage
 
+```bash
+mkdir myJhFlutterApps
+cd myJhFlutterApps
+yo jhipster-kutilang
+```
 
 # Entity Generator
-To generate entities, run `yo jhipster-ionic:entity <name>`
+To generate entities, run `yo jhipster-kutilang:entity <Name>` at myJhFlutterApps and asnwer the question.
 
 # License
 

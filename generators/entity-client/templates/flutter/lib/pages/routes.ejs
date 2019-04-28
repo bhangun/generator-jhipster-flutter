@@ -1,0 +1,70 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = fieldType;
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+          dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+_%>
+import 'package:flutter/material.dart';
+import '../administration/dashboard.dart';
+import '../administration/account/user.form.dart';
+import '../administration/account/user.list.dart';
+import '../pages/login.dart';
+
+Route<dynamic> route(RouteSettings settings) {
+  if (settings.name != '/login') {
+    return null;
+  }
+
+  return MaterialPageRoute<void>(
+    settings: settings,
+    builder: (BuildContext context) => LoginPage(),
+    fullscreenDialog: true,
+  );
+}
+
+final loginRoute = "/login";
+
+final routes = <String, WidgetBuilder> {
+  "/home":(BuildContext context) => null,
+  "/register": (BuildContext context) => null,//new SignIn(),
+  "/users": (BuildContext context) => UserListPage(),
+  "/usersForm": (BuildContext context) => UserFormPage(),
+  "/dashboard": (BuildContext context) => Dashboard(),
+  "/entities": (BuildContext context) => null,
+  "/entity": (BuildContext context) => null
+};

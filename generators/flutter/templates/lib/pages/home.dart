@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
           )
         ),
         drawer: CommonDrawer(
-          accountEmail: "bhangun@gmail.com",
+          accountEmail: "fulan@gmail.com",
           accountName: "Alhamdulillah",
         ));
   }
