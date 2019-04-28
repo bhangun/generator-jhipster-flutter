@@ -37,7 +37,6 @@ yarn global upgrade generator-jhipster-kutilang
 ```
 
 ## With NPM
-
 To install this module:
 
 ```bash
@@ -51,7 +50,6 @@ npm update -g generator-jhipster-kutilang
 ```
 
 # Usage
-
 ```bash
 mkdir myJhFlutterApps
 cd myJhFlutterApps
@@ -59,7 +57,11 @@ yo jhipster-kutilang
 ```
 
 # Entity Generator
-To generate entities, run `yo jhipster-kutilang:entity <Name>` at myJhFlutterApps and asnwer the question.
+To generate entities, run:
+```bash
+ yo jhipster-kutilang:entity <Name>
+ ```
+and asnwer the question.
 
 # License
 
