@@ -83,8 +83,8 @@ class <%= entityAngularName %>FormPage extends StatefulWidget {
 }
 
 class _<%= entityAngularName %>FormPageState extends State<<%= entityAngularName %>FormPage> {
-  bool isEdited = false;<% for (idx in dartFields) { %>
-  <% if(idx=='id') {%>var _id; <%} else {%>
+  bool isEdited = false;<% for (idx in dartFields) { %><% if(idx=='id') {%>
+  var _id; <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
 
   @override

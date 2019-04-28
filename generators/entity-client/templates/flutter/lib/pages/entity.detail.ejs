@@ -113,8 +113,8 @@ class <%= entityAngularName %>Detail extends StatelessWidget {
           Icon(Icons.person, size: 100, color: Colors.blue[500]),
          Column(
               children: <Widget>[ 
-              Text(data.id.toString()),
-              <%for (idx in dartFields) { %><%if(idx!='id'){%>Text(data.<%= dartFields[idx]['name'] %>),<%}}%>
+              Text(data.id.toString()),<%for (idx in dartFields) { %><%if(idx!='id'){%>
+              Text(data.<%= dartFields[idx]['name'] %><%if(dartFields[idx]['type']==='int'){%>.toString()<%}%>),<%}}%>
               ])
         ]);
   }
