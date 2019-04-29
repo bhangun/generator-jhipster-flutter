@@ -114,7 +114,7 @@ class <%= entityAngularName %>Detail extends StatelessWidget {
          Column(
               children: <Widget>[ 
               Text(data.id.toString()),<%for (idx in dartFields) { %><%if(idx!='id'){%>
-              Text(data.<%= dartFields[idx]['name'] %><%if(dartFields[idx]['type']==='int'){%>.toString()<%}%>),<%}}%>
+              Text(data.<%= dartFields[idx]['name'] %><%if(['int','Integer'].includes(dartFields[idx]['type']) ){%>.toString()<%}%>),<%}}%>
               ])
         ]);
   }

@@ -68,9 +68,9 @@ and asnwer the question.
 Apache-2.0 © [bhangun hartani](https://bhangun.blogspot.com)
 
 
-[npm-image]: https://img.shields.io/npm/v/generator-jhipster-kutilang.svg
+[npm-image]: https://img.shields.io/npm/v/generator-jhipster-flutter.svg
 [npm-url]: https://npmjs.org/package/generator-jhipster-kutilang
 [travis-image]: https://travis-ci.org/bhangun/generator-jhipster-kutilang.svg?branch=master
-[travis-url]: https://travis-ci.org/bhangun/generator-jhipster-kutilang
+[travis-url]: https://travis-ci.org/bhangun/generator-jhipster-flutter
 [daviddm-image]: https://david-dm.org/bhangun/generator-jhipster-kutilang.svg?theme=shields.io
 [daviddm-url]: https://david-dm.org/bhangun/generator-jhipster-kutilang

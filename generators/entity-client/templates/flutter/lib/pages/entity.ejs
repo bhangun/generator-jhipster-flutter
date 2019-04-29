@@ -56,12 +56,7 @@ fields.forEach(field => {
     } else {
         dartType = fieldType ;
     } 
-    /* else { //(fieldType === 'byte[]' || fieldType === 'ByteBuffer') && fieldTypeBlobContent === 'any' || (fieldType === 'byte[]' || fieldType === 'ByteBuffer') && fieldTypeBlobContent === 'image' || fieldType === 'LocalDate'
-        dartType = 'any';
-        if (['byte[]', 'ByteBuffer'].includes(fieldType) && field.fieldTypeBlobContent !== 'text') {
-            variables[fieldName + 'ContentType'] = fieldName + 'ContentType?: ' + 'string';
-        }
-    } */
+
     varValue['type'] = dartType;
     varValue['name'] = fieldName;
     varValue['desc'] = desc;
@@ -92,3 +87,16 @@ class <%= entityAngularName %> {
     Map<String, dynamic> toJson() => {
         <% for (idx in dartFields) { %>'"<%- dartFields[idx]['name'] %>"': '"$<%- dartFields[idx]['name'] %>"',<% } %>};
 }
+
+<%_ const enumsAlreadyDeclared = [];
+fields.forEach(field => {
+    if (field.fieldIsEnum && enumsAlreadyDeclared.indexOf(field.fieldType) === -1) {
+        enumsAlreadyDeclared.push(field.fieldType); _%>
+enum <%= field.fieldType %> {<%
+        const enums = field.fieldValues.split(',');
+        for (let i = 0; i < enums.length; i++) { %>
+    <%= enums[i] %><%if (i < enums.length - 1) { %>,<% }
+        } %>
+}
+<%_ }
+}); _%>
