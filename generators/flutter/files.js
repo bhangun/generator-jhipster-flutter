@@ -45,7 +45,7 @@ function writeFiles() {
 
         writeClientResourceFiles() {
             // add assets
-            this.template(`${flutterDir}assets/logo-jhipster.svg`, `${this.packageFolder}/assets/logo-jhipster.svg`);
+            this.template(`${flutterDir}assets/images/logo-jhipster.svg`, `${this.packageFolder}/assets/images/logo-jhipster.svg`);
 
             // add source to lib folder
             this.template(`${flutterDir}lib/administration/account/user.dart`, `${this.packageFolder}/lib/administration/account/user.dart`);

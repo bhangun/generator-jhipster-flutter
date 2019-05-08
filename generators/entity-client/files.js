@@ -94,7 +94,6 @@ function writeFiles() {
             // write client side files for angular
             this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
             this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
-            // this.log('----------' + this.entityInstance + '1 '+ this.entityClass + ' 2'+  this.entityAngularName + ' 3'+  this.entityFolderName + '4 '+  this.entityFileName + ' '+  this.enableTranslation +'-----------');
             // Copy for each
             if (this.enableTranslation) {
                 const languages = this.languages || this.getAllInstalledLanguages();
