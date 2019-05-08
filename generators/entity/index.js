@@ -381,8 +381,8 @@ module.exports = class extends BaseGenerator {
                 context.entityFolderName = context.entityFileName;
                 context.entityPluralFileName = entityNamePluralizedAndSpinalCased + context.entityAngularJSSuffix;
                 context.entityServiceFileName = context.entityFileName;
-                context.entityAngularName = context.entityClass + _.upperFirst(_.camelCase(context.entityAngularJSSuffix));
-                context.entityStateName = _.kebabCase(context.entityAngularName);
+                context.entityClass = context.entityClass + _.upperFirst(_.camelCase(context.entityAngularJSSuffix));
+                context.entityStateName = _.kebabCase(context.entityClass);
                 context.entityUrl = context.entityStateName;
                 context.entityTranslationKey = context.entityInstance;
                 context.entityTranslationKeyMenu = _.camelCase(context.entityStateName);
@@ -565,12 +565,12 @@ module.exports = class extends BaseGenerator {
                         relationship.otherEntityNameCapitalized = _.upperFirst(relationship.otherEntityName);
                     }
 
-                    if (_.isUndefined(relationship.otherEntityAngularName)) {
+                    if (_.isUndefined(relationship.otherentityClass)) {
                         if (relationship.otherEntityNameCapitalized !== 'User') {
                             const otherEntityAngularSuffix = otherEntityData ? otherEntityData.angularJSSuffix || '' : '';
-                            relationship.otherEntityAngularName = _.upperFirst(relationship.otherEntityName) + _.upperFirst(_.camelCase(otherEntityAngularSuffix));
+                            relationship.otherentityClass = _.upperFirst(relationship.otherEntityName) + _.upperFirst(_.camelCase(otherEntityAngularSuffix));
                         } else {
-                            relationship.otherEntityAngularName = 'User';
+                            relationship.otherentityClass = 'User';
                         }
                     }
 
@@ -583,7 +583,7 @@ module.exports = class extends BaseGenerator {
                     }
 
                     if (_.isUndefined(relationship.otherEntityStateName)) {
-                        relationship.otherEntityStateName = _.kebabCase(relationship.otherEntityAngularName);
+                        relationship.otherEntityStateName = _.kebabCase(relationship.otherentityClass);
                     }
                     if (_.isUndefined(relationship.otherEntityModuleName)) {
                         if (relationship.otherEntityNameCapitalized !== 'User') {

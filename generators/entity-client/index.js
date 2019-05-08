@@ -20,6 +20,7 @@
 const chalk = require('chalk');
 const utils = require('generator-jhipster/generators/utils');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
+// const utils = require('./utils');
 const writeFiles = require('./files').writeFiles;
 
 let useBlueprint;
@@ -48,28 +49,37 @@ module.exports = class extends BaseGenerator {
      *
      * @param {string} entityInstance - Entity Instance
      * @param {string} entityClass - Entity Class
-     * @param {string} entityAngularName - Entity Angular Name
+     * @param {string} entityClass - Entity Angular Name
      * @param {string} entityFolderName - Entity Folder Name
      * @param {string} entityFileName - Entity File Name
      * @param {boolean} enableTranslation - If translations are enabled or not
      */
-    addEntityToModule(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
+    addEntityToRoute(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
         // workaround method being called on initialization
-        if (!entityAngularName) {
+        if (!entityClass) {
             return;
         }
-        const entityPagePath = 'src/pages/entities/entity.ts';
+        const entityPagePath = 'lib/services/routes.dart';
         try {
-            const page = `{name: '${entityAngularName}', component: '${entityAngularName}Page'},`;
+            const page2 = `import '../pages/${entityInstance}/${entityInstance}.list.dart';`;
             utils.rewriteFile({
                 file: entityPagePath,
-                needle: 'jhipster-needle-add-entity-page',
+                needle: 'kutilang-needle-add-import-route',
+                splicable: [
+                    this.stripMargin(page2)
+                ]
+            }, this);
+
+            const page = `"/${entityInstance}": (BuildContext context) => ${entityClass}ListPage(),`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route',
                 splicable: [
                     this.stripMargin(page)
                 ]
             }, this);
         } catch (e) {
-            this.log(`${chalk.yellow('\nUnable to find ') + entityPagePath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityAngularName} ${chalk.yellow(`not added to ${entityPagePath}.\n`)}`);
+            this.log(`${chalk.yellow('\nUnable to find ') + entityPagePath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityClass} ${chalk.yellow(`not added to ${entityPagePath}.\n`)}`);
             this.debug('Error:', e);
         }
     }
@@ -112,7 +122,7 @@ module.exports = class extends BaseGenerator {
                 } else {
                     this.${relationship.otherEntityName}Service
                         .find(${relationshipFieldName}${dto === 'no' ? '.id' : 'Id'})
-                        .subscribe((subData: ${relationship.otherEntityAngularName}) => {
+                        .subscribe((subData: ${relationship.otherentityClass}) => {
                             this.${variableName} = [subData].concat(subData);
                         }, (error) => this.onError(error));
                 }
@@ -127,7 +137,7 @@ module.exports = class extends BaseGenerator {
             }
             if (variableName && !this.contains(queries, query)) {
                 queries.push(query);
-                variables.push(`${variableName}: ${relationship.otherEntityAngularName}[];`);
+                variables.push(`${variableName}: ${relationship.otherentityClass}[];`);
             }
         });
         return {

@@ -44,7 +44,7 @@
     let fieldName;
     const relationshipType = relationship.relationshipType;
     if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
-        if (relationship.otherEntityAngularName === 'User') {
+        if (relationship.otherentityClass === 'User') {
             fieldType = 'User[]';
             hasUserRelationship = true;
         } else {
@@ -53,7 +53,7 @@
         fieldName = relationship.relationshipFieldNamePlural;
     } else {
         if (dto === 'no') {
-            if (relationship.otherEntityAngularName === 'User') {
+            if (relationship.otherentityClass === 'User') {
                 fieldType = 'User';
                 hasUserRelationship = true;
             } else {
@@ -69,27 +69,27 @@
   });
 _%>
 import 'package:flutter/material.dart';
-import '<%= entityAngularName.toLowerCase() %>.dart';
-import '<%= entityAngularName.toLowerCase() %>.form.dart';
-import '<%= entityAngularName.toLowerCase() %>.helper.dart';
+import '<%= entityClass.toLowerCase() %>.dart';
+import '<%= entityClass.toLowerCase() %>.form.dart';
+import '<%= entityClass.toLowerCase() %>.helper.dart';
 
-class <%= entityAngularName %>Detail extends StatelessWidget {
+class <%= entityClass %>Detail extends StatelessWidget {
   final int id;
-  <%= entityAngularName %> data;
-  <%= entityAngularName %>Detail({@required this.id});
+  <%= entityClass %> data;
+  <%= entityClass %>Detail({@required this.id});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("<%= entityAngularName %> Detail"),
+          title: Text("<%= entityClass %> Detail"),
           elevation: 5.0, // Removing the drop shadow cast by the app bar.
         ),
         body: FutureBuilder(
-            future: <%= entityAngularName.toLowerCase() %>(id.toString()),
+            future: <%= entityClass.toLowerCase() %>(id.toString()),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return snapshot.hasData
-                  ? <%= entityAngularName.toLowerCase() %>Detail(snapshot.data)
+                  ? <%= entityClass.toLowerCase() %>Detail(snapshot.data)
                   : Center(child: CircularProgressIndicator());
             }),
         floatingActionButton: FloatingActionButton(
@@ -97,14 +97,14 @@ class <%= entityAngularName %>Detail extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => <%= entityAngularName %>FormPage(data: data)));
+                    builder: (context) => <%= entityClass %>FormPage(data: data)));
           },
           tooltip: 'Add',
           child: Icon(Icons.edit),
         ));
   }
 
-  Widget <%= entityAngularName.toLowerCase() %>Detail(<%= entityAngularName %> _data) {
+  Widget <%= entityClass.toLowerCase() %>Detail(<%= entityClass %> _data) {
     data = _data;
     return ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.0),

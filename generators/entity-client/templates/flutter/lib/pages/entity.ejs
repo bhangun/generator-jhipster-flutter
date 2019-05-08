@@ -70,16 +70,16 @@ _%>
 
 import 'package:flutter/foundation.dart';
 
-class <%= entityAngularName %> {
+class <%= entityClass %> {
     <% for (idx in dartFields) { %>final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;
     <% } %>
-    const <%= entityAngularName %> ({ <% for (idx in dartFields) { %>
+    const <%= entityClass %> ({ <% for (idx in dartFields) { %>
         this.<%- dartFields[idx]['name'] %>,<% } %>
     }): assert(id != null),<% for (var i=0; i<fields.length; i++) { %>
     assert(<%= fields[i].fieldName %> != null)<%if(i<fields.length-1){%><%=", "%><%} } %>;
 
-    factory <%= entityAngularName %>.fromJson(Map<String, dynamic> json) {
-        return <%= entityAngularName %>(
+    factory <%= entityClass %>.fromJson(Map<String, dynamic> json) {
+        return <%= entityClass %>(
             <% for (idx in dartFields) { %><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],<% } %>
         );
     }

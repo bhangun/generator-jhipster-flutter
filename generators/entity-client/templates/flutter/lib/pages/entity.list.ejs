@@ -44,7 +44,7 @@
     let fieldName;
     const relationshipType = relationship.relationshipType;
     if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
-        if (relationship.otherEntityAngularName === 'User') {
+        if (relationship.otherentityClass === 'User') {
             fieldType = 'User[]';
             hasUserRelationship = true;
         } else {
@@ -53,7 +53,7 @@
         fieldName = relationship.relationshipFieldNamePlural;
     } else {
         if (dto === 'no') {
-            if (relationship.otherEntityAngularName === 'User') {
+            if (relationship.otherentityClass === 'User') {
                 fieldType = 'User';
                 hasUserRelationship = true;
             } else {
@@ -69,21 +69,21 @@
   });
 _%>
 import 'package:flutter/material.dart';
-import '<%= entityAngularName.toLowerCase() %>.detail.dart';
-import '<%= entityAngularName.toLowerCase() %>.helper.dart';
-import '<%= entityAngularName.toLowerCase() %>.dart';
+import '<%= entityClass.toLowerCase() %>.detail.dart';
+import '<%= entityClass.toLowerCase() %>.helper.dart';
+import '<%= entityClass.toLowerCase() %>.dart';
 import 'dart:convert';
-import '<%= entityAngularName.toLowerCase() %>.form.dart';
+import '<%= entityClass.toLowerCase() %>.form.dart';
 
-class <%= entityAngularName %>ListPage extends StatefulWidget {
+class <%= entityClass %>ListPage extends StatefulWidget {
 
   @override
-  _<%= entityAngularName %>ListPageState createState() => _<%= entityAngularName %>ListPageState();
+  _<%= entityClass %>ListPageState createState() => _<%= entityClass %>ListPageState();
 }
 
-final String _title = "<%= entityAngularName %> List";
+final String _title = "<%= entityClass %> List";
 
-class _<%= entityAngularName %>ListPageState extends State<<%= entityAngularName %>ListPage> {
+class _<%= entityClass %>ListPageState extends State<<%= entityClass %>ListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,16 +92,16 @@ class _<%= entityAngularName %>ListPageState extends State<<%= entityAngularName
           elevation: 5.0, // Removing the drop shadow cast by the app bar.
         ),
         body: FutureBuilder(
-            future: <%= entityAngularName.toLowerCase() %>s(),
+            future: <%= entityClass.toLowerCase() %>s(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return snapshot.hasData
-                  ? <%= entityAngularName %>List(data: snapshot.data)
+                  ? <%= entityClass %>List(data: snapshot.data)
                   : Center(child: CircularProgressIndicator());
             }),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => <%= entityAngularName %>FormPage()));
+                MaterialPageRoute(builder: (context) => <%= entityClass %>FormPage()));
           },
           tooltip: 'Add',
           child: Icon(Icons.add),
@@ -110,36 +110,36 @@ class _<%= entityAngularName %>ListPageState extends State<<%= entityAngularName
 }
 <% for(var i=0;i<fields.length;i++){%> <%} %>
 
-Widget item(<%for (idx in dartFields) { %><%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>, <%}%>
+Widget item(<%for (idx in dartFields) { %><%if(['Integer'].includes(dartFields[idx]['type']) ){%>int<%} else {%><%= dartFields[idx]['type'] %><%}%> <%= dartFields[idx]['name'] %>, <%}%>
 BuildContext context) {
   return ListTile(
-      title: Text(<%if(fields.length>0) {%> <%= fields[0].fieldName %><%} %>,
+      title: Text(<%if(fields.length>0) {%><%= fields[0].fieldName %><%if(['int','Integer'].includes(fields[0].fieldType) ){%>.toString()<%}%><%} %>,
       style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),<%if(fields.length>1) {%>
       subtitle: Text(<%= fields[1].fieldName %>),<%} %>
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => <%= entityAngularName %>Detail(id: id )));
+                builder: (context) => <%= entityClass %>Detail(id: id )));
       },
       leading: Icon(Icons.person, size: 50,color: Colors.blue[500]));
 }
 
-class <%= entityAngularName %>List extends StatelessWidget {
+class <%= entityClass %>List extends StatelessWidget {
   final String data;
-  <%= entityAngularName %>List({this.data});
+  <%= entityClass %>List({this.data});
 
   @override
   Widget build(BuildContext context) {
     final parsed = json.decode(data).cast<Map<String, dynamic>>();
-    List<<%= entityAngularName %>> _items =
-        parsed.map<<%= entityAngularName %>>((json) => <%= entityAngularName %>.fromJson(json)).toList();
+    List<<%= entityClass %>> _items =
+        parsed.map<<%= entityClass %>>((json) => <%= entityClass %>.fromJson(json)).toList();
     return ListView.builder(
       itemCount: _items.length,
       itemBuilder: (context, index) {
-        final <%= entityAngularName.toLowerCase() %> = _items[index];
+        final <%= entityClass.toLowerCase() %> = _items[index];
         return item(<%for (idx in dartFields) { %> 
-        <%= entityAngularName.toLowerCase() %>.<%= dartFields[idx]['name'] %>, <%}%>
+        <%= entityClass.toLowerCase() %>.<%= dartFields[idx]['name'] %>, <%}%>
            context);
       },
     );
