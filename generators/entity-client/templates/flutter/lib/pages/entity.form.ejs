@@ -84,15 +84,16 @@ class <%= entityClass %>FormPage extends StatefulWidget {
 
 class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage> {
   bool isEdited = false;<% for (idx in dartFields) { %><% if(idx=='id') {%>
-  var _id; <%} else {%>
+  final _id = TextEditingController(); <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
 
   @override
   Widget build(BuildContext context) {
     if (widget.data != null) {
       isEdited = true;
-      <%= entityClass %> <%= entityClass.toLowerCase() %> = widget.data;<% for (idx in dartFields) { %>
-      _<%= dartFields[idx]['name'] %>.text = <%= entityClass.toLowerCase() %>.<%= dartFields[idx]['name'] %>;<%}%>
+      <%= entityClass %> <%= entityClass.toLowerCase() %> = widget.data;
+      _id.text = <%= entityInstance.toLowerCase() %>.id.toString();<% for (idx in dartFields) { if (idx != 'id' ) {%>
+      _<%= dartFields[idx]['name'] %>.text = <%= entityClass.toLowerCase() %>.<%= dartFields[idx]['name'] %>;<%}}%>
     }
 
     return Scaffold(
@@ -112,14 +113,22 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
 
   _listChild() {
     return <Widget>[
-      SizedBox(height: 120.0),<% for (idx in dartFields) { %>
+      SizedBox(height: 120.0),
+      TextField(
+        controller: _id,
+        decoration: InputDecoration(
+          filled: true,
+          labelText: 'ID',
+        ),
+        enabled: false
+      ), <%  for (idx in dartFields) { if (idx != 'id' ) { %>
       TextField(
         controller: _<%= dartFields[idx]['name']%>,
         decoration: InputDecoration(
           filled: true,
           labelText: '<%= dartFields[idx]['name']%>',
         ),
-      ), <%}%>
+      ), <%}}%>
 
     ];
   }
@@ -127,17 +136,18 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
   void _save() async {
     try {
       if (isEdited) {
-        await update<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { %>
-          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}%>
+        await update<%= entityClass %>(<%= entityClass %>(
+          id: int.parse(_id.text),<% for (idx in dartFields) { if (idx !== 'id' ) { %>
+          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}}%>
         ));
         isEdited =false;  
       } else {
-        await create<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { %>
-          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}%>
+        await create<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { if (idx !== 'id' ) { %>
+          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}}%>
         ));
       }
     } catch (e) {
-      print("gk bisa imel");
+      print(e.toString());
     }
     Navigator.pop(context);
   }

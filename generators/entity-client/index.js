@@ -85,6 +85,37 @@ module.exports = class extends BaseGenerator {
     }
 
     /**
+     * Add a new entity in the TS modules file.
+     *
+     * @param {string} entityInstance - Entity Instance
+     * @param {string} entityClass - Entity Class
+     * @param {string} entityClass - Entity Angular Name
+     * @param {string} entityFolderName - Entity Folder Name
+     * @param {string} entityFileName - Entity File Name
+     * @param {boolean} enableTranslation - If translations are enabled or not
+     */
+    addEntityToDrawer(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
+        // workaround method being called on initialization
+        if (!entityClass) {
+            return;
+        }
+        const entityPagePath = 'lib/widgets/drawer.dart';
+        try {
+            const page2 = `list.add(_listTitle("${entityClass}", context,"/${entityInstance}"));`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-drawer',
+                splicable: [
+                    this.stripMargin(page2)
+                ]
+            }, this);
+        } catch (e) {
+            this.log(`${chalk.yellow('\nUnable to find ') + entityPagePath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityClass} ${chalk.yellow(`not added to ${entityPagePath}.\n`)}`);
+            this.debug('Error:', e);
+        }
+    }
+
+    /**
      * Generate Entity Queries for Ionic Providers
      *
      * @param {Array|Object} relationships - array of relationships

@@ -17,16 +17,8 @@
  * limitations under the License.
  */
 const _ = require('lodash');
-// const randexp = require('randexp');
-// const chalk = require('chalk');
-// const fs = require('fs');
-// const constants = require('generator-jhipster/generators/generator-constants');
 
-/* Constants use throughout */
-// const INTERPOLATE_REGEX = constants.INTERPOLATE_REGEX;
 const FLUTTER_DIR = 'lib/pages/';
-// const MODELS_DIR = 'src/models/';
-// const utils = require('generator-jhipster/generators/utils');
 
 const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 
@@ -64,10 +56,6 @@ const flutterFiles = {
                     file: 'index',
                     renameTo: generator => `entities/${generator.entityFolderName}/index.dart`
                 }, */
-                /* {
-                    file: 'routes',
-                    renameTo: generator => `../services/${generator.entityFolderName}/routes.dart`
-                } */
             ]
         }
     ]
@@ -94,6 +82,8 @@ function writeFiles() {
             // write client side files for angular
             this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
             this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
+            this.addEntityToDrawer(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
+           
             // Copy for each
             if (this.enableTranslation) {
                 const languages = this.languages || this.getAllInstalledLanguages();
