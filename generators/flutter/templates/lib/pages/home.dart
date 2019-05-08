@@ -33,9 +33,15 @@ class _HomePageState extends State<HomePage> {
             children: listChild(context)
           )
         ),
-        drawer: CommonDrawer(
-          accountEmail: "fulan@gmail.com",
-          accountName: "Alhamdulillah",
+        drawer: FutureBuilder(
+            future:  userProfile(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return snapshot.hasData
+                  ? CommonDrawer(
+          accountEmail: snapshot.data.email,
+          accountName: snapshot.data.firstName,
+          ):Center(child: CircularProgressIndicator());
+            })
         ));
   }
 

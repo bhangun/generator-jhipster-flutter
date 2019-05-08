@@ -3,8 +3,9 @@ import 'dart:convert';
 import '../../administration/account/user.dart';
 import '../../services/connection.dart';
 
-String API_ACCOUNT = 'account';
+const API_ACCOUNT = 'account';
 
+const PROFILE = 'profile';
 // POST saveAccount
 const API_ACCOUNT_SAVE = "account";
 
