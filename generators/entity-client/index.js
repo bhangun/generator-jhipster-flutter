@@ -69,7 +69,7 @@ module.exports = class extends BaseGenerator {
                     this.stripMargin(page2)
                 ]
             }, this);
-
+            this.log('----------------------------');
             const page = `"/${entityInstance}": (BuildContext context) => ${entityClass}ListPage(),`;
             utils.rewriteFile({
                 file: entityPagePath,

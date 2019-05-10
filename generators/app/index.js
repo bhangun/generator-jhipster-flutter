@@ -1,5 +1,5 @@
 const chalk = require('chalk');
-const semver = require('semver');
+// const semver = require('semver');
 const shelljs = require('shelljs');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 // const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
@@ -15,11 +15,11 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.jhipsterAppConfig = this.getAllJhipsterConfig();
+            //  this.jhipsterAppConfig = this.getAllJhipsterConfig();
                 /*  if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
-                } */
-            },
+                }  */
+            }, 
             displayLogo() {
                 this.log(`${chalk.bold.cyan('_          _   _ _                   ')}`);
                 this.log(`${chalk.bold.cyan('| |        | | (_) |                  ')}`);
@@ -33,47 +33,8 @@ module.exports = class extends BaseGenerator {
                 // Have Yeoman greet the user.
                 this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
-            checkJhipster() {
-                const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
-                const minimumJhipsterVersion = packagejs.dependencies['generator-jhipster'];
-                if (!semver.satisfies(currentJhipsterVersion, minimumJhipsterVersion)) {
-                    this.warning(`\nYour generated project used an old JHipster version (${currentJhipsterVersion})... you need at least (${minimumJhipsterVersion})\n`);
-                }
-            }
         };
     }
-
-
-    /* regenerateEntities() {
-        if (this.withEntities) {
-            const options = this.options;
-            const configOptions = this.configOptions;
-            this.getExistingEntities().forEach(entity => {
-                this.composeWith(require.resolve('../entity'), {
-                    ...options,
-                    configOptions,
-                    regenerate: true,
-                    'skip-install': true,
-                    debug: this.isDebugEnabled,
-                    arguments: [entity.name]
-                });
-            });
-        }
-    }
-    composeClient() {
-                const context = this.context;
-                if (context.skipClient) return;
-                const configOptions = this.configOptions;
-
-                this.composeWith(require.resolve('../entity-client'), {
-                    context,
-                    configOptions,
-                    'skip-install': context.options['skip-install'],
-                    force: context.options.force,
-                    debug: context.isDebugEnabled
-                });
-            },
- */
 
     prompting() {
         /* this.getExistingEntities().forEach((entity) => {
@@ -81,7 +42,7 @@ module.exports = class extends BaseGenerator {
             this.log(entity);
         }); */
         // this.log(this.auditedEntities[0]);
-        const appsName = `${this.jhipsterAppConfig.baseName}Apps`;
+        const appsName = ''; // `${this.jhipsterAppConfig.baseName}Apps`;
         const prompts = [
             {
                 type: 'input',
@@ -95,6 +56,7 @@ module.exports = class extends BaseGenerator {
                 name: 'directoryPath',
                 message: 'Where JHipster app directory is located?',
                 default: 'backend',
+                store: true,
                 validate: (input) => {
                     const path = this.destinationPath(input);
                     if (shelljs.test('-d', path)) {
@@ -112,14 +74,8 @@ module.exports = class extends BaseGenerator {
                 name: 'packageName',
                 validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ? true : 'The package name you have provided is not a valid Java package name.'),
                 message: 'What is your package name?',
-                default: this.jhipsterAppConfig.packageName,
+                // default: this.jhipsterAppConfig.packageName,
                 store: true
-            },
-            {
-                type: 'input',
-                name: 'path',
-                message: 'Where your apps path folder would be put?(relative/absolute)',
-                default: '../'
             },
         ];
 
@@ -131,15 +87,13 @@ module.exports = class extends BaseGenerator {
     }
 
     get configuring() {
-        //
         // if (useBlueprint) return;
         return {
             saveConfig() {
                 this.config.set('appsName', this.props.appsName);
                 this.config.set('packageName', this.props.packageName);
-                this.config.set('path', this.props.path);
                 this.config.set('directoryPath', this.props.directoryPath);
-                this.config.set('packageFolder', `${this.props.path}${this.props.appsName}`);
+                this.config.set('packageFolder', `${this.props.appsName}`);
             }
         };
     }
@@ -161,21 +115,15 @@ module.exports = class extends BaseGenerator {
         this.message = this.props.message;
         this.baseName = this.props.appsName;
         this.packageName = this.props.packageName;
-        this.path = this.props.path;
-        this.packageFolder = `${this.props.path}${this.props.appsName}`;
+        this.packageFolder = `../${this.props.appsName}`;
         this.buildTool = this.props.buildTool;
 
-        // use constants from generator-constants.js
-        /* const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.path}/`;
-        const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR; */
         // variable from questions
         // show all variables
         this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
         this.log(`packageName=${this.packageName}`);
-        this.log(`path=${this.path}`);
         this.log(`packageFolder=${this.packageFolder}`);
-        this.log(`buildTool=${this.buildTool}`);
 
         this.composeWith(require.resolve('../flutter'));
 

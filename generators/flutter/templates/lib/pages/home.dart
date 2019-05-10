@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/services.dart';
 import '../widgets/drawer.dart';
 import '../widgets/label_below_icon.dart';
-
+import '../administration/account.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           accountName: snapshot.data.firstName,
           ):Center(child: CircularProgressIndicator());
             })
-        ));
+        );
   }
 
   // iconBox

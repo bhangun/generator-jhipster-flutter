@@ -45,7 +45,8 @@ function writeFiles() {
 
         writeClientResourceFiles() {
             // add assets
-            this.template(`${flutterDir}assets/images/logo-jhipster.svg`, `${this.packageFolder}/assets/images/logo-jhipster.svg`);
+            // this.template(`${flutterDir}assets/images/logo-jhipster.svg`, `${this.packageFolder}/assets/images/logo-jhipster.svg`);
+            this.template(`${flutterDir}assets/images/logo-jhipster.png`, `${this.packageFolder}/assets/images/logo-jhipster.png`);
 
             // add source to lib folder
             this.template(`${flutterDir}lib/administration/account/user.dart`, `${this.packageFolder}/lib/administration/account/user.dart`);
@@ -59,8 +60,8 @@ function writeFiles() {
 
             this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);
 
-            this.template(`${flutterDir}lib/pages/entity/entity.dart`, `${this.packageFolder}/lib/pages/entity/entity.dart`);
-            this.template(`${flutterDir}lib/pages/entity/entity.form.dart`, `${this.packageFolder}/lib/pages/entity/entity.form.dart`);
+            // this.template(`${flutterDir}lib/pages/entity/entity.dart`, `${this.packageFolder}/lib/pages/entity/entity.dart`);
+            // this.template(`${flutterDir}lib/pages/entity/entity.form.dart`, `${this.packageFolder}/lib/pages/entity/entity.form.dart`);
             this.template(`${flutterDir}lib/pages/home.dart`, `${this.packageFolder}/lib/pages/home.dart`);
             this.template(`${flutterDir}lib/pages/login.dart`, `${this.packageFolder}/lib/pages/login.dart`);
 

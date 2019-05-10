@@ -28,6 +28,11 @@ logout(){
   setPrefs(PROFILE, "");
 }
 
+Future<User> userProfile() async {
+ String profile = await prefs(PROFILE);
+  return User.fromJson(json.decode(profile));
+}
+
 Future<Health> health() async {
   var response = await restGet("management/metrics", true, true);
   print(json.decode(response)["gauges"] + "---" + response);
