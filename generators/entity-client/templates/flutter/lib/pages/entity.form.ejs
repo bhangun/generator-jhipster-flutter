@@ -70,6 +70,28 @@
   });
 _%>
 
+<%#
+"relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "license",
+            "otherEntityName": "license",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "driver"
+        },
+  ]
+   "changelogDate": "20180702074513",
+    "entityTableName": "driver",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+--%>
+
 
 import 'package:flutter/material.dart';
 import '<%= entityInstance %>.helper.dart';
@@ -147,9 +169,22 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
                   );
                 })
                 .toList(),
-      ),
-      <%}}%>
-
+      ),<%}}%><% relationships.forEach(rela => { %>
+      DropdownButton<String>(
+              value: _<%= rela.otherEntityName %>,
+              onChanged: (String newValue) {
+                setState(() {
+                  _<%= rela.otherEntityName %> = newValue;
+                });
+              },
+              items: <%= dartFields[idx]['name'] %>.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                })
+                .toList(),
+      ),<%});%>
     ];
   }
 
