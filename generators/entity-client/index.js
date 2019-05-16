@@ -20,7 +20,6 @@
 const chalk = require('chalk');
 const utils = require('generator-jhipster/generators/utils');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
-// const utils = require('./utils');
 const writeFiles = require('./files').writeFiles;
 
 let useBlueprint;
@@ -69,7 +68,7 @@ module.exports = class extends BaseGenerator {
                     this.stripMargin(page2)
                 ]
             }, this);
-            this.log('----------------------------');
+
             const page = `"/${entityInstance}": (BuildContext context) => ${entityClass}ListPage(),`;
             utils.rewriteFile({
                 file: entityPagePath,

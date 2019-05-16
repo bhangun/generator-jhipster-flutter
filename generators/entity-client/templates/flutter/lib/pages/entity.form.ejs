@@ -19,16 +19,17 @@
       let dartCont;
       let desc;
       if (field.fieldIsEnum) {
-          dartType = fieldType;
+          dartType = 'enum';
       } else if ( fieldType === 'UUID' || fieldType === 'String') {
           dartType = 'String';
-          dartCont = 'TextEditingController()';
       } else if ( fieldType === 'Instant') {
           dartType = 'DartTime';
           desc = '.toIso8601String()' + 'Z';
       } else {
           dartType = fieldType ;
       } 
+
+      dartCont = 'TextEditingController()';
 
       varValue['type'] = dartType;
       varValue['name'] = fieldName;
@@ -71,8 +72,8 @@ _%>
 
 
 import 'package:flutter/material.dart';
-import '<%= entityClass.toLowerCase() %>.helper.dart';
-import '<%= entityClass.toLowerCase() %>.dart';
+import '<%= entityInstance %>.helper.dart';
+import '<%= entityInstance %>.dart';
 import '../../services/services.dart';
 
 class <%= entityClass %>FormPage extends StatefulWidget {
@@ -84,16 +85,18 @@ class <%= entityClass %>FormPage extends StatefulWidget {
 
 class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage> {
   bool isEdited = false;<% for (idx in dartFields) { %><% if(idx=='id') {%>
-  final _id = TextEditingController(); <%} else {%>
+  final _id = TextEditingController(); <%} else if (dartFields[idx]['type'] == 'enum' ) {%>
+  var _<%= dartFields[idx]['name'] %> = ''; <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
 
   @override
   Widget build(BuildContext context) {
     if (widget.data != null) {
       isEdited = true;
-      <%= entityClass %> <%= entityClass.toLowerCase() %> = widget.data;
-      _id.text = <%= entityInstance.toLowerCase() %>.id.toString();<% for (idx in dartFields) { if (idx != 'id' ) {%>
-      _<%= dartFields[idx]['name'] %>.text = <%= entityClass.toLowerCase() %>.<%= dartFields[idx]['name'] %>;<%}}%>
+      <%= entityClass %> <%= entityInstance %> = widget.data;
+      <% for (idx in dartFields) { if (idx == 'id') {%> _id.text = <%= entityInstance %>.id.toString(); <%} else if(dartFields[idx]['type'] == 'enum') { %>
+      _<%= dartFields[idx]['name'] %> = <%= entityInstance %>.<%= dartFields[idx]['name'] %>; <%} else {%>
+      _<%= dartFields[idx]['name'] %>.text = <%= entityInstance %>.<%= dartFields[idx]['name'] %><%if (dartFields[idx]['name'] != 'String' || dartFields[idx]['name'] != 'Boolean') {%>.toString()<%}%>;<%}}%>
     }
 
     return Scaffold(
@@ -113,7 +116,7 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
 
   _listChild() {
     return <Widget>[
-      SizedBox(height: 120.0),
+      SizedBox(height: 120.0),<%  for (idx in dartFields) { if (idx == 'id' ){%> 
       TextField(
         controller: _id,
         decoration: InputDecoration(
@@ -121,14 +124,31 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
           labelText: 'ID',
         ),
         enabled: false
-      ), <%  for (idx in dartFields) { if (idx != 'id' ) { %>
+      ), <% } else if( dartFields[idx]['type'] != 'enum') { %>
       TextField(
         controller: _<%= dartFields[idx]['name']%>,
         decoration: InputDecoration(
           filled: true,
           labelText: '<%= dartFields[idx]['name']%>',
         ),
-      ), <%}}%>
+        <% if (dartFields[idx]['name'] != 'String' || dartFields[idx]['name'] != 'Boolean') { %>keyboardType: TextInputType.number,<%}%>
+      ), <%} else { %>
+      DropdownButton<String>(
+              value: _<%= dartFields[idx]['name'] %>,
+              onChanged: (String newValue) {
+                setState(() {
+                  _<%= dartFields[idx]['name'] %> = newValue;
+                });
+              },
+              items: <%= dartFields[idx]['name'] %>.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                })
+                .toList(),
+      ),
+      <%}}%>
 
     ];
   }
@@ -136,14 +156,16 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
   void _save() async {
     try {
       if (isEdited) {
-        await update<%= entityClass %>(<%= entityClass %>(
-          id: int.parse(_id.text),<% for (idx in dartFields) { if (idx !== 'id' ) { %>
-          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}}%>
+        await update<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { if (idx == 'id') {%>
+          id: int.parse(_id.text), <% } else if (dartFields[idx]['type'] == 'enum') { %>
+          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>, <%} else { %>
+          <%= dartFields[idx]['name'] %>: <% if (dartFields[idx]['name'] != 'String' || dartFields[idx]['name'] != 'Boolean') {%>int.parse(_<%= dartFields[idx]['name'] %>.text),<%} else {%>_<%= dartFields[idx]['name'] %>.text<%}  }}%>
         ));
         isEdited =false;  
       } else {
-        await create<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { if (idx !== 'id' ) { %>
-          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>.text,<%}}%>
+        await create<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { if (idx !== 'id' && dartFields[idx]['type'] == 'enum') { %>
+          <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>, <%} else { %>
+          <%= dartFields[idx]['name'] %>: <% if (dartFields[idx]['name'] != 'String' || dartFields[idx]['name'] != 'Boolean') {%>int.parse(_<%= dartFields[idx]['name'] %>.text),<%} else {%>_<%= dartFields[idx]['name'] %>.text<%}  }}%>
         ));
       }
     } catch (e) {
@@ -152,7 +174,7 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
     Navigator.pop(context);
   }
 
-  void _clearForm() {<% for (idx in dartFields) { %><% if(idx!='id') {%>
+  void _clearForm() {<% for (idx in dartFields) { %><% if(idx!='id' && dartFields[idx]['type'] != 'enum') {%>
     _<%= dartFields[idx]['name'] %>.clear();<%}%><%}%>
   }
 }

@@ -19,7 +19,7 @@
       let dartCont;
       let desc;
       if (field.fieldIsEnum) {
-          dartType = fieldType;
+          dartType = 'enum';
       } else if ( fieldType === 'UUID' || fieldType === 'String') {
           dartType = 'String';
           dartCont = 'TextEditingController()';
@@ -110,7 +110,7 @@ class _<%= entityClass %>ListPageState extends State<<%= entityClass %>ListPage>
 }
 <% for(var i=0;i<fields.length;i++){%> <%} %>
 
-Widget item(<%for (idx in dartFields) { %><%if(['Integer'].includes(dartFields[idx]['type']) ){%>int<%} else {%><%= dartFields[idx]['type'] %><%}%> <%= dartFields[idx]['name'] %>, <%}%>
+Widget item(<%for (idx in dartFields) { %><%if(['Integer'].includes(dartFields[idx]['type']) ){%>int<%} else if(dartFields[idx]['type']=='enum') {%>String <%} else {%><%= dartFields[idx]['type'] %><%}%> <%= dartFields[idx]['name'] %>, <%}%>
 BuildContext context) {
   return ListTile(
       title: Text(<%if(fields.length>0) {%><%= fields[0].fieldName %><%if(['int','Integer'].includes(fields[0].fieldType) ){%>.toString()<%}%><%} %>,

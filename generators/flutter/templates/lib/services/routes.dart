@@ -3,6 +3,7 @@ import '../administration/dashboard.dart';
 import '../administration/account/user.form.dart';
 import '../administration/account/user.list.dart';
 import '../pages/login.dart';
+// kutilang-needle-add-import-route - Don't remove, used by kutilang to add new import
 
 Route<dynamic> route(RouteSettings settings) {
   if (settings.name != '/login') {
@@ -24,6 +25,5 @@ final routes = <String, WidgetBuilder> {
   "/users": (BuildContext context) => UserListPage(),
   "/usersForm": (BuildContext context) => UserFormPage(),
   "/dashboard": (BuildContext context) => Dashboard(),
-  "/entities": (BuildContext context) => null,
-  "/entity": (BuildContext context) => null
+  // kutilang-needle-add-route - Don't remove, used by kutilang to add new import
 };

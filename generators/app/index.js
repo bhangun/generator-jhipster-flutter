@@ -115,7 +115,7 @@ module.exports = class extends BaseGenerator {
         this.message = this.props.message;
         this.baseName = this.props.appsName;
         this.packageName = this.props.packageName;
-        this.packageFolder = `../${this.props.appsName}`;
+        this.packageFolder = `${this.props.appsName}`;
         this.buildTool = this.props.buildTool;
 
         // variable from questions
