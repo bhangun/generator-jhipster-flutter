@@ -96,7 +96,10 @@ _%>
 import 'package:flutter/material.dart';
 import '<%= entityInstance %>.helper.dart';
 import '<%= entityInstance %>.dart';
-import '../../services/services.dart';
+import '../../services/services.dart'; <% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+import '../<%= rela.otherEntityName %>/<%= rela.otherEntityName %>.dart';
+import '../<%= rela.otherEntityName %>/<%= rela.otherEntityName %>.helper.dart';
+<%}}%>
 
 class <%= entityClass %>FormPage extends StatefulWidget {
   final <%= entityClass %> data;
@@ -169,7 +172,7 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
                   );
                 })
                 .toList(),
-      ),<%}}%><% relationships.forEach(rela => { %>
+      ),<%}}%><% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one'){%>
       DropdownButton<String>(
               value: _<%= rela.otherEntityName %>,
               onChanged: (String newValue) {
@@ -177,14 +180,14 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
                   _<%= rela.otherEntityName %> = newValue;
                 });
               },
-              items: <%= dartFields[idx]['name'] %>.map<DropdownMenuItem<String>>((String value) {
+              items: <%= rela.otherEntityName %>List.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
                   );
                 })
                 .toList(),
-      ),<%});%>
+      ), <%}});%>
     ];
   }
 
