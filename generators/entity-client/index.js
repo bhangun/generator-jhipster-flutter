@@ -39,7 +39,7 @@ module.exports = class extends BaseGenerator {
 
     end() {
         if (useBlueprint) return;
-        this.log(chalk.bold.green('Entity generation completed. You may have to stop/start "ionic serve" to see your new entity.'));
+        this.log(chalk.bold.green('Entity generation completed. You may need to click "r" or "R" in your terminal to see your new entity.'));
     }
 
 
@@ -115,7 +115,7 @@ module.exports = class extends BaseGenerator {
     }
 
     /**
-     * Generate Entity Queries for Ionic Providers
+     * Generate Entity Queries for Flutter Providers
      *
      * @param {Array|Object} relationships - array of relationships
      * @param {string} entityInstance - entity instance

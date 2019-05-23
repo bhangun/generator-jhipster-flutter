@@ -68,6 +68,10 @@
     }
     
   });
+
+  function capitalize(text){
+    return text.substr( 0, 1 ).toUpperCase()+text.substr( 1 );
+  }
 _%>
 
 <%#
@@ -90,16 +94,16 @@ _%>
     "fluentMethods": true,
     "clientRootFolder": "",
     "applications": "*"
+
 --%>
 
 
 import 'package:flutter/material.dart';
 import '<%= entityInstance %>.helper.dart';
 import '<%= entityInstance %>.dart';
-import '../../services/services.dart'; <% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+import '../../services/services.dart';  <% relationships.forEach(rela => { if(rela.relationshipType == 'one-to-one' || rela.relationshipType == 'many-to-many'){%>
 import '../<%= rela.otherEntityName %>/<%= rela.otherEntityName %>.dart';
-import '../<%= rela.otherEntityName %>/<%= rela.otherEntityName %>.helper.dart';
-<%}}%>
+import '../<%= rela.otherEntityName %>/<%= rela.otherEntityName %>.helper.dart';<%}});%>
 
 class <%= entityClass %>FormPage extends StatefulWidget {
   final <%= entityClass %> data;
@@ -113,7 +117,9 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
   final _id = TextEditingController(); <%} else if (dartFields[idx]['type'] == 'enum' ) {%>
   var _<%= dartFields[idx]['name'] %> = ''; <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
-
+<% relationships.forEach(rela => { if(rela.relationshipType == 'one-to-one' || rela.relationshipType == 'many-to-many'){%>
+  var _<%= rela.otherEntityName %>;<%}});%>
+  
   @override
   Widget build(BuildContext context) {
     if (widget.data != null) {
@@ -170,24 +176,27 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
                     value: value,
                     child: Text(value),
                   );
-                })
-                .toList(),
-      ),<%}}%><% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one'){%>
-      DropdownButton<String>(
-              value: _<%= rela.otherEntityName %>,
-              onChanged: (String newValue) {
-                setState(() {
-                  _<%= rela.otherEntityName %> = newValue;
-                });
-              },
-              items: <%= rela.otherEntityName %>List.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                })
-                .toList(),
-      ), <%}});%>
+              }).toList(),
+      ),<%}}%><% relationships.forEach(rela => { if(rela.relationshipType == 'one-to-one' || rela.relationshipType == 'many-to-many'){%>
+      FutureBuilder(
+            future: <%= rela.otherEntityName %>s(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return snapshot.hasData ? 
+              DropdownButton<String>(
+                value: _<%= rela.otherEntityName %>,
+                onChanged: (String newValue) {
+                  setState(() {
+                    _<%= rela.otherEntityName %> = newValue;
+                  });
+                },
+                items: snapshot.data.map<DropdownMenuItem<<%= capitalize(rela.otherEntityName) %>>>((<%= capitalize(rela.otherEntityName) %> <%= rela.otherEntityName %>) {
+                    return DropdownMenuItem<int>(
+                      value: <%= rela.otherEntityName %>.id,
+                      child: Text('<%= capitalize(rela.relationshipName) %>'),
+                    );
+              }).toList(),
+            ): Center(child: CircularProgressIndicator());
+      }), <%}});%>
     ];
   }
 
@@ -197,13 +206,13 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
         await update<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { if (idx == 'id') {%>
           id: int.parse(_id.text), <% } else if (dartFields[idx]['type'] == 'enum') { %>
           <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>, <%} else { %>
-          <%= dartFields[idx]['name'] %>: <% if (dartFields[idx]['name'] != 'String' || dartFields[idx]['name'] != 'Boolean') {%>int.parse(_<%= dartFields[idx]['name'] %>.text),<%} else {%>_<%= dartFields[idx]['name'] %>.text<%}  }}%>
+          <%= dartFields[idx]['name'] %>: <% if (dartFields[idx]['type'] != 'String' && dartFields[idx]['type'] != 'Boolean') {%>int.parse(_<%= dartFields[idx]['name'] %>.text),<%} else {%>_<%= dartFields[idx]['name'] %>.text,<%}  }}%>
         ));
         isEdited =false;  
       } else {
         await create<%= entityClass %>(<%= entityClass %>(<% for (idx in dartFields) { if (idx !== 'id' && dartFields[idx]['type'] == 'enum') { %>
           <%= dartFields[idx]['name'] %>: _<%= dartFields[idx]['name'] %>, <%} else { %>
-          <%= dartFields[idx]['name'] %>: <% if (dartFields[idx]['name'] != 'String' || dartFields[idx]['name'] != 'Boolean') {%>int.parse(_<%= dartFields[idx]['name'] %>.text),<%} else {%>_<%= dartFields[idx]['name'] %>.text<%}  }}%>
+          <%= dartFields[idx]['name'] %>: <% if (dartFields[idx]['type'] != 'String' && dartFields[idx]['type'] != 'Boolean') {%>int.parse(_<%= dartFields[idx]['name'] %>.text),<%} else {%>_<%= dartFields[idx]['name'] %>.text,<%}  }}%>
         ));
       }
     } catch (e) {
