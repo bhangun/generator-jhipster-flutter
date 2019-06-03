@@ -69,9 +69,9 @@
   });
 _%>
 import 'package:flutter/material.dart';
-import '<%= entityClass.toLowerCase() %>.dart';
-import '<%= entityClass.toLowerCase() %>.form.dart';
-import '<%= entityClass.toLowerCase() %>.helper.dart';
+import '../../models/<%= entityInstance %>.dart';
+import '<%= entityInstance %>.form.dart';
+import '../../services/entity_services/<%= entityInstance %>.service.dart';
 
 class <%= entityClass %>Detail extends StatelessWidget {
   final int id;
@@ -86,10 +86,10 @@ class <%= entityClass %>Detail extends StatelessWidget {
           elevation: 5.0, // Removing the drop shadow cast by the app bar.
         ),
         body: FutureBuilder(
-            future: <%= entityClass.toLowerCase() %>(id.toString()),
+            future: <%= entityInstance %>(id.toString()),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return snapshot.hasData
-                  ? <%= entityClass.toLowerCase() %>Detail(snapshot.data)
+                  ? <%= entityInstance %>Detail(snapshot.data)
                   : Center(child: CircularProgressIndicator());
             }),
         floatingActionButton: FloatingActionButton(
@@ -104,7 +104,7 @@ class <%= entityClass %>Detail extends StatelessWidget {
         ));
   }
 
-  Widget <%= entityClass.toLowerCase() %>Detail(<%= entityClass %> _data) {
+  Widget <%= entityInstance %>Detail(<%= entityClass %> _data) {
     data = _data;
     return ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.0),

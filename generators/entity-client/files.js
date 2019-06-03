@@ -34,7 +34,7 @@ const flutterFiles = {
             templates: [
                 {
                     file: 'entity',
-                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.dart`
+                    renameTo: generator => `../models/${generator.entityFileName}.dart`
                 },
                 {
                     file: 'entity.list',
@@ -50,7 +50,7 @@ const flutterFiles = {
                 },
                 {
                     file: 'entity.helper',
-                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.helper.dart`
+                    renameTo: generator => `../services/entity_services/${generator.entityFileName}.service.dart`
                 },
                 /*  {
                     file: 'index',

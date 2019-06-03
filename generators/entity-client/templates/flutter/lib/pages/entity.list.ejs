@@ -69,10 +69,10 @@
   });
 _%>
 import 'package:flutter/material.dart';
-import '<%= entityClass.toLowerCase() %>.detail.dart';
-import '<%= entityClass.toLowerCase() %>.helper.dart';
-import '<%= entityClass.toLowerCase() %>.dart';
 import 'dart:convert';
+import '../../models/<%= entityClass.toLowerCase() %>.dart';
+import '<%= entityClass.toLowerCase() %>.detail.dart';
+import '../../services/entity_services/<%= entityClass.toLowerCase() %>.service.dart';
 import '<%= entityClass.toLowerCase() %>.form.dart';
 
 class <%= entityClass %>ListPage extends StatefulWidget {

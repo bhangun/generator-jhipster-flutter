@@ -71,29 +71,28 @@ function capitalize(text){
   }
 _%>
 
-<% relationships.forEach(rela => { if(rela.relationshipType == 'one-to-one' || rela.relationshipType == 'many-to-many'){%>
-    import '../<%= rela.otherEntityName %>/<%= rela.otherEntityName %>.dart';<%}});%>
+<% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+import '<%= rela.otherEntityName %>.dart';<%}});%>
 
 class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
     final String <%- dartFields[idx]['name'] %>;<%} else {%>
     final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
-    <% relationships.forEach(rela => { if(rela.relationshipType == 'one-to-one' || rela.relationshipType == 'many-to-many'){%>
-    final List<<%= capitalize(rela.otherEntityName) %>> <%= rela.otherEntityName %>;<%}});%>
+    <% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>final List<<%= capitalize(rela.otherEntityName) %>> <%= rela.otherEntityName %>s;<%}});%>
     
     const <%= entityClass %> ({ <% for (idx in dartFields) { %>
-        this.<%- dartFields[idx]['name'] %>,<% } %> <% relationships.forEach(rela => { if(rela.relationshipType == 'one-to-one' || rela.relationshipType == 'many-to-many'){%>
-        this.<%= rela.otherEntityName %>,<%}});%>
-    }): assert(id != null),<% for (var i=0; i<fields.length; i++) { %>
-    assert(<%= fields[i].fieldName %> != null)<%if(i<fields.length-1){%><%=", "%><%} } %>;
+        this.<%- dartFields[idx]['name'] %>,<% } %> <% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+        this.<%= rela.otherEntityName %>s,<%}});%>
+    });
 
-    factory <%= entityClass %>.fromJson(Map<String, dynamic> json) {
-        return <%= entityClass %>(
-            <% for (idx in dartFields) { %><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'], <% } %>
-        );
-    }
+    factory <%= entityClass %>.fromJson(Map<String, dynamic> json) =>  <%= entityClass %>(
+        <% for (idx in dartFields) { %><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],
+        <% } %><% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%><%= rela.otherEntityName %>s: List<<%= capitalize(rela.otherEntityName) %>>.from(json['<%= rela.otherEntityName %>'].map((x) => <%= capitalize(rela.otherEntityName) %>.fromJson(x))),<%}});%>
+    );
 
     Map<String, dynamic> toJson() => {
-        <% for (idx in dartFields) { %>'"<%- dartFields[idx]['name'] %>"': '"$<%- dartFields[idx]['name'] %>"', <% } %>};
+        <% for (idx in dartFields) { %>"<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>, 
+        <% } %><% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>"<%= rela.otherEntityName %>s": List<dynamic>.from(<%= rela.otherEntityName %>s.map((x) => x.toJson())),<%}});%>
+    };
 }
 
 <%_ const enumsAlreadyDeclared = [];
