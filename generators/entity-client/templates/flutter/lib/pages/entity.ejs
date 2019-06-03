@@ -88,12 +88,12 @@ class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type
 
     factory <%= entityClass %>.fromJson(Map<String, dynamic> json) {
         return <%= entityClass %>(
-            <% for (idx in dartFields) { %><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],<% } %>
+            <% for (idx in dartFields) { %><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'], <% } %>
         );
     }
 
     Map<String, dynamic> toJson() => {
-        <% for (idx in dartFields) { %>'"<%- dartFields[idx]['name'] %>"': '"$<%- dartFields[idx]['name'] %>"',<% } %>};
+        <% for (idx in dartFields) { %>'"<%- dartFields[idx]['name'] %>"': '"$<%- dartFields[idx]['name'] %>"', <% } %>};
 }
 
 <%_ const enumsAlreadyDeclared = [];

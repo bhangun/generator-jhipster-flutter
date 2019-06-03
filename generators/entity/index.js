@@ -34,6 +34,8 @@ let useBlueprint;
 module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
+
+        this.log('>>>>>>>>>>>>>'+process.cwd());
         jhipsterUtils.copyObjectProps(this, this.options.context);
         // This makes `name` a required argument.
         this.argument('name', {
@@ -682,10 +684,10 @@ module.exports = class extends BaseGenerator {
                             entityTranslationKey: this.entityTranslationKey
                         };
                         // run through all post entity creation module hooks
-                        this.callHooks('entity', 'post', {
+                        /* this.callHooks('entity', 'post', {
                             entityConfig,
                             force: this.options.force
-                        }, done);
+                        }, done); */
                     } else {
                         done();
                     }

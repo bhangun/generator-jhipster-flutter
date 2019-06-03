@@ -50,7 +50,7 @@ const flutterFiles = {
                 },
                 {
                     file: 'entity.helper',
-                    renameTo: generator => `/${generator.entityFolderName}/${generator.entityFileName}.helper.dart`
+                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.helper.dart`
                 },
                 /*  {
                     file: 'index',
@@ -69,12 +69,12 @@ module.exports = {
 
 function writeFiles() {
     return {
-        saveRemoteEntityPath() {
+        /* saveRemoteEntityPath() {
             if (_.isUndefined(this.microservicePath)) {
                 return;
             }
             this.copy(`${this.microservicePath}/${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`, this.destinationPath(`${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`));
-        },
+        }, */
 
         writeClientFiles() {
             if (this.skipClient) return;

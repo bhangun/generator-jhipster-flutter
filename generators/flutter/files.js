@@ -44,6 +44,7 @@ function writeFiles() {
         },
 
         writeClientResourceFiles() {
+            this.log(`>>>>>>>files>>>>>>>> ${this.packageFolder}`);
             // add assets
             // this.template(`${flutterDir}assets/images/logo-jhipster.svg`, `${this.packageFolder}/assets/images/logo-jhipster.svg`);
             this.template(`${flutterDir}assets/images/logo-jhipster.png`, `${this.packageFolder}/assets/images/logo-jhipster.png`);

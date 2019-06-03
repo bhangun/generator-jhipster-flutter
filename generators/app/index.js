@@ -19,7 +19,8 @@ module.exports = class extends BaseGenerator {
                 /*  if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
                 }  */
-            }, 
+                this.log(this.destinationRoot());
+            },
             displayLogo() {
                 this.log(`${chalk.bold.cyan('_          _   _ _                   ')}`);
                 this.log(`${chalk.bold.cyan('| |        | | (_) |                  ')}`);
@@ -42,14 +43,15 @@ module.exports = class extends BaseGenerator {
             this.log(entity);
         }); */
         // this.log(this.auditedEntities[0]);
-        const appsName = ''; // `${this.jhipsterAppConfig.baseName}Apps`;
+        const appsName = this.getDefaultAppName(); // `${this.jhipsterAppConfig.baseName}Apps`;
+        this.log(appsName);
         const prompts = [
             {
                 type: 'input',
                 name: 'appsName',
                 message: 'What is your Flutter application name?',
                 default: appsName,
-                store: true
+                // store: true
             },
             {
                 type: 'input',
@@ -92,7 +94,7 @@ module.exports = class extends BaseGenerator {
             saveConfig() {
                 this.config.set('appsName', this.props.appsName);
                 this.config.set('packageName', this.props.packageName);
-                this.config.set('directoryPath', this.props.directoryPath);
+                this.config.set('directoryPath', `${this.props.directoryPath}`);
                 this.config.set('packageFolder', `${this.props.appsName}`);
             }
         };
@@ -115,7 +117,7 @@ module.exports = class extends BaseGenerator {
         this.message = this.props.message;
         this.baseName = this.props.appsName;
         this.packageName = this.props.packageName;
-        this.packageFolder = `${this.props.appsName}`;
+        this.packageFolder = this.destinationRoot(); // `${this.props.appsName}`;
         this.buildTool = this.props.buildTool;
 
         // variable from questions
