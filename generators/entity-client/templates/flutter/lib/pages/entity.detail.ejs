@@ -38,35 +38,6 @@
       
       dartFields[fieldName] = varValue;
   });
-
-  relationships.forEach(relationship => {
-    let fieldType;
-    let fieldName;
-    const relationshipType = relationship.relationshipType;
-    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
-        if (relationship.otherentityClass === 'User') {
-            fieldType = 'User[]';
-            hasUserRelationship = true;
-        } else {
-            fieldType = 'BaseEntity[]';
-        }
-        fieldName = relationship.relationshipFieldNamePlural;
-    } else {
-        if (dto === 'no') {
-            if (relationship.otherentityClass === 'User') {
-                fieldType = 'User';
-                hasUserRelationship = true;
-            } else {
-                fieldType = 'BaseEntity';
-            }
-            fieldName = relationship.relationshipFieldName;
-        } else {
-            fieldType = dartKeyType;
-            fieldName = `${relationship.relationshipFieldName}Id`;
-        }
-    }
-    
-  });
 _%>
 import 'package:flutter/material.dart';
 import '../../models/<%= entityInstance %>.dart';

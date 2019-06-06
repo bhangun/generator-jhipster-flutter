@@ -38,42 +38,13 @@
       
       dartFields[fieldName] = varValue;
   });
-
-  relationships.forEach(relationship => {
-    let fieldType;
-    let fieldName;
-    const relationshipType = relationship.relationshipType;
-    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
-        if (relationship.otherentityClass === 'User') {
-            fieldType = 'User[]';
-            hasUserRelationship = true;
-        } else {
-            fieldType = 'BaseEntity[]';
-        }
-        fieldName = relationship.relationshipFieldNamePlural;
-    } else {
-        if (dto === 'no') {
-            if (relationship.otherentityClass === 'User') {
-                fieldType = 'User';
-                hasUserRelationship = true;
-            } else {
-                fieldType = 'BaseEntity';
-            }
-            fieldName = relationship.relationshipFieldName;
-        } else {
-            fieldType = dartKeyType;
-            fieldName = `${relationship.relationshipFieldName}Id`;
-        }
-    }
-    
-  });
 _%>
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import '../../models/<%= entityClass.toLowerCase() %>.dart';
-import '<%= entityClass.toLowerCase() %>.detail.dart';
-import '../../services/entity_services/<%= entityClass.toLowerCase() %>.service.dart';
-import '<%= entityClass.toLowerCase() %>.form.dart';
+import '../../models/<%= entityInstance %>.dart';
+import '<%= entityInstance %>.detail.dart';
+import '../../services/entity_services/<%= entityInstance %>.service.dart';
+import '<%= entityInstance %>.form.dart';
 
 class <%= entityClass %>ListPage extends StatefulWidget {
 
@@ -92,7 +63,7 @@ class _<%= entityClass %>ListPageState extends State<<%= entityClass %>ListPage>
           elevation: 5.0, // Removing the drop shadow cast by the app bar.
         ),
         body: FutureBuilder(
-            future: <%= entityClass.toLowerCase() %>s(),
+            future: <%= entityInstance %>s(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               return snapshot.hasData
                   ? <%= entityClass %>List(data: snapshot.data)
@@ -137,9 +108,9 @@ class <%= entityClass %>List extends StatelessWidget {
     return ListView.builder(
       itemCount: _items.length,
       itemBuilder: (context, index) {
-        final <%= entityClass.toLowerCase() %> = _items[index];
+        final <%= entityInstance %> = _items[index];
         return item(<%for (idx in dartFields) { %> 
-        <%= entityClass.toLowerCase() %>.<%= dartFields[idx]['name'] %>, <%}%>
+        <%= entityInstance %>.<%= dartFields[idx]['name'] %>, <%}%>
            context);
       },
     );

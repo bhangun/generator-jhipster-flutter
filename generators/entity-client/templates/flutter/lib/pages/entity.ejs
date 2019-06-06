@@ -76,15 +76,41 @@ relationships.forEach(rela => {
     || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
         
         const varValue = {};
-
         varValue['type'] = capitalize(rela.otherEntityName);
         varValue['name'] = rela.otherEntityName+'s';
         varValue['desc'] = 'relationship';
-        // varValue['i']=i;
         
         dartFields[rela.otherEntityName] = varValue;
     }
 });
+
+ /* relationships.forEach(relationship => {
+    let fieldType;
+    let fieldName;
+    const relationshipType = relationship.relationshipType;
+    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
+        if (relationship.otherentityClass === 'User') {
+            fieldType = 'User[]';
+            hasUserRelationship = true;
+        } else {
+            fieldType = 'BaseEntity[]';
+        }
+        fieldName = relationship.relationshipFieldNamePlural;
+    } else {
+        if (dto === 'no') {
+            if (relationship.otherentityClass === 'User') {
+                fieldType = 'User';
+                hasUserRelationship = true;
+            } else {
+                fieldType = 'BaseEntity';
+            }
+            fieldName = relationship.relationshipFieldName;
+        } else {
+            fieldType = dartKeyType;
+            fieldName = `${relationship.relationshipFieldName}Id`;
+        }
+    }
+  }); */
 _%>
 
 import 'dart:convert';<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
