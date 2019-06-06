@@ -100,7 +100,7 @@ _%>
 
 import 'package:flutter/material.dart';
 import '../../services/entity_services/<%= entityInstance %>.service.dart';
-import '../../models/<%= entityInstance %>.dart'; <% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+import '../../models/<%= entityInstance %>.dart'; <% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many' && rela.ownerSide == true){%>
 import '../../models/<%= rela.otherEntityName %>.dart';
 import '../../services/entity_services/<%= rela.otherEntityName %>.service.dart';<%}});%>
 
@@ -116,7 +116,7 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
   final _id = TextEditingController(); <%} else if (dartFields[idx]['type'] == 'enum' ) {%>
   var _<%= dartFields[idx]['name'] %> = ''; <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
-<% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+<% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many' && rela.ownerSide == true){%>
   var _<%= rela.otherEntityName %>;<%}});%>
   
   @override
@@ -176,7 +176,7 @@ class _<%= entityClass %>FormPageState extends State<<%= entityClass %>FormPage>
                     child: Text(value),
                   );
               }).toList(),
-      ),<%}}%><% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many'){%>
+      ),<%}}%><% relationships.forEach(rela => { if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'many-to-many' && rela.ownerSide == true){%>
       FutureBuilder(
             future: <%= rela.otherEntityName %>s(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
