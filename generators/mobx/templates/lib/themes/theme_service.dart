@@ -54,7 +54,7 @@ class ThemeService{
       fontSize: 16.0,
     ),
   ).apply(
-    fontFamily: 'ProductSans',
+    // fontFamily: 'ProductSans',
     displayColor: MatThemeColors.blue,
     bodyColor: MatThemeColors.black,
   );
@@ -99,7 +99,7 @@ ThemeData buildTheme() {
       fontSize: 16.0,
     ),
   ).apply(
-    fontFamily: 'ProductSans',
+    // fontFamily: 'ProductSans',
     displayColor: MatThemeColors.amber[900],
     bodyColor: MatThemeColors.amber[100],
   );

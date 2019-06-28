@@ -51,7 +51,9 @@ function writeFiles() {
             this.template(`${flutterDir}assets/fonts/Product-Sans-Regular.ttf`, `${this.packageFolder}/assets/fonts/Product-Sans-Regular.ttf`);
             this.template(`${flutterDir}assets/icons/ic_appicon.png`, `${this.packageFolder}/assets/icons/ic_appicon.png`);
             this.template(`${flutterDir}assets/icons/ic_launcher.png`, `${this.packageFolder}/assets/icons/ic_launcher.png`);
+            this.template(`${flutterDir}assets/icons/ic_launcher.png`, `${this.packageFolder}/assets/images/ic_launcher.png`);
             // this.template(`${flutterDir}assets/images/img_login.jpg`, `${this.packageFolder}/assets/images/img_login.jpg`);
+            
             // add source to lib folder
             this.template(`${flutterDir}lib/constants/db_constants.dart`, `${this.packageFolder}/lib/constants/db_constants.dart`);
             this.template(`${flutterDir}lib/constants/dimens.dart`, `${this.packageFolder}/lib/constants/dimens.dart`);
@@ -59,7 +61,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/constants/strings.dart`, `${this.packageFolder}/lib/constants/strings.dart`);
             
             // Model
-            this.template(`${flutterDir}lib/models/app_data.dart`, `${this.packageFolder}/lib/models/app_data.dart.dart`);
+            this.template(`${flutterDir}lib/models/app_data.dart`, `${this.packageFolder}/lib/models/app_data.dart`);
             
             // Modules
             this.template(`${flutterDir}lib/modules/account/helper/account_helper.dart`, `${this.packageFolder}/lib/modules/account/helper/account_helper.dart`);
@@ -117,6 +119,11 @@ function writeFiles() {
             this.template(`${flutterDir}lib/themes/simple_theme.dart`, `${this.packageFolder}/lib/themes/simple_theme.dart`);
             this.template(`${flutterDir}lib/themes/theme_service.dart`, `${this.packageFolder}/lib/themes/theme_service.dart`);
 
+            // Views
+            this.template(`${flutterDir}lib/views/home.dart`, `${this.packageFolder}/lib/views/home.dart`);
+            this.template(`${flutterDir}lib/views/login.dart`, `${this.packageFolder}/lib/views/login.dart`);
+            this.template(`${flutterDir}lib/views/splash.dart`, `${this.packageFolder}/lib/views/splash.dart`);
+
             // Widgets
             this.template(`${flutterDir}lib/widgets/alert_widget.dart`, `${this.packageFolder}/lib/widgets/alert_widget.dart`);
             this.template(`${flutterDir}lib/widgets/app_icon_widget.dart`, `${this.packageFolder}/lib/widgets/app_icon_widget.dart`);
@@ -135,7 +142,7 @@ function writeFiles() {
             this.template(`${flutterDir}res/values/strings_en.arb`, `${this.packageFolder}/res/values/strings_en.arb`);
 
             // test
-            // this.template(`${flutterDir}test/widget_test.dart`, `${this.packageFolder}/test/widget_test.dart`);
+            this.template(`${flutterDir}test/widget_test.dart`, `${this.packageFolder}/test/widget_test.dart`);
         }
     };
 }

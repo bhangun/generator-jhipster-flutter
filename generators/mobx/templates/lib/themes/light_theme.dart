@@ -46,7 +46,7 @@ static TextTheme _buildTextTheme(TextTheme base) {
       fontSize: 16.0,
     ),
   ).apply(
-    fontFamily: 'ProductSans',
+    // fontFamily: 'ProductSans',
     displayColor: MatThemeColors.blue,
     bodyColor: MatThemeColors.black,
   );

@@ -18,6 +18,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'constants/strings.dart';
 import 'stores/app/app_store.dart';
+import 'views/login.dart';
 import 'views/splash.dart';
 import 'services/locator.dart';
 import 'services/routes.dart';
@@ -50,7 +51,8 @@ class KutilangApp extends StatelessWidget {
                 title: Strings.appName,
                 theme: _appStore.theme,
                 routes: Routes.routes,
-                home: SplashScreen(),
+                //home: SplashScreen(),
+                home: LoginScreen(),
                 navigatorKey: NavigationService.navigatorKey,
         );
         }
