@@ -23,7 +23,7 @@ module.exports = class extends BaseGenerator {
                 this.baseName = this.config.get('baseName');
                 this.appsName = this.config.get('appsName');
                 this.packageName = this.config.get('packageName');
-                this.packageFolder = this.destinationRoot(); // this.config.get('packageFolder');
+                this.packageFolder = `${this.destinationRoot()}/${this.appsName}`; // this.config.get('packageFolder');
                 this.log(`>>>>>>>index 0 >>>>>>>> ${this.packageFolder}`);
             },
         };
@@ -57,7 +57,10 @@ module.exports = class extends BaseGenerator {
     }
 
     install() {
-        this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, `../${this.appsName}`]);
+        this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, `${this.appsName}`]);
+        // this.spawnCommand('pub', ['get']);
+        // this.spawnCommand('flutter', ['packages', 'pub', 'run', 'build_runner', 'clean']);
+        // flutter packages pub run build_runner clean
     }
 
     end() {

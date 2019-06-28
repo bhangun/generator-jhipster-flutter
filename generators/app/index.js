@@ -79,6 +79,23 @@ module.exports = class extends BaseGenerator {
                 // default: this.jhipsterAppConfig.packageName,
                 store: true
             },
+            {
+                // when: response => applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa',
+                type: 'list',
+                name: 'stateManageType',
+                message: 'Which State-Management style do you want to use?',
+                choices: [
+                    {
+                        value: 'basic',
+                        name: 'Basic state-management'
+                    },
+                    {
+                        value: 'mobx',
+                        name: 'MobX state-management'
+                    }
+                ],
+                default: 'basic'
+            },
         ];
 
         const done = this.async();
@@ -127,7 +144,12 @@ module.exports = class extends BaseGenerator {
         this.log(`packageName=${this.packageName}`);
         this.log(`packageFolder=${this.packageFolder}`);
 
-        this.composeWith(require.resolve('../flutter'));
+        if (this.props.stateManageType === 'mobx') {
+            this.composeWith(require.resolve('../mobx'));
+        } else {
+            this.composeWith(require.resolve('../basic'));
+        }
+
 
         try {
             this.registerModule('generator-jhipster-kutilang', 'entity', 'post', 'entity', 'Generate Mobile Apps for Android & iOS using Flutter & Dart Language and JHipster as a backend');
