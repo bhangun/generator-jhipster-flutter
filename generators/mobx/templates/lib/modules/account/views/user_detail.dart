@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:jh_flutter_mobx/widgets/appbar_widget.dart';
-import '../stores/user/user_store.dart';
+import '../bloc/user/index.dart';
 
 class UserDetail extends StatefulWidget {
   @override

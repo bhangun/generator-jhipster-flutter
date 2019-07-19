@@ -1,0 +1,714 @@
+{
+  "version": "3.1.3",
+  "gauges": {
+    "HikariPool-1.pool.ActiveConnections": {
+      "value": 0
+    },
+    "HikariPool-1.pool.IdleConnections": {
+      "value": 10
+    },
+    "HikariPool-1.pool.MaxConnections": {
+      "value": 10
+    },
+    "HikariPool-1.pool.MinConnections": {
+      "value": 10
+    },
+    "HikariPool-1.pool.PendingConnections": {
+      "value": 0
+    },
+    "HikariPool-1.pool.TotalConnections": {
+      "value": 10
+    },
+    "jvm.attributes.name": {
+      "value": "10682@bhanguns-MacBook-Pro.local"
+    },
+    "jvm.attributes.uptime": {
+      "value": 785769
+    },
+    "jvm.attributes.vendor": {
+      "value": "Oracle Corporation Java HotSpot(TM) 64-Bit Server VM 25.171-b11 (1.8)"
+    },
+    "jvm.buffers.direct.capacity": {
+      "value": 701970
+    },
+    "jvm.buffers.direct.count": {
+      "value": 77
+    },
+    "jvm.buffers.direct.used": {
+      "value": 701970
+    },
+    "jvm.buffers.mapped.capacity": {
+      "value": 0
+    },
+    "jvm.buffers.mapped.count": {
+      "value": 0
+    },
+    "jvm.buffers.mapped.used": {
+      "value": 0
+    },
+    "jvm.files": {
+      "value": 0.019140625
+    },
+    "jvm.garbage.PS-MarkSweep.count": {
+      "value": 3
+    },
+    "jvm.garbage.PS-MarkSweep.time": {
+      "value": 309
+    },
+    "jvm.garbage.PS-Scavenge.count": {
+      "value": 12
+    },
+    "jvm.garbage.PS-Scavenge.time": {
+      "value": 328
+    },
+    "jvm.memory.heap.committed": {
+      "value": 788004864
+    },
+    "jvm.memory.heap.init": {
+      "value": 134217728
+    },
+    "jvm.memory.heap.max": {
+      "value": 1908932608
+    },
+    "jvm.memory.heap.usage": {
+      "value": 0.29538483948407673
+    },
+    "jvm.memory.heap.used": {
+      "value": 563869752
+    },
+    "jvm.memory.non-heap.committed": {
+      "value": 130547712
+    },
+    "jvm.memory.non-heap.init": {
+      "value": 2555904
+    },
+    "jvm.memory.non-heap.max": {
+      "value": -1
+    },
+    "jvm.memory.non-heap.usage": {
+      "value": -125451472
+    },
+    "jvm.memory.non-heap.used": {
+      "value": 125451472
+    },
+    "jvm.memory.pools.Code-Cache.committed": {
+      "value": 23855104
+    },
+    "jvm.memory.pools.Code-Cache.init": {
+      "value": 2555904
+    },
+    "jvm.memory.pools.Code-Cache.max": {
+      "value": 251658240
+    },
+    "jvm.memory.pools.Code-Cache.usage": {
+      "value": 0.0938128153483073
+    },
+    "jvm.memory.pools.Code-Cache.used": {
+      "value": 23608768
+    },
+    "jvm.memory.pools.Compressed-Class-Space.committed": {
+      "value": 12845056
+    },
+    "jvm.memory.pools.Compressed-Class-Space.init": {
+      "value": 0
+    },
+    "jvm.memory.pools.Compressed-Class-Space.max": {
+      "value": 1073741824
+    },
+    "jvm.memory.pools.Compressed-Class-Space.usage": {
+      "value": 0.011252544820308685
+    },
+    "jvm.memory.pools.Compressed-Class-Space.used": {
+      "value": 12082328
+    },
+    "jvm.memory.pools.Metaspace.committed": {
+      "value": 93847552
+    },
+    "jvm.memory.pools.Metaspace.init": {
+      "value": 0
+    },
+    "jvm.memory.pools.Metaspace.max": {
+      "value": -1
+    },
+    "jvm.memory.pools.Metaspace.usage": {
+      "value": 0.9564659928476344
+    },
+    "jvm.memory.pools.Metaspace.used": {
+      "value": 89761992
+    },
+    "jvm.memory.pools.PS-Eden-Space.committed": {
+      "value": 661127168
+    },
+    "jvm.memory.pools.PS-Eden-Space.init": {
+      "value": 34078720
+    },
+    "jvm.memory.pools.PS-Eden-Space.max": {
+      "value": 661127168
+    },
+    "jvm.memory.pools.PS-Eden-Space.usage": {
+      "value": 0.7672384626613923
+    },
+    "jvm.memory.pools.PS-Eden-Space.used": {
+      "value": 507242192
+    },
+    "jvm.memory.pools.PS-Eden-Space.used-after-gc": {
+      "value": 0
+    },
+    "jvm.memory.pools.PS-Old-Gen.committed": {
+      "value": 99614720
+    },
+    "jvm.memory.pools.PS-Old-Gen.init": {
+      "value": 89653248
+    },
+    "jvm.memory.pools.PS-Old-Gen.max": {
+      "value": 1431830528
+    },
+    "jvm.memory.pools.PS-Old-Gen.usage": {
+      "value": 0.02808571490382415
+    },
+    "jvm.memory.pools.PS-Old-Gen.used": {
+      "value": 40213984
+    },
+    "jvm.memory.pools.PS-Old-Gen.used-after-gc": {
+      "value": 29133304
+    },
+    "jvm.memory.pools.PS-Survivor-Space.committed": {
+      "value": 27262976
+    },
+    "jvm.memory.pools.PS-Survivor-Space.init": {
+      "value": 5242880
+    },
+    "jvm.memory.pools.PS-Survivor-Space.max": {
+      "value": 27262976
+    },
+    "jvm.memory.pools.PS-Survivor-Space.usage": {
+      "value": 0.602046379676232
+    },
+    "jvm.memory.pools.PS-Survivor-Space.used": {
+      "value": 16413576
+    },
+    "jvm.memory.pools.PS-Survivor-Space.used-after-gc": {
+      "value": 16413576
+    },
+    "jvm.memory.total.committed": {
+      "value": 918552576
+    },
+    "jvm.memory.total.init": {
+      "value": 136773632
+    },
+    "jvm.memory.total.max": {
+      "value": 1908932607
+    },
+    "jvm.memory.total.used": {
+      "value": 689322840
+    },
+    "jvm.threads.blocked.count": {
+      "value": 0
+    },
+    "jvm.threads.count": {
+      "value": 36
+    },
+    "jvm.threads.daemon.count": {
+      "value": 10
+    },
+    "jvm.threads.deadlock.count": {
+      "value": 0
+    },
+    "jvm.threads.deadlocks": {
+      "value": []
+    },
+    "jvm.threads.new.count": {
+      "value": 0
+    },
+    "jvm.threads.runnable.count": {
+      "value": 11
+    },
+    "jvm.threads.terminated.count": {
+      "value": 0
+    },
+    "jvm.threads.timed_waiting.count": {
+      "value": 5
+    },
+    "jvm.threads.waiting.count": {
+      "value": 20
+    }
+  },
+  "counters": {
+    "com.codahale.metrics.servlet.InstrumentedFilter.activeRequests": {
+      "count": 1
+    }
+  },
+  "histograms": {
+    "HikariPool-1.pool.ConnectionCreation": {
+      "count": 9,
+      "max": 2,
+      "mean": 0.6666666666666666,
+      "min": 0,
+      "p50": 1,
+      "p75": 1,
+      "p95": 2,
+      "p98": 2,
+      "p99": 2,
+      "p999": 2,
+      "stddev": 0.6666666666666667
+    },
+    "HikariPool-1.pool.Usage": {
+      "count": 13,
+      "max": 2251,
+      "mean": 58.53107256750463,
+      "min": 1,
+      "p50": 61,
+      "p75": 61,
+      "p95": 61,
+      "p98": 61,
+      "p99": 61,
+      "p999": 61,
+      "stddev": 15.829249317546768
+    }
+  },
+  "meters": {
+    "HikariPool-1.pool.ConnectionTimeoutRate": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.errors": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.badRequest": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.created": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.noContent": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.notFound": {
+      "count": 5,
+      "m15_rate": 0.004059684957536891,
+      "m1_rate": 0.00897113696115093,
+      "m5_rate": 0.007345685500666486,
+      "mean_rate": 0.006866142946911548,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.ok": {
+      "count": 11,
+      "m15_rate": 0.008217569082991056,
+      "m1_rate": 0.023208781374505612,
+      "m5_rate": 0.013427157842530511,
+      "mean_rate": 0.015105504703211406,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.other": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.responseCodes.serverError": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.timeouts": {
+      "count": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "units": "events/second"
+    }
+  },
+  "timers": {
+    "HikariPool-1.pool.Wait": {
+      "count": 13,
+      "max": 0.002,
+      "mean": 0.0019476757085734866,
+      "min": 0,
+      "p50": 0.002,
+      "p75": 0.002,
+      "p95": 0.002,
+      "p98": 0.002,
+      "p99": 0.002,
+      "p999": 0.002,
+      "stddev": 0.000319020524159383,
+      "m15_rate": 0.26764252613713313,
+      "m1_rate": 0.009186687245262226,
+      "m5_rate": 0.05862936924057813,
+      "mean_rate": 0.017194815291861627,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.codahale.metrics.servlet.InstrumentedFilter.requests": {
+      "count": 16,
+      "max": 5.107326774000001,
+      "mean": 0.07567346051556122,
+      "min": 0.005104341,
+      "p50": 0.056083314,
+      "p75": 0.12567424800000002,
+      "p95": 0.12567424800000002,
+      "p98": 0.12567424800000002,
+      "p99": 0.12567424800000002,
+      "p999": 5.107326774000001,
+      "stddev": 0.19571835269023963,
+      "m15_rate": 0.01227725404052795,
+      "m1_rate": 0.032179918335656546,
+      "m5_rate": 0.020772843343197,
+      "mean_rate": 0.021971656738361052,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.activateAccount": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.changePassword": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.finishPasswordReset": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.getAccount": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.isAuthenticated": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.registerAccount": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.requestPasswordReset": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.AccountResource.saveAccount": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.LogsResource.changeLevel": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.LogsResource.getList": {
+      "count": 3,
+      "max": 0.10869007200000001,
+      "mean": 0.04537768935656475,
+      "min": 0.044003542,
+      "p50": 0.044003542,
+      "p75": 0.044003542,
+      "p95": 0.068596736,
+      "p98": 0.068596736,
+      "p99": 0.068596736,
+      "p999": 0.068596736,
+      "stddev": 0.0057539974912194135,
+      "m15_rate": 0.0026047930540141584,
+      "m1_rate": 0.014109409554128689,
+      "m5_rate": 0.005478643369629162,
+      "mean_rate": 0.004002371685058553,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserJWTController.authorize": {
+      "count": 1,
+      "max": 1.35212108,
+      "mean": 1.35212108,
+      "min": 1.35212108,
+      "p50": 1.35212108,
+      "p75": 1.35212108,
+      "p95": 1.35212108,
+      "p98": 1.35212108,
+      "p99": 1.35212108,
+      "p999": 1.35212108,
+      "stddev": 0,
+      "m15_rate": 0.0005062375216562655,
+      "m1_rate": 1.261591169476424e-7,
+      "m5_rate": 0.0003152627203346729,
+      "mean_rate": 0.0013341798453466145,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserResource.createUser": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserResource.deleteUser": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserResource.getAllUsers": {
+      "count": 1,
+      "max": 0.176042321,
+      "mean": 0.176042321,
+      "min": 0.176042321,
+      "p50": 0.176042321,
+      "p75": 0.176042321,
+      "p95": 0.176042321,
+      "p98": 0.176042321,
+      "p99": 0.176042321,
+      "p999": 0.176042321,
+      "stddev": 0,
+      "m15_rate": 0.0005502316123077863,
+      "m1_rate": 4.403385853578081e-7,
+      "m5_rate": 0.00040480534584383924,
+      "mean_rate": 0.0013343141426825581,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserResource.getAuthorities": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserResource.getUser": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    },
+    "com.mycompany.myapp.web.rest.UserResource.updateUser": {
+      "count": 0,
+      "max": 0,
+      "mean": 0,
+      "min": 0,
+      "p50": 0,
+      "p75": 0,
+      "p95": 0,
+      "p98": 0,
+      "p99": 0,
+      "p999": 0,
+      "stddev": 0,
+      "m15_rate": 0,
+      "m1_rate": 0,
+      "m5_rate": 0,
+      "mean_rate": 0,
+      "duration_units": "seconds",
+      "rate_units": "calls/second"
+    }
+  }
+}

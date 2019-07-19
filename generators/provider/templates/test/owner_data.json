@@ -1,0 +1,25 @@
+    {
+      "id": 1,
+      "name": "bhangun",
+      "cars": [
+        {
+          "idc": 0,
+          "name": "mobil",
+          "owner": {
+            "cars": [
+              {}
+            ],
+            "id": 3,
+            "name": "someone"
+          },
+          "wheels": [
+            {
+              "brand": "string",
+              "car": {},
+              "id": 0,
+              "position": "string"
+            }
+          ]
+        }
+      ]
+    }

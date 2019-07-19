@@ -1,0 +1,27 @@
+[
+    {
+      "cars": [
+        {
+          "id": 0,
+          "name": "string",
+          "owner": {
+            "cars": [
+              {}
+            ],
+            "id": 0,
+            "name": "string"
+          },
+          "wheels": [
+            {
+              "brand": "string",
+              "car": {},
+              "id": 0,
+              "position": "string"
+            }
+          ]
+        }
+      ],
+      "id": 0,
+      "name": "string"
+    }
+  ]

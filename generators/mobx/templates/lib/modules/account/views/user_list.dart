@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:jh_flutter_mobx/widgets/alert_widget.dart';
 import 'package:jh_flutter_mobx/widgets/appbar_widget.dart';
-import '../stores/user/user_store.dart';
+import '../bloc/user/index.dart';
 import '../../../widgets/global_methods.dart';
 import '../../../widgets/progress_indicator_widget.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';

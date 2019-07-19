@@ -17,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'constants/strings.dart';
-import 'stores/app/app_store.dart';
+import 'bloc/app/app_store.dart';
 import 'views/login.dart';
 import 'views/splash.dart';
 import 'services/locator.dart';

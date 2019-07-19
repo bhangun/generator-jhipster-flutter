@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../modules/account/stores/authentication/authentication_store.dart';
-import '../stores/app/app_store.dart';
+import '../modules/account/bloc/authentication/index.dart';
+import '../bloc/app/app_store.dart';
 import '../constants/strings.dart';
 import '../widgets/app_icon_widget.dart';
 import '../widgets/empty_app_bar_widget.dart';

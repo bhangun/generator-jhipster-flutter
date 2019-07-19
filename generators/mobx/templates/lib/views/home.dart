@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import '../stores/app/app_store.dart';
+import '../bloc/app/app_store.dart';
 import '../widgets/rounded_button_widget.dart';
-import '../modules/account/stores/authentication/authentication_store.dart';
-import '../modules/account/stores/user/user_store.dart';
+import '../modules/account/bloc/authentication/index.dart';
+import '../modules/account/bloc/user/index.dart';
 import '../widgets/appbar_widget.dart';
 import '../widgets/drawer_widget.dart';
 import '../widgets/global_methods.dart';
