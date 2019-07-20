@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_provider/modules/account/bloc/user/index.dart';
-import 'package:jh_flutter_provider/modules/account/helper/user_services.dart';
+import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
+import 'package:jh_flutter_provider/modules/account/services/user_services.dart';
 import 'package:jh_flutter_provider/services/locator.dart';
 import 'package:jh_flutter_provider/services/navigation.dart';
 import 'package:jh_flutter_provider/services/network/rest_http_services.dart';

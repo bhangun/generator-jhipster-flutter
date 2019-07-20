@@ -14,13 +14,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jh_flutter_provider/utils/strings.dart';
 import 'package:provider/provider.dart';
 
-import 'bloc/app/index.dart';
+import 'bloc/app/app_bloc.dart';
+import 'modules/account/bloc/user/user_bloc.dart';
+import 'utils/strings.dart';
 import 'bloc/authentication/authentication_bloc.dart';
 import 'generated/i18n.dart';
-import 'modules/account/bloc/user/index.dart';
 import 'views/splash.dart';
 import 'services/locator.dart';
 import 'services/routes.dart';

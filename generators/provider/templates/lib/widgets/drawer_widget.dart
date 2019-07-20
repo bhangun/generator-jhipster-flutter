@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_provider/bloc/app/app_bloc.dart';
-import 'package:jh_flutter_provider/modules/account/bloc/user/index.dart';
 import 'package:provider/provider.dart';
+
+import 'package:jh_flutter_provider/bloc/app/app_bloc.dart';
+import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
 
 class CommonDrawer extends StatefulWidget {
 @override
@@ -54,10 +55,12 @@ class _CommonDrawerState extends State<CommonDrawer> {
 
   Widget _switchTheme() =>  Row(
     mainAxisSize:  MainAxisSize.max,
-      children: <Widget>[Text('Theme'),
+      children: <Widget>[Text('Light'),
         Switch(
     value: _appBloc.isLightTheme,
-    onChanged: (bool value)=>_appBloc.switchTheme(value))]);
+    onChanged: (bool value)=>_appBloc.switchTheme(value)),
+        Text('Dark')
+      ]);
 
 
   _listMenu(BuildContext context) {

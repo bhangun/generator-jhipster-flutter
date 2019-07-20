@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import '../../../widgets/appbar_widget.dart';
-import '../bloc/user/index.dart';
-import '../../../widgets/progress_indicator_widget.dart';
+
+import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
+import 'package:jh_flutter_provider/widgets/appbar_widget.dart';
+import 'package:jh_flutter_provider/widgets/progress_indicator_widget.dart';
 
 class UserList extends StatefulWidget {
 

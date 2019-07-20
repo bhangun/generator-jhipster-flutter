@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jh_flutter_provider/services/locator.dart';
-import 'package:jh_flutter_provider/themes/index.dart';
 import 'package:jh_flutter_provider/themes/theme_services.dart';
 
 

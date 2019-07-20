@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_provider/widgets/appbar_widget.dart';
 import 'package:provider/provider.dart';
-import '../bloc/user/index.dart';
+
+import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
+import 'package:jh_flutter_provider/widgets/appbar_widget.dart';
+
+
 
 class UserDetail extends StatefulWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_provider/modules/account/helper/user_services.dart';
+import 'package:jh_flutter_provider/modules/account/services/user_services.dart';
 import 'package:jh_flutter_provider/modules/account/models/user_model.dart';
 import 'package:jh_flutter_provider/services/locator.dart';
 import 'package:jh_flutter_provider/services/navigation.dart';

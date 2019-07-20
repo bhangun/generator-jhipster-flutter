@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:jh_flutter_provider/modules/account/helper/user_services.dart';
+import 'package:jh_flutter_provider/modules/account/services/user_services.dart';
 import 'package:jh_flutter_provider/services/shared_preference_services.dart';
 import 'package:jh_flutter_provider/themes/theme_services.dart';
 import 'navigation.dart';

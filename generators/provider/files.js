@@ -39,6 +39,7 @@ function writeFiles() {
         },
 
         writeGlobalFiles() {
+            this.template(`gitignore`, `${this.packageFolder}/.gitignore`);
             this.template('pubspec.yaml', `${this.packageFolder}/pubspec.yaml`);
             this.template('README.md', `${this.packageFolder}/README.md`);
         },
@@ -52,27 +53,29 @@ function writeFiles() {
             this.template(`${flutterDir}assets/icons/ic_appicon.png`, `${this.packageFolder}/assets/icons/ic_appicon.png`);
             this.template(`${flutterDir}assets/icons/ic_launcher.png`, `${this.packageFolder}/assets/icons/ic_launcher.png`);
             this.template(`${flutterDir}assets/icons/ic_launcher.png`, `${this.packageFolder}/assets/images/ic_launcher.png`);
-            // this.template(`${flutterDir}assets/images/img_login.jpg`, `${this.packageFolder}/assets/images/img_login.jpg`);
-            
-            // add source to lib folder
-            this.template(`${flutterDir}lib/constants/db_constants.dart`, `${this.packageFolder}/lib/constants/db_constants.dart`);
-            this.template(`${flutterDir}lib/constants/dimens.dart`, `${this.packageFolder}/lib/constants/dimens.dart`);
-            this.template(`${flutterDir}lib/constants/endpoints.dart`, `${this.packageFolder}/lib/constants/endpoints.dart`);
-            this.template(`${flutterDir}lib/constants/strings.dart`, `${this.packageFolder}/lib/constants/strings.dart`);
+            this.template(`${flutterDir}assets/icons/logo_jh.svg`, `${this.packageFolder}/assets/icons/logo_jh.svg`);
+            this.template(`${flutterDir}assets/icons/logo-jhipster.svg`, `${this.packageFolder}/assets/icons/logo-jhipster.svg`);
+
+            // Bloc
+            this.template(`${flutterDir}lib/bloc/alert/alert_bloc.dart`, `${this.packageFolder}/lib/bloc/alert/alert_bloc.dart`);
+            this.template(`${flutterDir}lib/bloc/app/app_bloc.dart`, `${this.packageFolder}/lib/bloc/app/app_bloc.dart`);
+            this.template(`${flutterDir}lib/bloc/authentication/authentication_bloc.dart`, `${this.packageFolder}/lib/bloc/authentication/authentication_bloc.dart`);
+            this.template(`${flutterDir}lib/bloc/home/home_bloc.dart`, `${this.packageFolder}/lib/bloc/home/home_bloc.dart`);
             
             // Model
             this.template(`${flutterDir}lib/models/app_data.dart`, `${this.packageFolder}/lib/models/app_data.dart`);
             
+            // Model
+            this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);
+            
             // Modules
-            this.template(`${flutterDir}lib/modules/account/helper/account_helper.dart`, `${this.packageFolder}/lib/modules/account/helper/account_helper.dart`);
+            this.template(`${flutterDir}lib/modules/account/bloc/user/user_bloc.dart`, `${this.packageFolder}/lib/modules/account/bloc/user/user_store.dart`);
+            
             this.template(`${flutterDir}lib/modules/account/models/user_model.dart`, `${this.packageFolder}/lib/modules/account/models/user_model.dart`);
             this.template(`${flutterDir}lib/modules/account/models/user_profile.dart`, `${this.packageFolder}/lib/modules/account/models/user_profile.dart`);
             
-            this.template(`${flutterDir}lib/modules/account/bloc/authentication/authentication_store.dart`, `${this.packageFolder}/lib/modules/account/bloc/authentication/authentication_store.dart`);
-            this.template(`${flutterDir}lib/modules/account/bloc/authentication/authentication_store.g.dart`, `${this.packageFolder}/lib/modules/account/bloc/authentication/authentication_store.g.dart`);
-            this.template(`${flutterDir}lib/modules/account/bloc/user/user_store.dart`, `${this.packageFolder}/lib/modules/account/bloc/user/user_store.dart`);
-            this.template(`${flutterDir}lib/modules/account/bloc/user/user_store.g.dart`, `${this.packageFolder}/lib/modules/account/bloc/user/user_store.g.dart`);
-
+            this.template(`${flutterDir}lib/modules/account/services/user_services.dart`, `${this.packageFolder}/lib/modules/account/services/user_services.dart`);
+            
             this.template(`${flutterDir}lib/modules/account/views/user_detail.dart`, `${this.packageFolder}/lib/modules/account/views/user_detail.dart`);
             this.template(`${flutterDir}lib/modules/account/views/user_form.dart`, `${this.packageFolder}/lib/modules/account/views/user_form.dart`);
             this.template(`${flutterDir}lib/modules/account/views/user_list.dart`, `${this.packageFolder}/lib/modules/account/views/user_list.dart`);
@@ -80,44 +83,33 @@ function writeFiles() {
             this.template(`${flutterDir}lib/modules/administration/metrics_model.dart`, `${this.packageFolder}/lib/modules/administration/metrics_model.dart`);
 
             // Services
-            this.template(`${flutterDir}lib/services/dio/dio_error_util.dart`, `${this.packageFolder}/lib/services/dio/dio_error_util.dart`);
             this.template(`${flutterDir}lib/services/encryption/xxtea.dart`, `${this.packageFolder}/lib/services/encryption/xxtea.dart`);
+            
             this.template(`${flutterDir}lib/services/local/app_database.dart`, `${this.packageFolder}/lib/services/local/app_database.dart`);
             this.template(`${flutterDir}lib/services/local/app_datasource.dart`, `${this.packageFolder}/lib/services/local/app_datasource.dart`);
-            this.template(`${flutterDir}lib/services/network/connection.dart`, `${this.packageFolder}/lib/services/network/connection.dart`);
-            this.template(`${flutterDir}lib/services/network/dio_client.dart`, `${this.packageFolder}/lib/services/network/dio_client.dart`);
+           
             this.template(`${flutterDir}lib/services/network/network_exceptions.dart`, `${this.packageFolder}/lib/services/network/network_exceptions.dart`);
-            this.template(`${flutterDir}lib/services/network/rest_client.dart`, `${this.packageFolder}/lib/services/network/rest_client.dart`);
-
-            this.template(`${flutterDir}lib/services/sharedpref/preferences.dart`, `${this.packageFolder}/lib/services/sharedpref/preferences.dart`);
-            this.template(`${flutterDir}lib/services/sharedpref/shared_preference_helper.dart`, `${this.packageFolder}/lib/services/sharedpref/shared_preference_helper.dart`);
-
+            this.template(`${flutterDir}lib/services/network/rest_dio_services.dart`, `${this.packageFolder}/lib/services/network/rest_dio_services.dart`);
+            this.template(`${flutterDir}lib/services/network/rest_http_services.dart`, `${this.packageFolder}/lib/services/network/rest_http_services.dart`);
+            
             this.template(`${flutterDir}lib/services/config.dart`, `${this.packageFolder}/lib/services/config.dart`);
             this.template(`${flutterDir}lib/services/helper.dart`, `${this.packageFolder}/lib/services/helper.dart`);
             this.template(`${flutterDir}lib/services/locator.dart`, `${this.packageFolder}/lib/services/locator.dart`);
             this.template(`${flutterDir}lib/services/navigation.dart`, `${this.packageFolder}/lib/services/navigation.dart`);
             this.template(`${flutterDir}lib/services/routes.dart`, `${this.packageFolder}/lib/services/routes.dart`);
-
-            // Stores
-            this.template(`${flutterDir}lib/bloc/alert/alert_store.dart`, `${this.packageFolder}/lib/bloc/alert/alert_store.dart`);
-            this.template(`${flutterDir}lib/bloc/alert/alert_store.g.dart`, `${this.packageFolder}/lib/bloc/alert/alert_store.g.dart`);
+            this.template(`${flutterDir}lib/services/shared_preference_services.dart`, `${this.packageFolder}/lib/services/shared_preference_services.dart`);
             
-            this.template(`${flutterDir}lib/bloc/app/app_store.dart`, `${this.packageFolder}/lib/bloc/app/app_store.dart`);
-            this.template(`${flutterDir}lib/bloc/app/app_store.g.dart`, `${this.packageFolder}/lib/bloc/app/app_store.g.dart`);
-
-            this.template(`${flutterDir}lib/bloc/error/error_store.dart`, `${this.packageFolder}/lib/bloc/error/error_store.dart`);
-            this.template(`${flutterDir}lib/bloc/error/error_store.g.dart`, `${this.packageFolder}/lib/bloc/error/error_store.g.dart`);
-
-            this.template(`${flutterDir}lib/bloc/home/home_store.dart`, `${this.packageFolder}/lib/bloc/home/home_store.dart`);
-            this.template(`${flutterDir}lib/bloc/home/home_store.g.dart`, `${this.packageFolder}/lib/bloc/home/home_store.g.dart`);
-
             // Themes
-            this.template(`${flutterDir}lib/themes/dark_theme.dart`, `${this.packageFolder}/lib/themes/dark_theme.dart`);
-            this.template(`${flutterDir}lib/themes/index.dart`, `${this.packageFolder}/lib/themes/index.dart`);
-            this.template(`${flutterDir}lib/themes/light_theme.dart`, `${this.packageFolder}/lib/themes/light_theme.dart`);
             this.template(`${flutterDir}lib/themes/material_theme_colors.dart`, `${this.packageFolder}/lib/themes/material_theme_colors.dart`);
-            this.template(`${flutterDir}lib/themes/simple_theme.dart`, `${this.packageFolder}/lib/themes/simple_theme.dart`);
-            this.template(`${flutterDir}lib/themes/theme_service.dart`, `${this.packageFolder}/lib/themes/theme_service.dart`);
+            this.template(`${flutterDir}lib/themes/theme_services.dart`, `${this.packageFolder}/lib/themes/theme_services.dart`);
+
+            // Utils
+            this.template(`${flutterDir}lib/utils/db_constants.dart`, `${this.packageFolder}/lib/utils/db_constants.dart`);
+            this.template(`${flutterDir}lib/utils/dimens.dart`, `${this.packageFolder}/lib/utils/dimens.dart`);
+            this.template(`${flutterDir}lib/utils/dio_error_util.dart`, `${this.packageFolder}/lib/utils/dio_error_util.dart`);
+            this.template(`${flutterDir}lib/utils/endpoints.dart`, `${this.packageFolder}/lib/utils/endpoints.dart`);
+            this.template(`${flutterDir}lib/utils/preferences.dart`, `${this.packageFolder}/lib/utils/preferences.dart`);
+            this.template(`${flutterDir}lib/utils/strings.dart`, `${this.packageFolder}/lib/utils/strings.dart`);
 
             // Views
             this.template(`${flutterDir}lib/views/home.dart`, `${this.packageFolder}/lib/views/home.dart`);
@@ -128,6 +120,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/widgets/alert_widget.dart`, `${this.packageFolder}/lib/widgets/alert_widget.dart`);
             this.template(`${flutterDir}lib/widgets/app_icon_widget.dart`, `${this.packageFolder}/lib/widgets/app_icon_widget.dart`);
             this.template(`${flutterDir}lib/widgets/appbar_widget.dart`, `${this.packageFolder}/lib/widgets/appbar_widget.dart`);
+            this.template(`${flutterDir}lib/widgets/camera_display_widget.dart`, `${this.packageFolder}/lib/widgets/camera_display_widget.dart`);
             this.template(`${flutterDir}lib/widgets/drawer_widget.dart`, `${this.packageFolder}/lib/widgets/drawer_widget.dart`);
             this.template(`${flutterDir}lib/widgets/empty_app_bar_widget.dart`, `${this.packageFolder}/lib/widgets/empty_app_bar_widget.dart`);
             this.template(`${flutterDir}lib/widgets/error_message_widget.dart`, `${this.packageFolder}/lib/widgets/error_message_widget.dart`);
@@ -136,7 +129,6 @@ function writeFiles() {
             this.template(`${flutterDir}lib/widgets/rounded_button_widget.dart`, `${this.packageFolder}/lib/widgets/rounded_button_widget.dart`);
             this.template(`${flutterDir}lib/widgets/textfield_widget.dart`, `${this.packageFolder}/lib/widgets/textfield_widget.dart`);
 
-            this.template(`${flutterDir}lib/gitignore`, `${this.packageFolder}/lib/.gitignore`);
             this.template(`${flutterDir}lib/main.dart`, `${this.packageFolder}/lib/main.dart`);
 
             this.template(`${flutterDir}res/values/strings_en.arb`, `${this.packageFolder}/res/values/strings_en.arb`);

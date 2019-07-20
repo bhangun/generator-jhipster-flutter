@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
-import '../bloc/user/index.dart';
-import '../../../widgets/global_methods.dart';
-import '../../../widgets/progress_indicator_widget.dart';
+import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
+import 'package:jh_flutter_provider/widgets/global_methods.dart';
+import 'package:jh_flutter_provider/widgets/progress_indicator_widget.dart';
 import '../models/user_model.dart';
 
 

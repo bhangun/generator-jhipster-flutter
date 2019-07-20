@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_provider/bloc/authentication/index.dart';
 import 'package:provider/provider.dart';
-import '../bloc/app/index.dart';
-import '../modules/account/bloc/user/index.dart';
-import '../widgets/appbar_widget.dart';
-import '../widgets/drawer_widget.dart';
-import '../widgets/global_methods.dart';
-import '../widgets/progress_indicator_widget.dart';
+
+import 'package:jh_flutter_provider/bloc/app/app_bloc.dart';
+import 'package:jh_flutter_provider/bloc/authentication/authentication_bloc.dart';
+import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
+import 'package:jh_flutter_provider/widgets/appbar_widget.dart';
+import 'package:jh_flutter_provider/widgets/drawer_widget.dart';
+import 'package:jh_flutter_provider/widgets/global_methods.dart';
+import 'package:jh_flutter_provider/widgets/progress_indicator_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
