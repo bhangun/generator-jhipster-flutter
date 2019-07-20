@@ -1,0 +1,92 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = fieldType;
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+          dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+_%>
+import 'package:flutter/material.dart';
+import '../../models/<%= entityInstance %>.dart';
+import '<%= entityInstance %>.form.dart';
+import '../../services/entity_services/<%= entityInstance %>.service.dart';
+
+class <%= entityClass %>Detail extends StatelessWidget {
+  final int id;
+  <%= entityClass %> data;
+  <%= entityClass %>Detail({@required this.id});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("<%= entityClass %> Detail"),
+          elevation: 5.0, // Removing the drop shadow cast by the app bar.
+        ),
+        body: FutureBuilder(
+            future: <%= entityInstance %>(id.toString()),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return snapshot.hasData
+                  ? <%= entityInstance %>Detail(snapshot.data)
+                  : Center(child: CircularProgressIndicator());
+            }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => <%= entityClass %>FormPage(data: data)));
+          },
+          tooltip: 'Add',
+          child: Icon(Icons.edit),
+        ));
+  }
+
+  Widget <%= entityInstance %>Detail(<%= entityClass %> _data) {
+    data = _data;
+    return ListView(
+        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        children: <Widget>[
+          SizedBox(height: 100.0),
+          Icon(Icons.person, size: 100, color: Colors.blue[500]),
+         Column(
+              children: <Widget>[ 
+              Text(data.id.toString()),<%for (idx in dartFields) { %><%if(idx!='id'){%>
+              Text(data.<%= dartFields[idx]['name'] %><%if(['int','Integer'].includes(dartFields[idx]['type']) ){%>.toString()<%}%>),<%}}%>
+              ])
+        ]);
+  }
+}

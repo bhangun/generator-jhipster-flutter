@@ -90,9 +90,14 @@ module.exports = class extends BaseGenerator {
                         name: 'Basic state-management'
                     },
                     {
+                        value: 'provider',
+                        name: 'Provider state-management'
+                    },
+                    {
                         value: 'mobx',
                         name: 'MobX state-management'
-                    }
+                    },
+                    
                 ],
                 default: 'basic'
             },
@@ -144,7 +149,9 @@ module.exports = class extends BaseGenerator {
         this.log(`packageName=${this.packageName}`);
         this.log(`packageFolder=${this.packageFolder}`);
 
-        if (this.props.stateManageType === 'mobx') {
+        if (this.props.stateManageType === 'provider') {
+            this.composeWith(require.resolve('../provider'));
+        } else if (this.props.stateManageType === 'mobx') {
             this.composeWith(require.resolve('../mobx'));
         } else {
             this.composeWith(require.resolve('../basic'));

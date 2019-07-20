@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:jh_flutter_provider/modules/account/services/user_services.dart';
-import 'package:jh_flutter_provider/services/shared_preference_services.dart';
-import 'package:jh_flutter_provider/themes/theme_services.dart';
+import 'package:<%= appsName %>/modules/account/services/user_services.dart';
+import 'package:<%= appsName %>/services/shared_preference_services.dart';
+import 'package:<%= appsName %>/themes/theme_services.dart';
 import 'navigation.dart';
 import 'network/rest_dio_services.dart';
 import 'network/rest_http_services.dart';

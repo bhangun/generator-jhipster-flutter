@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:jh_flutter_provider/services/locator.dart';
-import 'package:jh_flutter_provider/services/navigation.dart';
-import 'package:jh_flutter_provider/services/routes.dart';
-import 'package:jh_flutter_provider/services/shared_preference_services.dart';
+import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
+import 'package:<%= appsName %>/services/routes.dart';
+import 'package:<%= appsName %>/services/shared_preference_services.dart';
 
 import '../../../services/helper.dart';
 import '../models/user_model.dart';

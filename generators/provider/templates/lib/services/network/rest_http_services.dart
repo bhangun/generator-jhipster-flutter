@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'package:f_logs/model/flog/flog.dart';
 import 'package:http/http.dart' as http;
-import 'package:jh_flutter_provider/utils/endpoints.dart';
+import 'package:<%= appsName %>/utils/endpoints.dart';
 
 import '../config.dart';
 import '../helper.dart';

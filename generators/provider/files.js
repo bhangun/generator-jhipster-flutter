@@ -60,8 +60,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/bloc/alert/alert_bloc.dart`, `${this.packageFolder}/lib/bloc/alert/alert_bloc.dart`);
             this.template(`${flutterDir}lib/bloc/app/app_bloc.dart`, `${this.packageFolder}/lib/bloc/app/app_bloc.dart`);
             this.template(`${flutterDir}lib/bloc/authentication/authentication_bloc.dart`, `${this.packageFolder}/lib/bloc/authentication/authentication_bloc.dart`);
-            this.template(`${flutterDir}lib/bloc/home/home_bloc.dart`, `${this.packageFolder}/lib/bloc/home/home_bloc.dart`);
-            
+              
             // Model
             this.template(`${flutterDir}lib/models/app_data.dart`, `${this.packageFolder}/lib/models/app_data.dart`);
             
@@ -69,7 +68,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);
             
             // Modules
-            this.template(`${flutterDir}lib/modules/account/bloc/user/user_bloc.dart`, `${this.packageFolder}/lib/modules/account/bloc/user/user_store.dart`);
+            this.template(`${flutterDir}lib/modules/account/bloc/user/user_bloc.dart`, `${this.packageFolder}/lib/modules/account/bloc/user/user_bloc.dart`);
             
             this.template(`${flutterDir}lib/modules/account/models/user_model.dart`, `${this.packageFolder}/lib/modules/account/models/user_model.dart`);
             this.template(`${flutterDir}lib/modules/account/models/user_profile.dart`, `${this.packageFolder}/lib/modules/account/models/user_profile.dart`);

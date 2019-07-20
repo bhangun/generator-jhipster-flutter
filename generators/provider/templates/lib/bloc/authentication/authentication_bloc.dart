@@ -1,15 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
-import 'package:jh_flutter_provider/modules/account/services/user_services.dart';
-import 'package:jh_flutter_provider/services/locator.dart';
-import 'package:jh_flutter_provider/services/navigation.dart';
-import 'package:jh_flutter_provider/services/network/rest_http_services.dart';
-import 'package:jh_flutter_provider/services/routes.dart';
-import 'package:jh_flutter_provider/services/shared_preference_services.dart';
+import 'package:<%= appsName %>/modules/account/bloc/user/user_bloc.dart';
+import 'package:<%= appsName %>/modules/account/services/user_services.dart';
+import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
+import 'package:<%= appsName %>/services/network/rest_http_services.dart';
+import 'package:<%= appsName %>/services/routes.dart';
+import 'package:<%= appsName %>/services/shared_preference_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jh_flutter_provider/utils/preferences.dart';
+import 'package:<%= appsName %>/utils/preferences.dart';
 
 class AuthenticationBloc extends ChangeNotifier {
   UserBloc userStore;

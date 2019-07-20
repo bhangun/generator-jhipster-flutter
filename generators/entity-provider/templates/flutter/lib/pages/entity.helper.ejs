@@ -1,0 +1,53 @@
+import 'dart:async';
+import 'dart:convert';
+import '../../models/<%= entityInstance %>.dart';
+import '../../services/connection.dart';
+
+
+// GET getAll<%= entityClass %>s
+// POST create<%= entityClass %>
+// PUT update<%= entityClass %>
+const API_<%= entityClass.toUpperCase() %>S = "<%= entityInstance %>s";
+
+// GET get<%= entityClass %>
+// DELETE delete<%= entityClass %>
+const API_<%= entityClass.toUpperCase() %> = "<%= entityInstance %>s/";
+
+//
+Future<<%= entityClass %>> <%= entityInstance %>(String id) async {
+  var response = await restGet(API_<%= entityClass.toUpperCase() %> + id,true,false);
+  return <%= entityClass %>.fromJson(json.decode(response));
+}
+
+
+//
+Future<<%= entityClass %>> <%= entityInstance %>s() async {
+  print("get <%= entityInstance %>s");
+  return await restGet(API_<%= entityClass.toUpperCase() %>,true,false);
+}
+
+//
+create<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+  print("create");
+  return await restPost(API_<%= entityClass.toUpperCase() %>, <%= entityInstance %>.toJson().toString(),true);
+}
+
+//
+update<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+  print("update");
+  return await restPut(API_<%= entityClass.toUpperCase() %>, <%= entityInstance %>.toJson().toString(),true);
+}
+
+
+//
+delete<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+  return await restDelete(API_<%= entityClass.toUpperCase() %> + <%= entityInstance %>.toJson().toString());
+}
+
+
+List<<%= entityClass %>> <%= entityInstance %>sData(String data) {
+  final parsed =json.decode(data).cast<Map<String, dynamic>>();
+  List<<%= entityClass %>> lu= parsed.map<<%= entityClass %>>((json) => <%= entityClass %>.fromJson(json)).toList();
+  return lu;
+}
+

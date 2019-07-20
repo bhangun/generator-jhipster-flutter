@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:jh_flutter_provider/utils/strings.dart';
+import 'package:<%= appsName %>/utils/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 import '../services/routes.dart';
-import 'package:jh_flutter_provider/utils/preferences.dart';
+import 'package:<%= appsName %>/utils/preferences.dart';
 import '../widgets/app_icon_widget.dart';
 
 

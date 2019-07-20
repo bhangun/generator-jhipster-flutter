@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:jh_flutter_provider/utils/preferences.dart';
+import 'package:<%= appsName %>/utils/preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 

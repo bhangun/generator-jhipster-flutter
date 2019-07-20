@@ -1,0 +1,153 @@
+<%#
+ Copyright 2013-2018 the original author or authors from the JHipster project.
+
+ This file is part of the JHipster project, see http://www.jhipster.tech/
+ for more information.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-%>
+<%_
+const variables = {};
+const dartFields = {};
+const index = {};
+
+const defaultVariablesValues = {};
+let hasUserRelationship = false;
+let dartKeyType;
+if (pkType === 'String') {
+    dartKeyType = 'string';
+} else {
+    dartKeyType = 'number';
+}
+variables['id'] = 'id';
+
+const id = {};
+var i=0;
+id['type'] = 'int';
+id['name'] = 'id';
+id['i']=i;
+dartFields['id'] = id;
+
+function capitalize(text){
+    return text.substr( 0, 1 ).toUpperCase()+text.substr( 1 );
+}
+
+fields.forEach(field => {
+    i++;
+    const varValue = {};
+    const fieldType = field.fieldType;
+    const fieldName = field.fieldName;
+    let dartType;
+    let desc;
+    if (field.fieldIsEnum) {
+        dartType = 'enum';
+    } else if ( fieldType === 'UUID') {
+        dartType = 'String';
+    } else if ( fieldType === 'Integer') {
+        dartType = 'int';
+    }else if ( fieldType === 'Instant') {
+        dartType = 'DartTime';
+        desc = '.toIso8601String()' + 'Z';
+    } else {
+        dartType = fieldType ;
+    } 
+
+    varValue['type'] = dartType;
+    varValue['name'] = fieldName;
+    varValue['desc'] = desc;
+    varValue['i']=i;
+    
+    dartFields[fieldName] = varValue;
+    
+});
+
+relationships.forEach(rela => { 
+    if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'one-to-one' && rela.ownerSide == true
+    || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
+        
+        const varValue = {};
+        varValue['type'] = capitalize(rela.otherEntityName);
+        varValue['name'] = rela.otherEntityName+'s';
+        varValue['desc'] = 'relationship';
+        
+        dartFields[rela.otherEntityName] = varValue;
+    }
+});
+
+ /* relationships.forEach(relationship => {
+    let fieldType;
+    let fieldName;
+    const relationshipType = relationship.relationshipType;
+    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
+        if (relationship.otherentityClass === 'User') {
+            fieldType = 'User[]';
+            hasUserRelationship = true;
+        } else {
+            fieldType = 'BaseEntity[]';
+        }
+        fieldName = relationship.relationshipFieldNamePlural;
+    } else {
+        if (dto === 'no') {
+            if (relationship.otherentityClass === 'User') {
+                fieldType = 'User';
+                hasUserRelationship = true;
+            } else {
+                fieldType = 'BaseEntity';
+            }
+            fieldName = relationship.relationshipFieldName;
+        } else {
+            fieldType = dartKeyType;
+            fieldName = `${relationship.relationshipFieldName}Id`;
+        }
+    }
+  }); */
+_%>
+
+import 'dart:convert';<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
+import '<%- idx %>.dart';<%}} %>
+
+class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
+    final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %>
+    final List<<%= dartFields[idx]['type'] %>> <%= dartFields[idx]['name'] %>; <% } else {%>
+    final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
+    
+    const <%= entityClass %> ({ <% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') { %>
+        this.<%- dartFields[idx]['name'] %>,<%} else {%> 
+        this.<%- dartFields[idx]['name'] %>,<% }} %> 
+    });
+
+    factory <%= entityClass %>.fromJson(Map<String, dynamic> json) =>  <%= entityClass %>(<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
+        <%= dartFields[idx]['name'] %>: List<<%= dartFields[idx]['type'] %>>.from(json['<%= dartFields[idx]['name'] %>'].map((x) => <%= dartFields[idx]['type'] %>.fromJson(x))), <%} else{%>
+        <%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],<% }} %>
+    );
+
+    Map<String, dynamic> toJson() => {<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
+        "<%= dartFields[idx]['name'] %>": List<dynamic>.from(<%= dartFields[idx]['name'] %>.map((x) => x.toJson())), <%} else{%>
+        "<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>,<% }} %>
+    };
+}
+
+<%_ const enumsAlreadyDeclared = [];
+fields.forEach(field => {
+    if (field.fieldIsEnum && enumsAlreadyDeclared.indexOf(field.fieldType) === -1) {
+        enumsAlreadyDeclared.push(field.fieldType); _%>
+const <%= field.fieldType.toLowerCase() %> = {<%
+        const enums = field.fieldValues.split(',');
+        for (let i = 0; i < enums.length; i++) { %>
+    '<%= enums[i] %>'<%if (i < enums.length - 1) { %>,<% }
+        } %>
+}; <%_ }}); _%>
+
+List<<%= entityClass %>> <%= entityInstance %>FromJson(String str) => new List<<%= entityClass %>>.from(json.decode(str).map((x) => <%= entityClass %>.fromJson(x)));
+
+String <%= entityInstance %>ToJson(List<<%= entityClass %>> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));

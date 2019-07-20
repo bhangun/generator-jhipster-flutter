@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:jh_flutter_provider/bloc/app/app_bloc.dart';
-import 'package:jh_flutter_provider/modules/account/bloc/user/user_bloc.dart';
+import 'package:<%= appsName %>/bloc/app/app_bloc.dart';
+import 'package:<%= appsName %>/modules/account/bloc/user/user_bloc.dart';
 
 class CommonDrawer extends StatefulWidget {
 @override

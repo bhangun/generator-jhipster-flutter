@@ -1,0 +1,118 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = 'enum';
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+          dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+_%>
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import '../../models/<%= entityInstance %>.dart';
+import '<%= entityInstance %>.detail.dart';
+import '../../services/entity_services/<%= entityInstance %>.service.dart';
+import '<%= entityInstance %>.form.dart';
+
+class <%= entityClass %>ListPage extends StatefulWidget {
+
+  @override
+  _<%= entityClass %>ListPageState createState() => _<%= entityClass %>ListPageState();
+}
+
+final String _title = "<%= entityClass %> List";
+
+class _<%= entityClass %>ListPageState extends State<<%= entityClass %>ListPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(_title),
+          elevation: 5.0, // Removing the drop shadow cast by the app bar.
+        ),
+        body: FutureBuilder(
+            future: <%= entityInstance %>s(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return snapshot.hasData
+                  ? <%= entityClass %>List(data: snapshot.data)
+                  : Center(child: CircularProgressIndicator());
+            }),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => <%= entityClass %>FormPage()));
+          },
+          tooltip: 'Add',
+          child: Icon(Icons.add),
+        ));
+  }
+}
+<% for(var i=0;i<fields.length;i++){%> <%} %>
+
+Widget item(<%for (idx in dartFields) { %><%if(['Integer'].includes(dartFields[idx]['type']) ){%>int<%} else if(dartFields[idx]['type']=='enum') {%>String <%} else {%><%= dartFields[idx]['type'] %><%}%> <%= dartFields[idx]['name'] %>, <%}%>
+BuildContext context) {
+  return ListTile(
+      title: Text(<%if(fields.length>0) {%><%= fields[0].fieldName %><%if(['int','Integer'].includes(fields[0].fieldType) ){%>.toString()<%}%><%} %>,
+      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20.0)),<%if(fields.length>1) {%>
+      subtitle: Text(<%= fields[1].fieldName %>),<%} %>
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => <%= entityClass %>Detail(id: id )));
+      },
+      leading: Icon(Icons.person, size: 50,color: Colors.blue[500]));
+}
+
+class <%= entityClass %>List extends StatelessWidget {
+  final String data;
+  <%= entityClass %>List({this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final parsed = json.decode(data).cast<Map<String, dynamic>>();
+    List<<%= entityClass %>> _items =
+        parsed.map<<%= entityClass %>>((json) => <%= entityClass %>.fromJson(json)).toList();
+    return ListView.builder(
+      itemCount: _items.length,
+      itemBuilder: (context, index) {
+        final <%= entityInstance %> = _items[index];
+        return item(<%for (idx in dartFields) { %> 
+        <%= entityInstance %>.<%= dartFields[idx]['name'] %>, <%}%>
+           context);
+      },
+    );
+  }
+}

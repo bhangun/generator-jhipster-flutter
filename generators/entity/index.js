@@ -35,7 +35,6 @@ module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
 
-        this.log('>>>>>>>>>>>>>'+process.cwd());
         jhipsterUtils.copyObjectProps(this, this.options.context);
         // This makes `name` a required argument.
         this.argument('name', {

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:jh_flutter_provider/bloc/authentication/authentication_bloc.dart';
-import 'package:jh_flutter_provider/generated/i18n.dart';
-import 'package:jh_flutter_provider/utils/strings.dart';
-import 'package:jh_flutter_provider/widgets/app_icon_widget.dart';
-import 'package:jh_flutter_provider/widgets/global_methods.dart';
-import 'package:jh_flutter_provider/widgets/progress_indicator_widget.dart';
-import 'package:jh_flutter_provider/widgets/rounded_button_widget.dart';
-import 'package:jh_flutter_provider/widgets/textfield_widget.dart';
+import 'package:<%= appsName %>/bloc/authentication/authentication_bloc.dart';
+import 'package:<%= appsName %>/generated/i18n.dart';
+import 'package:<%= appsName %>/utils/strings.dart';
+import 'package:<%= appsName %>/widgets/app_icon_widget.dart';
+import 'package:<%= appsName %>/widgets/global_methods.dart';
+import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
+import 'package:<%= appsName %>/widgets/rounded_button_widget.dart';
+import 'package:<%= appsName %>/widgets/textfield_widget.dart';
 
 
 class LoginScreen extends StatefulWidget {

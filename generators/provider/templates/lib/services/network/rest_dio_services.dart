@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:jh_flutter_provider/services/shared_preference_services.dart';
-import 'package:jh_flutter_provider/utils/endpoints.dart';
+import 'package:<%= appsName %>/services/shared_preference_services.dart';
+import 'package:<%= appsName %>/utils/endpoints.dart';
 
 
 class RestDioServices {

@@ -6,22 +6,7 @@ A new Flutter project.
 
 
 
-### Clean and remove all generated files
 
-```
-flutter packages pub run build_runner clean
-```
-
-### Delete conflicting files
-
-```
-flutter packages pub run build_runner watch --delete-conflicting-outputs
-```
-
-###Continuous generation with the watch command
-```
-flutter packages pub run build_runner watch
-```
 
 ###Testing flutter with driver
 ```

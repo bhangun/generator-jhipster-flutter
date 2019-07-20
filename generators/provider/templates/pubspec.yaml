@@ -1,4 +1,4 @@
-name: jh_flutter_provider
+name: <%= appsName %>
 description: A new Flutter project using Kutilang JHipster Module.
 
 # The following defines the version and build number for your application.
@@ -118,7 +118,7 @@ flutter:
     - asset: assets/fonts/Product-Sans-Regular.ttf
     - asset: assets/fonts/Product-Sans-Italic.ttf
       style: italic
-    - asset: assets/fonts/Product-Sans-Bold.ttf
-      weight: 700
+    #- asset: assets/fonts/Product-Sans-Bold.ttf
+    #  weight: 700
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
