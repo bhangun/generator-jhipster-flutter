@@ -1,0 +1,39 @@
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
+import 'package:<%= appsName %>/services/routes.dart';
+import 'package:<%= appsName %>/services/shared_preference_services.dart';
+
+import '../models/<%= entityInstance %>.dart';
+import '../../../services/network/rest_http_services.dart';
+
+
+class <%= entityClass %>Services {
+
+  Future<<%= entityClass %>> <%= entityInstance %>(String id) async {
+    var response = await locator<RestHttpServices>().fetch('<%= entityInstance %>' + id);
+    return <%= entityClass %>.fromJson(json.decode(response));
+  }
+
+  Future<List<<%= entityClass %>>> <%= entityInstance %>s([var page, var size, var sort]) async {
+    var data = await locator<RestHttpServices>().fetch('<%= entityInstance %>s');
+    return <%= entityClass %>.listFromString(data);
+  }
+
+  create<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+    
+  }
+
+  //
+  update<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+    
+  }
+
+  //
+  delete<%= entityClass %>(String id) async {
+    
+  }
+
+}

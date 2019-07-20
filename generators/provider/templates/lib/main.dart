@@ -25,6 +25,7 @@ import 'views/splash.dart';
 import 'services/locator.dart';
 import 'services/routes.dart';
 import 'services/navigation.dart';
+// kutilang-needle-add-bloc-import - Don't remove, used by kutilang to add new import
 
 void main() {
   SystemChrome.setPreferredOrientations([
@@ -38,6 +39,7 @@ void main() {
       ChangeNotifierProvider(builder: (_) => AppBloc()),
       ChangeNotifierProvider(builder: (_) => AuthenticationBloc()),
       ChangeNotifierProvider(builder: (_) => UserBloc()),
+      // kutilang-needle-add-bloc - Don't remove, used by kutilang to add new import
     ], child: KutilangApp()));
   });
 }

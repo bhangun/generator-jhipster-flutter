@@ -96,7 +96,7 @@ class _UserListState extends State<UserList> {
                       style: Theme.of(context).textTheme.title,
                     ),
                     subtitle: Text(
-                      '${_userList[index].email} ', // ${_userBloc.itemDetail.email}',
+                      '${_userList[index].email} ', 
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,

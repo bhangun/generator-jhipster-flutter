@@ -29,11 +29,15 @@ module.exports = class extends BaseGenerator {
         super(args, opts);
         utils.copyObjectProps(this, this.options.context);
         const blueprint = this.config.get('blueprint');
+        this.appsName = this.config.get('appsName');
         useBlueprint = this.composeBlueprint(blueprint, 'entity'); // use global variable since getters dont have access to instance property
     }
 
     get writing() {
         if (useBlueprint) return;
+
+       
+
         return writeFiles();
     }
 

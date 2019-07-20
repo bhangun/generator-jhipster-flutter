@@ -96,7 +96,3 @@ class UserList {
     );
   }
 }
-
-/* final parsed = json.decode('data').cast<Map<String, dynamic>>();
-    List<User> _items = json.decode('data').cast<Map<String, dynamic>>().map<User>((json) => User.fromJson(json)).toList();
- */

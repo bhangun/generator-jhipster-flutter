@@ -18,7 +18,7 @@
  */
 const _ = require('lodash');
 
-const FLUTTER_DIR = 'lib/pages/';
+const FLUTTER_DIR = 'lib/modules/';
 
 const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 
@@ -34,28 +34,28 @@ const flutterFiles = {
             templates: [
                 {
                     file: 'entity',
-                    renameTo: generator => `../models/${generator.entityFileName}.dart`
+                    renameTo: generator => `${generator.entityFolderName}/models/${generator.entityFileName}.dart`
                 },
                 {
                     file: 'entity.list',
-                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.list.dart`
+                    renameTo: generator => `${generator.entityFolderName}/views/${generator.entityFileName}_list.dart`
                 },
                 {
                     file: 'entity.detail',
-                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.detail.dart`
+                    renameTo: generator => `${generator.entityFolderName}/views/${generator.entityFileName}_detail.dart`
                 },
                 {
                     file: 'entity.form',
-                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.form.dart`
+                    renameTo: generator => `${generator.entityFolderName}/views/${generator.entityFileName}_form.dart`
                 },
                 {
-                    file: 'entity.helper',
-                    renameTo: generator => `../services/entity_services/${generator.entityFileName}.service.dart`
+                    file: 'entity.services',
+                    renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_services.dart`
                 },
-                /*  {
-                    file: 'index',
-                    renameTo: generator => `entities/${generator.entityFolderName}/index.dart`
-                }, */
+                {
+                    file: 'entity.bloc',
+                    renameTo: generator => `${generator.entityFolderName}/bloc/${generator.entityFileName}_bloc.dart`
+                },
             ]
         }
     ]

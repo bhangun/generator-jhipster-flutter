@@ -165,7 +165,9 @@ module.exports = class extends BaseGenerator {
         }
     }
 
-    install() {}
+    install() {
+        this.spawnCommand('mv', ['.yo-rc.json', `${this.baseName}/`]);
+    }
 
     end() {
         this.log('End of flutter generator');

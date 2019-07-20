@@ -84,36 +84,13 @@ relationships.forEach(rela => {
     }
 });
 
- /* relationships.forEach(relationship => {
-    let fieldType;
-    let fieldName;
-    const relationshipType = relationship.relationshipType;
-    if (relationshipType === 'one-to-many' || relationshipType === 'many-to-many') {
-        if (relationship.otherentityClass === 'User') {
-            fieldType = 'User[]';
-            hasUserRelationship = true;
-        } else {
-            fieldType = 'BaseEntity[]';
-        }
-        fieldName = relationship.relationshipFieldNamePlural;
-    } else {
-        if (dto === 'no') {
-            if (relationship.otherentityClass === 'User') {
-                fieldType = 'User';
-                hasUserRelationship = true;
-            } else {
-                fieldType = 'BaseEntity';
-            }
-            fieldName = relationship.relationshipFieldName;
-        } else {
-            fieldType = dartKeyType;
-            fieldName = `${relationship.relationshipFieldName}Id`;
-        }
-    }
-  }); */
 _%>
 
-import 'dart:convert';<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
+import 'dart:convert';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+
+<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
 import '<%- idx %>.dart';<%}} %>
 
 class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
@@ -135,6 +112,32 @@ class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type
         "<%= dartFields[idx]['name'] %>": List<dynamic>.from(<%= dartFields[idx]['name'] %>.map((x) => x.toJson())), <%} else{%>
         "<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>,<% }} %>
     };
+
+    static List<<%= entityClass %>> listFromString(String str) => new List<<%= entityClass %>>.from(json.decode(str).map((x) => <%= entityClass %>.fromJson(x)));
+
+    static List<<%= entityClass %>> listFromJson(List<dynamic> data) {
+        return data.map((post) => <%= entityClass %>.fromJson(post)).toList();
+    }
+
+    static String list<%= entityClass %>ToJson(List<<%= entityClass %>> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
+}
+
+class <%= entityClass %>List {
+  final List<<%= entityClass %>> <%= entityInstance %>s;
+
+  <%= entityClass %>List({
+    this.<%= entityInstance %>s,
+  });
+
+  factory <%= entityClass %>List.fromJson(List<dynamic> json) {
+    List<<%= entityClass %>> <%= entityInstance %>s = List<<%= entityClass %>>();
+    <%= entityInstance %>s = json.map((post) => <%= entityClass %>.fromJson(post)).toList();
+
+    return <%= entityClass %>List(
+      <%= entityInstance %>s: <%= entityInstance %>s,
+    );
+  }
+}
 }
 
 <%_ const enumsAlreadyDeclared = [];
@@ -148,6 +151,3 @@ const <%= field.fieldType.toLowerCase() %> = {<%
         } %>
 }; <%_ }}); _%>
 
-List<<%= entityClass %>> <%= entityInstance %>FromJson(String str) => new List<<%= entityClass %>>.from(json.decode(str).map((x) => <%= entityClass %>.fromJson(x)));
-
-String <%= entityInstance %>ToJson(List<<%= entityClass %>> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));

@@ -29,6 +29,7 @@ module.exports = class extends BaseGenerator {
         super(args, opts);
         utils.copyObjectProps(this, this.options.context);
         const blueprint = this.config.get('blueprint');
+        this.appsName = this.config.get('appsName');
         useBlueprint = this.composeBlueprint(blueprint, 'entity'); // use global variable since getters dont have access to instance property
     }
 
@@ -58,23 +59,137 @@ module.exports = class extends BaseGenerator {
         if (!entityClass) {
             return;
         }
+
+        const entityBlocPath = 'lib/main.dart';
+
         const entityPagePath = 'lib/services/routes.dart';
         try {
-            const page2 = `import '../pages/${entityInstance}/${entityInstance}.list.dart';`;
+            //
+            const needleBloc = `ChangeNotifierProvider(builder: (_) => ${entityClass}Bloc()),`;
+            utils.rewriteFile({
+                file: entityBlocPath,
+                needle: 'kutilang-needle-add-bloc',
+                splicable: [
+                    this.stripMargin(needleBloc)
+                ]
+            }, this);
+            
+            const needleBlocImport = `import 'modules/${entityInstance}/bloc/${entityInstance}_bloc.dart';`;
+            utils.rewriteFile({
+                file: entityBlocPath,
+                needle: 'kutilang-needle-add-bloc-import',
+                splicable: [
+                    this.stripMargin(needleBlocImport)
+                ]
+            }, this);
+
+            const needleImport1 = `import '../modules/${entityInstance}/views/${entityInstance}_list.dart';`;
             utils.rewriteFile({
                 file: entityPagePath,
                 needle: 'kutilang-needle-add-import-route',
                 splicable: [
-                    this.stripMargin(page2)
+                    this.stripMargin(needleImport1)
                 ]
             }, this);
 
-            const page = `"/${entityInstance}": (BuildContext context) => ${entityClass}ListPage(),`;
+            const needleImport2 = `import '../modules/${entityInstance}/views/${entityInstance}_detail.dart';`;
             utils.rewriteFile({
                 file: entityPagePath,
-                needle: 'kutilang-needle-add-route',
+                needle: 'kutilang-needle-add-import-route',
                 splicable: [
-                    this.stripMargin(page)
+                    this.stripMargin(needleImport2)
+                ]
+            }, this);
+
+            const needleImport3 = `import '../modules/${entityInstance}/views/${entityInstance}_form.dart';`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-import-route',
+                splicable: [
+                    this.stripMargin(needleImport3)
+                ]
+            }, this);
+
+            //--
+            const needleRoute1a = `static const String ${entityInstance}List = '/${entityInstance}List';`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-1',
+                splicable: [
+                    this.stripMargin(needleRoute1a)
+                ]
+            }, this);
+
+            const needleRoute1b = `static const String ${entityInstance}Detail = '/${entityInstance}Detail';`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-1',
+                splicable: [
+                    this.stripMargin(needleRoute1b)
+                ]
+            }, this);
+
+            const needleRoute1c = `static const String ${entityInstance}Form = '/${entityInstance}Form';`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-1',
+                splicable: [
+                    this.stripMargin(needleRoute1c)
+                ]
+            }, this);
+
+            //--
+            const needleRoute2a = `${entityInstance}List: (BuildContext context) => ${entityClass}List(),`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-2',
+                splicable: [
+                    this.stripMargin(needleRoute2a)
+                ]
+            }, this);
+
+            const needleRoute2b = `${entityInstance}Detail: (BuildContext context) => ${entityClass}Detail(),`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-2',
+                splicable: [
+                    this.stripMargin(needleRoute2b)
+                ]
+            }, this);
+
+            const needleRoute2c = `${entityInstance}Form: (BuildContext context) => ${entityClass}Form(),`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-2',
+                splicable: [
+                    this.stripMargin(needleRoute2c)
+                ]
+            }, this);
+            //--
+            const needleRoute3a = `case '/${entityInstance}List': return MaterialPageRoute(builder: (_) => ${entityClass}List());`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-3',
+                splicable: [
+                    this.stripMargin(needleRoute3a)
+                ]
+            }, this);
+
+            const needleRoute3b = `case '/${entityInstance}Detail': return MaterialPageRoute(builder: (_) => ${entityClass}Detail());`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-3',
+                splicable: [
+                    this.stripMargin(needleRoute3b)
+                ]
+            }, this);
+
+            const needleRoute3c = `case '/${entityInstance}Form': return MaterialPageRoute(builder: (_) => ${entityClass}Form());`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route-3',
+                splicable: [
+                    this.stripMargin(needleRoute3c)
                 ]
             }, this);
         } catch (e) {

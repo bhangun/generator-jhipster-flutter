@@ -24,7 +24,7 @@ module.exports = class extends BaseGenerator {
                 this.appsName = this.config.get('appsName');
                 this.packageName = this.config.get('packageName');
                 this.packageFolder = this.destinationRoot(); // this.config.get('packageFolder');
-                this.log(`>>>>>>>index 0 >>>>>>>> ${this.packageFolder}`);
+               
             },
         };
     }

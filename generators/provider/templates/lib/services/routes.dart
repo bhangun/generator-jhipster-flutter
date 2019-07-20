@@ -5,7 +5,6 @@ import '../modules/account/views/user_list.dart';
 import '../views/home.dart';
 import '../views/login.dart';
 import '../views/splash.dart';
-
 // kutilang-needle-add-import-route - Don't remove, used by kutilang to add new import
 
 class Routes {
@@ -21,6 +20,7 @@ class Routes {
   static const String userForm = '/userForm';
   static const String userDetail = '/userDetail';
   static const String takeCamera = '/takeCamera';
+  // kutilang-needle-add-route-1 - Don't remove, used by kutilang to add new import
 
   static final routes = <String, WidgetBuilder>{
     splash: (BuildContext context) => SplashScreen(),
@@ -29,7 +29,7 @@ class Routes {
     userList: (BuildContext context) => UserList(),
     userForm: (BuildContext context) => UserForm(),
     userDetail: (BuildContext context) => UserDetail(),
-
+    // kutilang-needle-add-route-2 - Don't remove, used by kutilang to add new import
   };
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -38,6 +38,7 @@ class Routes {
       case '/login': return MaterialPageRoute(builder: (_) => LoginScreen());
       case '/splash': return MaterialPageRoute(builder: (_) => SplashScreen());
       case '/user': return MaterialPageRoute(builder: (_) => UserList());
+      // kutilang-needle-add-route-3 - Don't remove, used by kutilang to add
       default: return MaterialPageRoute(builder: (_) {
           return Scaffold(
             body: Center(
@@ -48,33 +49,3 @@ class Routes {
     }
   }
 }
-
-/*
-Route<dynamic> route(RouteSettings settings) {
-  if (settings.name != '/login') {
-    return null;
-  }
-
-  return MaterialPageRoute<void>(
-    settings: settings,
-    builder: (BuildContext context) => LoginPage(),
-    fullscreenDialog: true,
-  );
-}
-
-final loginRoute = "/login";
-
-final routes = <String, WidgetBuilder> {
-  "/home":(BuildContext context) => null,
-  "/register": (BuildContext context) => null,//new SignIn(),
-  "/users": (BuildContext context) => UserListPage(),
-  "/usersForm": (BuildContext context) => UserFormPage(),
-  "/dashboard": (BuildContext context) => Dashboard(),
-  "/license": (BuildContext context) => LicenseListPage(),
-  "/car": (BuildContext context) => CarListPage(),
-  "/owner": (BuildContext context) => OwnerListPage(),
-  "/wheel": (BuildContext context) => WheelListPage(),
-  "/driver": (BuildContext context) => DriverListPage(),
-  // kutilang-needle-add-route - Don't remove, used by kutilang to add new route
-};
-*/
