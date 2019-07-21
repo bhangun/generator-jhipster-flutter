@@ -107,7 +107,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
   // actions:-------------------------------------------------------------------
 
   String get formTitle => isUpdated? title='Update <%= entityClass %>':'Create <%= entityClass %>'; <% for (idx in dartFields) { %>
-    void set<%- capitalize(dartFields[idx]['name'])%>(<% if(dartFields[idx]['type']=='enum') {%>String <%} else { dartFields[idx]['type'] } %> value) {
+    void set<%- capitalize(dartFields[idx]['name'])%>(<% if(dartFields[idx]['type'] != 'enum') dartFields[idx]['type']  %> value) {
       <%- dartFields[idx]['name'] %> = value;
     }<% } %>
 

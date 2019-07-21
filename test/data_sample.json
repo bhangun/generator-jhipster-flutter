@@ -1,0 +1,49 @@
+{
+  "are": [
+    {
+      "cars": [
+        {
+          "id": 0,
+          "name": "string",
+          "owner": {},
+          "wheels": [
+            {
+              "brand": "string",
+              "car": {},
+              "id": 0,
+              "position": "string"
+            }
+          ]
+        }
+      ],
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "driving": {
+    "id": 0,
+    "name": "string",
+    "owner": {
+      "cars": [
+        {}
+      ],
+      "id": 0,
+      "name": "string"
+    },
+    "wheels": [
+      {
+        "brand": "string",
+        "car": {},
+        "id": 0,
+        "position": "string"
+      }
+    ]
+  },
+  "id": 0,
+  "license": {
+    "area": "JABAR",
+    "id": 0,
+    "no": 0
+  },
+  "name": "string"
+}

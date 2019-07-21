@@ -33,7 +33,7 @@
     "generator-jhipster": ">=5.0.0",
     "jhipster-core": "4.1.1",
     "js-object-pretty-print": "0.3.0",
-    "lodash": "4.17.11",
+    "lodash": "4.17.13",
     "meow": "5.0.0",
     "os-locale": "4.0.0",
     "prettier": "1.18.2",

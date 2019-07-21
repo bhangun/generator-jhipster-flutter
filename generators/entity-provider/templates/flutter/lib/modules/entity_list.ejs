@@ -76,12 +76,11 @@ relationships.forEach(rela => {
     || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
         
         const varValue = {};
-        varValue['type'] = capitalize(rela.otherEntityName);
+        varValue['type'] = capitalize(rela.relationshipName);
         varValue['name'] = rela.relationshipName;
         varValue['desc'] = 'relationship';
-        varValue['isList'] = (rela.relationshipType=='many-to-many')?true:false;
         
-        dartFields[rela.otherEntityName] = varValue;
+        dartFields[rela.relationshipName] = varValue;
     }
 });
 
@@ -95,10 +94,9 @@ import 'package:flutter/foundation.dart';
 import '../../<%- idx %>/models/<%- idx %>.dart';<%}} %>
 
 class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
-    final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %><% if(dartFields[idx]['isList']) {%>
-    final List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;
-    <% } else {%>final <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; 
-    <% } } else {%>final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
+    final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %>
+    final <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; <% } else {%>
+    final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
     
     const <%= entityClass %> ({ <% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') { %>
         this.<%- dartFields[idx]['name'] %>,<%} else {%> 
@@ -106,16 +104,13 @@ class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type
     });
 
     factory <%= entityClass %>.fromJson(Map<String, dynamic> json) =>  <%= entityClass %>(<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
-        <% if(dartFields[idx]['isList']) {%>  
-        <%= dartFields[idx]['name'] %>: List<<%= dartFields[idx]['type'] %>>.from(json['<%= dartFields[idx]['name'] %>'].map((x) => <%= dartFields[idx]['type'] %>.fromJson(x))), 
-        <%} else { %><%= dartFields[idx]['name'] %>: <%= capitalize(dartFields[idx]['type']) %>.fromJson(json['<%= dartFields[idx]['name'] %>']), 
-        <%} } else {%><%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],<% }} %>
+        <%= dartFields[idx]['name'] %>: <%= dartFields[idx]['name'] %>.fromJson(json['<%= dartFields[idx]['name'] %>']), <%} else{%>
+        <%- dartFields[idx]['name'] %>: json['<%- dartFields[idx]['name'] %>'],<% }} %>
     );
 
     Map<String, dynamic> toJson() => {<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
-        <% if(dartFields[idx]['isList']) {%>"<%= dartFields[idx]['name'] %>": List<dynamic>.from(<%= dartFields[idx]['name'] %>.map((x) => x.toJson())), 
-        <%} else { %>"<%= dartFields[idx]['name'] %>": <%= dartFields[idx]['name'] %>.toJson(),
-        <%} } else {%>"<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>,<% }} %>
+        "<%= dartFields[idx]['name'] %>": List<dynamic>.from(<%= dartFields[idx]['name'] %>.map((x) => x.toJson())), <%} else{%>
+        "<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>,<% }} %>
     };
 
     static List<<%= entityClass %>> listFromString(String str) => new List<<%= entityClass %>>.from(json.decode(str).map((x) => <%= entityClass %>.fromJson(x)));
