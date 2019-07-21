@@ -55,7 +55,7 @@ fields.forEach(field => {
         dartType = 'String';
     } else if ( fieldType === 'Integer') {
         dartType = 'int';
-    }else if ( fieldType === 'Instant') {
+    } else if ( fieldType === 'Instant') {
         dartType = 'DartTime';
         desc = '.toIso8601String()' + 'Z';
     } else {
@@ -91,7 +91,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 <% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
-import '<%- idx %>.dart';<%}} %>
+import '../../<%- idx %>/models/<%- idx %>.dart';<%}} %>
 
 class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
     final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %>
@@ -138,7 +138,7 @@ class <%= entityClass %>List {
     );
   }
 }
-}
+
 
 <%_ const enumsAlreadyDeclared = [];
 fields.forEach(field => {

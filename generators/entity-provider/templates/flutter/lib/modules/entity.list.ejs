@@ -23,6 +23,8 @@
       } else if ( fieldType === 'UUID' || fieldType === 'String') {
           dartType = 'String';
           dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Integer') {
+        dartType = 'int';
       } else if ( fieldType === 'Instant') {
           dartType = 'DartTime';
           desc = '.toIso8601String()' + 'Z';
@@ -54,7 +56,7 @@ class <%= entityClass %>List extends StatefulWidget {
   _<%= entityClass %>ListState createState() => _<%= entityClass %>ListState();
 }
 
-final String _title = "<%= entityClass %> List";
+final String title = "<%= entityClass %> List";
 
 class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
   final _listKey = GlobalKey<ScaffoldState>();
@@ -78,7 +80,6 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
 
     return Scaffold(
         key: _listKey,
-        // cannot be used using this form $_<%= entityInstance %>Bloc.total<%= entityClass %>
         appBar: buildAppBar(context, '<%= entityClass %> List ( $_total<%= entityClass %> )'),
         body: _buildBody(context),
         floatingActionButton: FloatingActionButton(
@@ -122,7 +123,7 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
                     color: Colors.red,
                     icon: Icons.delete,
                     onTap: () =>
-                        _<%= entityInstance %>Bloc.delete(_<%= entityInstance %>Bloc.<%= entityInstance %>List[index].login),
+                        _<%= entityInstance %>Bloc.delete(_<%= entityInstance %>Bloc.<%= entityInstance %>List[index].id),
                   ),
                 ],
                 dismissal: SlidableDismissal(
@@ -131,14 +132,14 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
                 child: ListTile(
                     leading: Icon(Icons.person),
                     title: Text(
-                      '${_<%= entityInstance %>List[index].login}',
+                      '${_<%= entityInstance %>List[index]<%= dartFields[0] %>}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       style: Theme.of(context).textTheme.title,
                     ),
                     subtitle: Text(
-                      '${_<%= entityInstance %>List[index].email} ', 
+                      '${_<%= entityInstance %>List[index]<%= (dartFields[1]!=null)?dartFields[1]:dartFields[0] %>} ', 
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
