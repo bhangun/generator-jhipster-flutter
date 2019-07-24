@@ -47,3 +47,8 @@
   },
   "name": "string"
 }
+
+
+ <% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
+    String <%- dartFields[idx]['name'] %>;<%} else {%>
+    <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>

@@ -17,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/app/app_bloc.dart';
-import 'modules/account/bloc/user/user_bloc.dart';
+import 'modules/account/bloc/user_bloc.dart';
 import 'utils/strings.dart';
 import 'bloc/authentication/authentication_bloc.dart';
 import 'generated/i18n.dart';

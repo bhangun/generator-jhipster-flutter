@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:<%= appsName %>/bloc/app/app_bloc.dart';
 import 'package:<%= appsName %>/bloc/authentication/authentication_bloc.dart';
-import 'package:<%= appsName %>/modules/account/bloc/user/user_bloc.dart';
+import 'package:<%= appsName %>/modules/account/bloc/user_bloc.dart';
 import 'package:<%= appsName %>/widgets/appbar_widget.dart';
 import 'package:<%= appsName %>/widgets/drawer_widget.dart';
 import 'package:<%= appsName %>/widgets/global_methods.dart';

@@ -93,10 +93,10 @@ module.exports = class extends BaseGenerator {
                         value: 'provider',
                         name: 'Provider state-management'
                     },
-                    {
+                   /*  {
                         value: 'mobx',
                         name: 'MobX state-management'
-                    },
+                    }, */
                     
                 ],
                 default: 'basic'

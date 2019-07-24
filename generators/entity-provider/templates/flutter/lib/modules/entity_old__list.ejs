@@ -76,11 +76,12 @@ relationships.forEach(rela => {
     || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
         
         const varValue = {};
-        varValue['type'] = capitalize(rela.relationshipName);
+        varValue['type'] = capitalize(rela.otherEntityName);
         varValue['name'] = rela.relationshipName;
         varValue['desc'] = 'relationship';
+        varValue['isList'] = (rela.relationshipType=='many-to-many')?true:false;
         
-        dartFields[rela.relationshipName] = varValue;
+        dartFields[rela.otherEntityName] = varValue;
     }
 });
 

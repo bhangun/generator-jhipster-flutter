@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:<%= appsName %>/modules/account/bloc/user/user_bloc.dart';
 import 'package:<%= appsName %>/modules/account/services/user_services.dart';
 import 'package:<%= appsName %>/services/locator.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
@@ -12,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:<%= appsName %>/utils/preferences.dart';
 
 class AuthenticationBloc extends ChangeNotifier {
-  UserBloc userStore;
 
   String username = '';
 

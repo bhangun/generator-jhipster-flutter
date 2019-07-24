@@ -132,18 +132,18 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
                 child: ListTile(
                     leading: Icon(Icons.person),
                     title: Text(
-                      '${_<%= entityInstance %>List[index]<%= dartFields[0] %>}',
+                      '${_<%= entityInstance %>List[index].id}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                       style: Theme.of(context).textTheme.title,
                     ),
-                    subtitle: Text(
+                    /*subtitle: Text(
                       '${_<%= entityInstance %>List[index]<%= (dartFields[1]!=null)?dartFields[1]:dartFields[0] %>} ', 
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
-                    ),
+                    ),*/
                     onTap: () => _<%= entityInstance %>Bloc.itemTap(index)),
               );
             })

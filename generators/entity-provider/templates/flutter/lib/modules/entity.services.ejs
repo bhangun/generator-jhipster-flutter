@@ -13,12 +13,12 @@ import '../../../services/network/rest_http_services.dart';
 class <%= entityClass %>Services {
 
   Future<<%= entityClass %>> <%= entityInstance %>(String id) async {
-    var response = await locator<RestHttpServices>().fetch('<%= entityInstance %>' + id);
+    var response = await locator<RestHttpServices>().fetch('/api/<%= entityInstance %>' + id);
     return <%= entityClass %>.fromJson(json.decode(response));
   }
 
   Future<List<<%= entityClass %>>> <%= entityInstance %>s([var page, var size, var sort]) async {
-    var data = await locator<RestHttpServices>().fetch('<%= entityInstance %>s');
+    var data = await locator<RestHttpServices>().fetch('/api/<%= entityInstance %>s');
     return <%= entityClass %>.listFromString(data);
   }
 

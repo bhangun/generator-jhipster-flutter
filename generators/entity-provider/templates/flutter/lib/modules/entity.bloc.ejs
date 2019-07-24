@@ -52,8 +52,9 @@
         
         const varValue = {};
         varValue['type'] = capitalize(rela.otherEntityName);
-        varValue['name'] = rela.otherEntityName+'s';
+        varValue['name'] = rela.relationshipName;
         varValue['desc'] = 'relationship';
+        varValue['isList'] = (rela.relationshipType=='many-to-many')?true:false;
         
         dartFields[rela.otherEntityName] = varValue;
     }
@@ -65,8 +66,7 @@ import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entit
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/models/<%= entityInstance %>.dart';
 import 'package:<%= appsName %>/services/locator.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
-import 'package:<%= appsName %>/services/routes.dart';
-import 'package:<%= appsName %>/services/helper.dart';<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
+import 'package:<%= appsName %>/services/routes.dart';<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
 import '../../<%= idx %>/models/<%= idx %>.dart'; <%}}%>
 
 class <%= entityClass %>Bloc extends ChangeNotifier {
@@ -100,16 +100,19 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
 
   List<<%= entityClass %>> <%= entityInstance %>List;
   <% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
-    String <%- dartFields[idx]['name'] %>;<%} else {%>
-    <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
-
+  String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %><% if(dartFields[idx]['isList']) {%>
+  List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;<% } else {%>
+  <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; <% } } else if(idx!='id'){%>
+  <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
+    
 
   // actions:-------------------------------------------------------------------
 
-  String get formTitle => isUpdated? title='Update <%= entityClass %>':'Create <%= entityClass %>'; <% for (idx in dartFields) { %>
-    void set<%- capitalize(dartFields[idx]['name'])%>(<% if(dartFields[idx]['type'] != 'enum') dartFields[idx]['type']  %> value) {
-      <%- dartFields[idx]['name'] %> = value;
-    }<% } %>
+  String get formTitle => isUpdated? title='Update <%= entityClass %>':'Create <%= entityClass %>'; <% for (idx in dartFields) {  if(idx!='id') {%>
+  
+  void set<%= capitalize(dartFields[idx]['name'])%>(<% if(dartFields[idx]['type'] != 'enum' && dartFields[idx]['isList'])  {%>List<<%= dartFields[idx]['type'] %>><%} else{%><%= dartFields[idx]['type'] %><%}%> value) {
+    <%- dartFields[idx]['name'] %> = value;
+  }<%} } %>
 
   itemTap(int _position) {
     try {

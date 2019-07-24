@@ -94,9 +94,10 @@ import 'package:flutter/foundation.dart';
 <% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
 import '../../<%- idx %>/models/<%- idx %>.dart';<%}} %>
 
-class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
-    final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %><% if(dartFields[idx]['isList']) {%>
-    final List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;
+class <%= entityClass %> {
+    <% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
+    final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %>
+    <% if(dartFields[idx]['isList']) {%>final List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;
     <% } else {%>final <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; 
     <% } } else {%>final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
     
@@ -115,7 +116,8 @@ class <%= entityClass %> {<% for (idx in dartFields) { if (dartFields[idx]['type
     Map<String, dynamic> toJson() => {<% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') {%>
         <% if(dartFields[idx]['isList']) {%>"<%= dartFields[idx]['name'] %>": List<dynamic>.from(<%= dartFields[idx]['name'] %>.map((x) => x.toJson())), 
         <%} else { %>"<%= dartFields[idx]['name'] %>": <%= dartFields[idx]['name'] %>.toJson(),
-        <%} } else {%>"<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>,<% }} %>
+        <%} } else {%>"<%- dartFields[idx]['name'] %>": <%- dartFields[idx]['name'] %>,
+        <% }} %>
     };
 
     static List<<%= entityClass %>> listFromString(String str) => new List<<%= entityClass %>>.from(json.decode(str).map((x) => <%= entityClass %>.fromJson(x)));

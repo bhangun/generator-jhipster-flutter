@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
-import 'package:<%= appsName %>/modules/account/bloc/user/user_bloc.dart';
+import 'package:<%= appsName %>/modules/account/bloc/user_bloc.dart';
 import 'package:<%= appsName %>/widgets/appbar_widget.dart';
 import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
 

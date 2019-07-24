@@ -63,8 +63,42 @@ module.exports = class extends BaseGenerator {
         const entityBlocPath = 'lib/main.dart';
 
         const entityPagePath = 'lib/services/routes.dart';
+
+        const entityLocatorPath = 'lib/services/locator.dart';
+
+        const entityDrawerPath = 'lib/widgets/drawer_widget.dart';
         try {
-            //
+             //-----------
+             const needleDrawer = `list.add(_listTitle("${entityClass}", context,Routes.${entityInstance}List));`;
+             utils.rewriteFile({
+                 file: entityDrawerPath,
+                 needle: 'kutilang-needle-add-drawer',
+                 splicable: [
+                     this.stripMargin(needleDrawer)
+                 ]
+             }, this);
+
+             //-----------
+             const needleLocator1 = `import '../modules/${entityInstance}/services/${entityInstance}_services.dart';`;
+             utils.rewriteFile({
+                 file: entityLocatorPath,
+                 needle: 'kutilang-needle-add-locator-import',
+                 splicable: [
+                     this.stripMargin(needleLocator1)
+                 ]
+             }, this);
+
+            
+            const needleLocator2 = `locator.registerLazySingleton(() => ${entityClass}Services());`;
+            utils.rewriteFile({
+                file: entityLocatorPath,
+                needle: 'kutilang-needle-add-locator',
+                splicable: [
+                    this.stripMargin(needleLocator2)
+                ]
+            }, this);
+
+            //-----------
             const needleBloc = `ChangeNotifierProvider(builder: (_) => ${entityClass}Bloc()),`;
             utils.rewriteFile({
                 file: entityBlocPath,
@@ -73,7 +107,8 @@ module.exports = class extends BaseGenerator {
                     this.stripMargin(needleBloc)
                 ]
             }, this);
-            
+
+            //-----------
             const needleBlocImport = `import 'modules/${entityInstance}/bloc/${entityInstance}_bloc.dart';`;
             utils.rewriteFile({
                 file: entityBlocPath,
@@ -110,7 +145,7 @@ module.exports = class extends BaseGenerator {
                 ]
             }, this);
 
-            //--
+            //-----------
             const needleRoute1a = `static const String ${entityInstance}List = '/${entityInstance}List';`;
             utils.rewriteFile({
                 file: entityPagePath,
@@ -138,7 +173,7 @@ module.exports = class extends BaseGenerator {
                 ]
             }, this);
 
-            //--
+            //-----------
             const needleRoute2a = `${entityInstance}List: (BuildContext context) => ${entityClass}List(),`;
             utils.rewriteFile({
                 file: entityPagePath,
@@ -165,7 +200,8 @@ module.exports = class extends BaseGenerator {
                     this.stripMargin(needleRoute2c)
                 ]
             }, this);
-            //--
+
+            //-----------
             const needleRoute3a = `case '/${entityInstance}List': return MaterialPageRoute(builder: (_) => ${entityClass}List());`;
             utils.rewriteFile({
                 file: entityPagePath,
