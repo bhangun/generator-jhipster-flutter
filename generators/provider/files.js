@@ -68,7 +68,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);
             
             // Modules
-            this.template(`${flutterDir}lib/modules/account/bloc/user/user_bloc.dart`, `${this.packageFolder}/lib/modules/account/bloc/user/user_bloc.dart`);
+            this.template(`${flutterDir}lib/modules/account/bloc/user_bloc.dart`, `${this.packageFolder}/lib/modules/account/bloc/user_bloc.dart`);
             
             this.template(`${flutterDir}lib/modules/account/models/user_model.dart`, `${this.packageFolder}/lib/modules/account/models/user_model.dart`);
             this.template(`${flutterDir}lib/modules/account/models/user_profile.dart`, `${this.packageFolder}/lib/modules/account/models/user_profile.dart`);
