@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:<%= appsName %>/modules/account/services/user_services.dart';
 import 'package:<%= appsName %>/modules/account/models/user_model.dart';
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/routes.dart';
 import 'package:<%= appsName %>/services/helper.dart';
@@ -88,7 +88,7 @@ class UserBloc extends ChangeNotifier {
       position = _position;
       itemDetail = userList[position];
       isItemEmpty = false;
-      locator<NavigationServices>().navigateTo(Routes.userDetail);
+      getIt<NavigationServices>().navigateTo(Routes.userDetail);
 
     } catch (e) {
       isItemEmpty = true;
@@ -98,16 +98,16 @@ class UserBloc extends ChangeNotifier {
   add() {
     itemDetail = null;
     isUpdated = false;
-    locator<NavigationServices>().navigateTo(Routes.userForm);
+    getIt<NavigationServices>().navigateTo(Routes.userForm);
   }
 
   save() {
     loading = true;
     success = false;
     try {
-      isUpdated ? locator<UserServices>().updateUser(_toUser())
-          :locator<UserServices>().createUser(_toUser());
-      locator<NavigationServices>().navigateTo(Routes.userList);
+      isUpdated ? getIt<UserServices>().updateUser(_toUser())
+          :getIt<UserServices>().createUser(_toUser());
+      getIt<NavigationServices>().navigateTo(Routes.userList);
       loading = false;
       success = true;
       getUserList();
@@ -120,7 +120,7 @@ class UserBloc extends ChangeNotifier {
     loading = true;
     success = false;
     try {
-      locator<UserServices>().deleteUser(userid);
+      getIt<UserServices>().deleteUser(userid);
       isDeleted =true;
       loading = false;
       success = true;
@@ -134,7 +134,7 @@ class UserBloc extends ChangeNotifier {
     loading = true;
     success = false;
     try {
-      locator<NavigationServices>().navigateTo(Routes.userForm);
+      getIt<NavigationServices>().navigateTo(Routes.userForm);
       isUpdated = true;
       loading = false;
       success = true;
@@ -149,7 +149,7 @@ class UserBloc extends ChangeNotifier {
     success = false;
     isListEmpty = true;
     try {
-      locator<UserServices>().users().then((data) => _setUserList(data));
+      getIt<UserServices>().users().then((data) => _setUserList(data));
       isListEmpty = false;
       loading = false;
       success = true;
@@ -169,7 +169,7 @@ class UserBloc extends ChangeNotifier {
   }
 
   getProfile() {
-    locator<UserServices>().profileInfo().then((v)=> userProfile =v);;
+    getIt<UserServices>().profileInfo().then((v)=> userProfile =v);;
   }
 
   User _toUser() {
@@ -191,6 +191,6 @@ class UserBloc extends ChangeNotifier {
 
   viewList() {
     getUserList();
-    locator<NavigationServices>().navigateTo(Routes.userList);
+    getIt<NavigationServices>().navigateTo(Routes.userList);
   }
 }

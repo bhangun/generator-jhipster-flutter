@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/routes.dart';
 import 'package:<%= appsName %>/services/shared_preference_services.dart';
@@ -13,12 +13,12 @@ import '../../../services/network/rest_http_services.dart';
 class <%= entityClass %>Services {
 
   Future<<%= entityClass %>> <%= entityInstance %>(String id) async {
-    var response = await locator<RestHttpServices>().fetch('/api/<%= entityInstance %>' + id);
+    var response = await getIt<RestHttpServices>().fetch('/api/<%= entityInstance %>' + id);
     return <%= entityClass %>.fromJson(json.decode(response));
   }
 
   Future<List<<%= entityClass %>>> <%= entityInstance %>s([var page, var size, var sort]) async {
-    var data = await locator<RestHttpServices>().fetch('/api/<%= entityInstance %>s');
+    var data = await getIt<RestHttpServices>().fetch('/api/<%= entityInstance %>s');
     return <%= entityClass %>.listFromString(data);
   }
 

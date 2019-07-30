@@ -42,7 +42,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
             ),
       );
 
-  Widget _listTitle(String name, BuildContext context,String path) => ListTile(
+  Widget _listTitle(String name, BuildContext context,String route) => ListTile(
         title: Text(
           name,
           style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18.0),
@@ -51,7 +51,7 @@ class _CommonDrawerState extends State<CommonDrawer> {
           Icons.person,
           color: Colors.blue,
         ),
-        onTap: () => _userBloc.viewList(),
+        onTap: () => _appBloc.goTo(route),
       );
 
   Widget _switchTheme() =>  Row(
@@ -68,11 +68,11 @@ class _CommonDrawerState extends State<CommonDrawer> {
     var list = <Widget>[];
     list.add(_header());
     list.add(_switchTheme());
-    list.add(_listTitle("Register", context,"/users"));
-    list.add(_listTitle("User", context,"/users"));
+    list.add(_listTitle("Register", context,Routes.userForm));
+    list.add(_listTitle("User", context,Routes.userList));
     list.add(_listTitle("Dashboard", context,"/dashboard"));
     // kutilang-needle-add-drawer - Don't remove, used by kutilang to add new list
-    list.add(_listTitle("Logout", context,"/login"));
+    list.add(_listTitle("Logout", context,Routes.login));
     return list;
   }
 }

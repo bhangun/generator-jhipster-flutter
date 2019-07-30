@@ -93,7 +93,7 @@ function writeFiles() {
             
             this.template(`${flutterDir}lib/services/config.dart`, `${this.packageFolder}/lib/services/config.dart`);
             this.template(`${flutterDir}lib/services/helper.dart`, `${this.packageFolder}/lib/services/helper.dart`);
-            this.template(`${flutterDir}lib/services/locator.dart`, `${this.packageFolder}/lib/services/locator.dart`);
+            this.template(`${flutterDir}lib/services/getIt.dart`, `${this.packageFolder}/lib/services/getIt.dart`);
             this.template(`${flutterDir}lib/services/navigation.dart`, `${this.packageFolder}/lib/services/navigation.dart`);
             this.template(`${flutterDir}lib/services/routes.dart`, `${this.packageFolder}/lib/services/routes.dart`);
             this.template(`${flutterDir}lib/services/shared_preference_services.dart`, `${this.packageFolder}/lib/services/shared_preference_services.dart`);

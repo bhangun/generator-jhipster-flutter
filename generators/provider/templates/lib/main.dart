@@ -22,7 +22,7 @@ import 'utils/strings.dart';
 import 'bloc/authentication/authentication_bloc.dart';
 import 'generated/i18n.dart';
 import 'views/splash.dart';
-import 'services/locator.dart';
+import 'services/getIt.dart';
 import 'services/routes.dart';
 import 'services/navigation.dart';
 // kutilang-needle-add-bloc-import - Don't remove, used by kutilang to add new import
@@ -34,7 +34,7 @@ void main() {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]).then((_) {
-    setupLocator();
+    setupgetIt();
     runApp(MultiProvider(providers: [
       ChangeNotifierProvider(builder: (_) => AppBloc()),
       ChangeNotifierProvider(builder: (_) => AuthenticationBloc()),

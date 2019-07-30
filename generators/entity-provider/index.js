@@ -64,7 +64,7 @@ module.exports = class extends BaseGenerator {
 
         const entityPagePath = 'lib/services/routes.dart';
 
-        const entityLocatorPath = 'lib/services/locator.dart';
+        const entitygetItPath = 'lib/services/getIt.dart';
 
         const entityDrawerPath = 'lib/widgets/drawer_widget.dart';
         try {
@@ -79,22 +79,22 @@ module.exports = class extends BaseGenerator {
              }, this);
 
              //-----------
-             const needleLocator1 = `import '../modules/${entityInstance}/services/${entityInstance}_services.dart';`;
+             const needlegetIt1 = `import '../modules/${entityInstance}/services/${entityInstance}_services.dart';`;
              utils.rewriteFile({
-                 file: entityLocatorPath,
-                 needle: 'kutilang-needle-add-locator-import',
+                 file: entitygetItPath,
+                 needle: 'kutilang-needle-add-getIt-import',
                  splicable: [
-                     this.stripMargin(needleLocator1)
+                     this.stripMargin(needlegetIt1)
                  ]
              }, this);
 
             
-            const needleLocator2 = `locator.registerLazySingleton(() => ${entityClass}Services());`;
+            const needlegetIt2 = `getIt.registerLazySingleton(() => ${entityClass}Services());`;
             utils.rewriteFile({
-                file: entityLocatorPath,
-                needle: 'kutilang-needle-add-locator',
+                file: entitygetItPath,
+                needle: 'kutilang-needle-add-getIt',
                 splicable: [
-                    this.stripMargin(needleLocator2)
+                    this.stripMargin(needlegetIt2)
                 ]
             }, this);
 

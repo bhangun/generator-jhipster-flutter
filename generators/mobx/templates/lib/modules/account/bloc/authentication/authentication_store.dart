@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../services/config.dart';
 import '../../../../services/helper.dart';
-import '../../../../services/locator.dart';
+import '../../../../services/getIt.dart';
 import '../../../../services/navigation.dart';
 import '../../../../services/network/connection.dart';
 import '../../../../services/routes.dart';
@@ -161,7 +161,7 @@ abstract class _AuthenticationStore implements Store {
       loggedIn = true;
       success = true;
       errorStore.showError = false;
-      locator<NavigationService>().navigateTo('/home');
+      getIt<NavigationService>().navigateTo('/home');
     } catch (e){
       loading = false;
       success = false;

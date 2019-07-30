@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/routes.dart';
 import 'package:<%= appsName %>/services/shared_preference_services.dart';
@@ -60,7 +60,7 @@ class UserServices {
       "rememberMe": _rememberMe
     });
     try {
-      locator<RestHttpServices>()
+      getIt<RestHttpServices>()
           .post(UserServices.API_USERS_AUTHENTICATE, body)
           .then((d) => _saveToken(d.toString()));
     } catch (e) {
@@ -71,20 +71,20 @@ class UserServices {
   bool _saveToken(var token) {
     String _token = json.decode(token)["id_token"];
     if (_token != null) {
-      locator<SharedPrefServices>().saveAuthToken(_token);
-      locator<NavigationServices>().navigateTo(Routes.home);
+      getIt<SharedPrefServices>().saveAuthToken(_token);
+      getIt<NavigationServices>().navigateTo(Routes.home);
       return true;
     } else
       return false;
   }
 
   Future<User> user(String id) async {
-    var response = await locator<RestHttpServices>().fetch(API_USER + id);
+    var response = await getIt<RestHttpServices>().fetch(API_USER + id);
     return User.fromJson(json.decode(response));
   }
 
   Future<List<User>> users([var page, var size, var sort]) async {
-    var data = await locator<RestHttpServices>().fetch(API_USERS);
+    var data = await getIt<RestHttpServices>().fetch(API_USERS);
     return User.listFromString(data);
   }
 
@@ -120,7 +120,7 @@ class UserServices {
   resetPasswordInit(String email) async {}
 
   profileInfo() async {
-    var data = await locator<RestHttpServices>().fetch(API_ACCOUNT);
+    var data = await getIt<RestHttpServices>().fetch(API_ACCOUNT);
     User user = User.fromJson(json.decode(data.toString()));
     return user;
   }

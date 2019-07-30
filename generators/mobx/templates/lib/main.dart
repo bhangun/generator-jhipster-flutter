@@ -20,7 +20,7 @@ import 'constants/strings.dart';
 import 'bloc/app/app_store.dart';
 import 'views/login.dart';
 import 'views/splash.dart';
-import 'services/locator.dart';
+import 'services/getIt.dart';
 import 'services/routes.dart';
 import 'services/navigation.dart';
 
@@ -31,7 +31,7 @@ void main() {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]).then((_) {
-    setupLocator();
+    setupgetIt();
     runApp(KutilangApp());
   });
 }

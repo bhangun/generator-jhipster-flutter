@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'package:mobx/mobx.dart';
 
-import '../../../../services/locator.dart';
+import '../../../../services/getIt.dart';
 import '../../../../services/navigation.dart';
 import '../../../../services/routes.dart';
 import '../../../../bloc/alert/index.dart';
@@ -144,19 +144,19 @@ abstract class _UserStore implements Store {
         print('>>>>>>>>   >>>>>>>>data>>>>>> $isItemEmpty >>>>>>>> $itemDetail');
        print(isItemEmpty);
      }
-     locator<NavigationService>().navigateTo(Routes.userDetail);
+     getIt<NavigationService>().navigateTo(Routes.userDetail);
   }
 
   @action
   itemTap(User data){
-     locator<NavigationService>().navigateTo(Routes.userDetail);
+     getIt<NavigationService>().navigateTo(Routes.userDetail);
       itemDetail = data;
   }
 
 
   @action
   add(){
-    locator<NavigationService>().navigateTo(Routes.userForm);
+    getIt<NavigationService>().navigateTo(Routes.userForm);
   }
 
   @action
@@ -164,7 +164,7 @@ abstract class _UserStore implements Store {
     isModified =false;
     createUser(mapping());
     //dialogDelete();
-    locator<NavigationService>().navigateTo(Routes.userForm);
+    getIt<NavigationService>().navigateTo(Routes.userForm);
   }
 
   @action

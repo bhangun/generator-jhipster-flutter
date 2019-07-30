@@ -64,7 +64,7 @@ _%>
 import 'package:flutter/material.dart';
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_services.dart';
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/models/<%= entityInstance %>.dart';
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/routes.dart';<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
 import '../../<%= idx %>/models/<%= idx %>.dart'; <%}}%>
@@ -119,7 +119,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
       position = _position;
       itemDetail = <%= entityInstance %>List[position];
       isItemEmpty = false;
-      locator<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Detail);
+      getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Detail);
 
     } catch (e) {
       isItemEmpty = true;
@@ -129,16 +129,16 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
   add() {
     itemDetail = null;
     isUpdated = false;
-    locator<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Form);
+    getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Form);
   }
 
   save() {
     loading = true;
     success = false;
     try {
-      isUpdated ? locator<<%= entityClass %>Services>().update<%= entityClass %>(_to<%= entityClass %>())
-          :locator<<%= entityClass %>Services>().create<%= entityClass %>(_to<%= entityClass %>());
-      locator<NavigationServices>().navigateTo(Routes.<%= entityInstance %>List);
+      isUpdated ? getIt<<%= entityClass %>Services>().update<%= entityClass %>(_to<%= entityClass %>())
+          :getIt<<%= entityClass %>Services>().create<%= entityClass %>(_to<%= entityClass %>());
+      getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>List);
       loading = false;
       success = true;
       get<%= entityClass %>List();
@@ -151,7 +151,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
     loading = true;
     success = false;
     try {
-      locator<<%= entityClass %>Services>().delete<%= entityClass %>(id);
+      getIt<<%= entityClass %>Services>().delete<%= entityClass %>(id);
       isDeleted =true;
       loading = false;
       success = true;
@@ -165,7 +165,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
     loading = true;
     success = false;
     try {
-      locator<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Form);
+      getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Form);
       isUpdated = true;
       loading = false;
       success = true;
@@ -180,7 +180,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
     success = false;
     isListEmpty = true;
     try {
-      locator<<%= entityClass %>Services>().<%= entityInstance %>s().then((data) => _set<%= entityClass %>List(data));
+      getIt<<%= entityClass %>Services>().<%= entityInstance %>s().then((data) => _set<%= entityClass %>List(data));
       isListEmpty = false;
       loading = false;
       success = true;
@@ -207,6 +207,6 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
 
   viewList() {
     get<%= entityClass %>List();
-    locator<NavigationServices>().navigateTo(Routes.<%= entityInstance %>List);
+    getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>List);
   }
 }

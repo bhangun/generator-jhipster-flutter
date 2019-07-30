@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:<%= appsName %>/modules/account/services/user_services.dart';
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/network/rest_http_services.dart';
 import 'package:<%= appsName %>/services/routes.dart';
@@ -133,13 +133,13 @@ class AuthenticationBloc extends ChangeNotifier {
     try {
       var body = jsonEncode({"username": _username, "password": _password, "rememberMe": _rememberMe});
 
-      var response = await locator<RestHttpServices>()
+      var response = await getIt<RestHttpServices>()
           .post(UserServices.API_USERS_AUTHENTICATE, body);
       if (_saveToken(response)){
         loggedIn = true;
         loading = false;
         success = true;
-        locator<NavigationServices>().navigateTo(Routes.home);
+        getIt<NavigationServices>().navigateTo(Routes.home);
       }else if (response.toString().contains("Unauthorized")){
         showError = true;
         errorMessage =  "Username and password doesn't match";
@@ -164,7 +164,7 @@ class AuthenticationBloc extends ChangeNotifier {
   bool _saveToken(var token) {
     String _token = json.decode(token)["id_token"];
     if (_token != null) {
-      locator<SharedPrefServices>().saveAuthToken(_token);
+      getIt<SharedPrefServices>().saveAuthToken(_token);
       return true;
     } else return false;
   }

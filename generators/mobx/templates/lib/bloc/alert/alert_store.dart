@@ -1,4 +1,4 @@
-import 'package:jh_flutter_mobx/services/locator.dart';
+import 'package:jh_flutter_mobx/services/getIt.dart';
 import 'package:jh_flutter_mobx/services/navigation.dart';
 import 'package:mobx/mobx.dart';
 
@@ -28,7 +28,7 @@ abstract class _AlertStore implements Store {
     isOk =true;
     isCancel=false;
     print('Ok');
-    locator<NavigationService>().close();
+    getIt<NavigationService>().close();
   }
 
   @action
@@ -36,7 +36,7 @@ abstract class _AlertStore implements Store {
     isOk =false;
     isCancel=true;
     print('Cancel');
-    locator<NavigationService>().close();
+    getIt<NavigationService>().close();
   }
 
   @action

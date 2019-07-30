@@ -14,7 +14,7 @@ void main() {
     /*test('get user', () async {
       String profile = await http.RestServices.restGet(UserServices.API_ACCOUNT,true,false);
       expect(json.decode(profile)['login'],username);
-      locator<UserServices>().user('1').then((v)=> print(v.login));
+      getIt<UserServices>().user('1').then((v)=> print(v.login));
     });*/
 
     /* test('profile', () async {

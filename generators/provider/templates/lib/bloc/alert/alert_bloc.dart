@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 
 class AlertBloc extends ChangeNotifier {
@@ -23,7 +23,7 @@ class AlertBloc extends ChangeNotifier {
     isOk =true;
     isCancel=false;
     print('Ok');
-    locator<NavigationServices>().close();
+    getIt<NavigationServices>().close();
   }
 
  
@@ -31,7 +31,7 @@ class AlertBloc extends ChangeNotifier {
     isOk =false;
     isCancel=true;
     print('Cancel');
-    locator<NavigationServices>().close();
+    getIt<NavigationServices>().close();
   }
 
  

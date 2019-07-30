@@ -2,9 +2,9 @@ import 'package:get_it/get_it.dart';
 import 'package:jh_flutter_mobx/themes/theme_service.dart';
 import 'navigation.dart';
 
-GetIt locator = GetIt();
+GetIt getIt = GetIt();
 
-void setupLocator() {
-  locator.registerLazySingleton(() => NavigationService());
-  locator.registerLazySingleton(() => ThemeService());
+void setupgetIt() {
+  getIt.registerLazySingleton(() => NavigationService());
+  getIt.registerLazySingleton(() => ThemeService());
 }

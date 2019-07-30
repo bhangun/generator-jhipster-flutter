@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jh_flutter_mobx/services/locator.dart';
+import 'package:jh_flutter_mobx/services/getIt.dart';
 import 'package:jh_flutter_mobx/themes/theme_service.dart';
 import 'package:mobx/mobx.dart';
 import '../../themes/index.dart';
@@ -10,7 +10,7 @@ class AppStore = _AppStore with _$AppStore;
 
 abstract class _AppStore implements Store {
 
-  //final mm = locator<ThemeService>();
+  //final mm = getIt<ThemeService>();
   final mm = ThemeService();
 
   _AppStore(){

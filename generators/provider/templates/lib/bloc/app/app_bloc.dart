@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:<%= appsName %>/services/locator.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/themes/theme_services.dart';
 
 
@@ -7,7 +7,7 @@ import 'package:<%= appsName %>/themes/theme_services.dart';
 class AppBloc extends ChangeNotifier {
   bool isLocale = true;
 
-  ThemeData theme;// => isLightTheme? locator<ThemeServices>().lightTheme():locator<ThemeServices>().darkTheme();
+  ThemeData theme;// => isLightTheme? getIt<ThemeServices>().lightTheme():getIt<ThemeServices>().darkTheme();
 
  
   bool isLightTheme = true;
@@ -24,12 +24,12 @@ class AppBloc extends ChangeNotifier {
   }
 
   switchToDark(){
-    theme = locator<ThemeServices>().darkTheme();
+    theme = getIt<ThemeServices>().darkTheme();
     isLightTheme = true;
   }
  
   switchToLight(){
-    theme = locator<ThemeServices>().lightTheme();
+    theme = getIt<ThemeServices>().lightTheme();
     isLightTheme = false;
   }
 
@@ -38,6 +38,8 @@ class AppBloc extends ChangeNotifier {
     locale = _locale;
   }
 
-
+  goTo(String route) {
+    getIt<NavigationServices>().navigateTo(route);
+  }
 
 }
