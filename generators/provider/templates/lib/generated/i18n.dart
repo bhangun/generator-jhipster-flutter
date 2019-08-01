@@ -21,16 +21,51 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get add => "Add";
+  String get data_empty => "Data Empty";
+  String get delete => "Delete";
   String get email => "Email";
   String get forgot_password => "Forgot Password";
+  String get home => "Home";
   String get password => "Password";
   String get please_fill_field => "Please fill in the field";
+  String get share => "Share";
   String get sign_in => "Sign In";
   String get user_password => "Password";
 }
 
 class en extends S {
   const en();
+}
+
+class id extends S {
+  const id();
+
+   @override
+  TextDirection get textDirection => TextDirection.ltr;
+
+  @override
+  String get add => "Tambah";
+  @override
+  String get user_password => "Sandi";
+  @override
+  String get password => "Sandi";
+  @override
+  String get please_fill_field => "Silahkan isi kolom";
+  @override
+  String get data_empty => "Data Kosong";
+  @override
+  String get share => "Sebar";
+  @override
+  String get delete => "Hapus";
+  @override
+  String get email => "Email";
+  @override
+  String get home => "Beranda";
+  @override
+  String get sign_in => "Masuk";
+  @override
+  String get forgot_password => "Lupa Sandi";
 }
 
 
@@ -41,6 +76,7 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocali
     return const <Locale>[
 
       const Locale("en", ""),
+      const Locale("id", ""),
 
     ];
   }
@@ -66,6 +102,8 @@ class GeneratedLocalizationsDelegate extends LocalizationsDelegate<WidgetsLocali
 
       case "en":
         return new SynchronousFuture<WidgetsLocalizations>(const en());
+      case "id":
+        return new SynchronousFuture<WidgetsLocalizations>(const id());
 
       default:
         return new SynchronousFuture<WidgetsLocalizations>(const S());

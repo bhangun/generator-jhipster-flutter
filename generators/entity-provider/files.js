@@ -56,6 +56,14 @@ const flutterFiles = {
                     file: 'entity.bloc',
                     renameTo: generator => `${generator.entityFolderName}/bloc/${generator.entityFileName}_bloc.dart`
                 },
+                {
+                    file: 'entity.route',
+                    renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_route.dart`
+                },
+                {
+                    file: 'entity.module',
+                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}_module.dart`
+                },
             ]
         }
     ]

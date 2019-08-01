@@ -1,0 +1,91 @@
+<%_
+const variables = {};
+const dartFields = {};
+const index = {};
+
+const defaultVariablesValues = {};
+let hasUserRelationship = false;
+let dartKeyType;
+if (pkType === 'String') {
+    dartKeyType = 'string';
+} else {
+    dartKeyType = 'number';
+}
+variables['id'] = 'id';
+
+const id = {};
+var i=0;
+id['type'] = 'int';
+id['name'] = 'id';
+id['i']=i;
+dartFields['id'] = id;
+
+function capitalize(text){
+    return text.substr( 0, 1 ).toUpperCase()+text.substr( 1 );
+}
+
+fields.forEach(field => {
+    i++;
+    const varValue = {};
+    const fieldType = field.fieldType;
+    const fieldName = field.fieldName;
+    let dartType;
+    let desc;
+    if (field.fieldIsEnum) {
+        dartType = 'enum';
+    } else if ( fieldType === 'UUID') {
+        dartType = 'String';
+    } else if ( fieldType === 'Integer') {
+        dartType = 'int';
+    }else if ( fieldType === 'Instant') {
+        dartType = 'DartTime';
+        desc = '.toIso8601String()' + 'Z';
+    } else {
+        dartType = fieldType ;
+    } 
+
+    varValue['type'] = dartType;
+    varValue['name'] = fieldName;
+    varValue['desc'] = desc;
+    varValue['i']=i;
+    
+    dartFields[fieldName] = varValue;
+    
+});
+
+relationships.forEach(rela => { 
+    if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'one-to-one' && rela.ownerSide == true
+    || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
+        
+        const varValue = {};
+        varValue['type'] = capitalize(rela.otherEntityName);
+        varValue['name'] = rela.relationshipName;
+        varValue['desc'] = 'relationship';
+        varValue['isList'] = (rela.relationshipType=='many-to-many')?true:false;
+        
+        dartFields[rela.otherEntityName] = varValue;
+    }
+});
+
+_%>
+import 'package:flutter/material.dart';
+
+import '../views/<%= entityInstance %>_list.dart';
+import '../views/<%= entityInstance %>_detail.dart';
+import '../views/<%= entityInstance %>_form.dart';
+
+class <%= entityClass %>Routes {
+
+  <%= entityClass %>Routes._();
+
+  static const String <%= entityInstance %>List = '/<%= entityInstance %>List';
+  static const String <%= entityInstance %>Detail = '/<%= entityInstance %>Detail';
+  static const String <%= entityInstance %>Form = '/<%= entityInstance %>Form';
+
+  static final routes = <String, WidgetBuilder>{
+    <%= entityInstance %>List: (BuildContext context) => <%= entityClass %>List(),
+    <%= entityInstance %>Detail: (BuildContext context) => <%= entityClass %>Detail(),
+    <%= entityInstance %>Form: (BuildContext context) => <%= entityClass %>Form(),
+  };
+}
+

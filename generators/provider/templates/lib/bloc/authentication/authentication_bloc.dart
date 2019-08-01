@@ -1,13 +1,13 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:<%= appsName %>/modules/account/services/user_services.dart';
 import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/network/rest_http_services.dart';
 import 'package:<%= appsName %>/services/routes.dart';
 import 'package:<%= appsName %>/services/shared_preference_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:<%= appsName %>/utils/preferences.dart';
 
 class AuthenticationBloc extends ChangeNotifier {
@@ -125,21 +125,23 @@ class AuthenticationBloc extends ChangeNotifier {
     loading = true;
   }
 
-  login(String _username, String _password, [bool _rememberMe = false]) async {
+  login() async{
     loading = true;
     success = false;
     loggedIn = false;
 
     try {
-      var body = jsonEncode({"username": _username, "password": _password, "rememberMe": _rememberMe});
+      var body = jsonEncode({"username": username, "password": password, "rememberMe": rememberMe});
 
       var response = await getIt<RestHttpServices>()
           .post(UserServices.API_USERS_AUTHENTICATE, body);
+
       if (_saveToken(response)){
         loggedIn = true;
         loading = false;
         success = true;
-        getIt<NavigationServices>().navigateTo(Routes.home);
+        getIt<NavigationServices>().navigateTo(AppsRoutes.home);
+
       }else if (response.toString().contains("Unauthorized")){
         showError = true;
         errorMessage =  "Username and password doesn't match";
@@ -158,7 +160,6 @@ class AuthenticationBloc extends ChangeNotifier {
     }
 
     notifyListeners();
-    print(errorMessage);
   }
 
   bool _saveToken(var token) {

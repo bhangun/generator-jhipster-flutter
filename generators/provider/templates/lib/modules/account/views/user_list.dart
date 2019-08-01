@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
+import 'package:<%= appsName %>/generated/i18n.dart';
 import 'package:<%= appsName %>/modules/account/bloc/user_bloc.dart';
 import 'package:<%= appsName %>/widgets/appbar_widget.dart';
 import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
@@ -41,7 +42,7 @@ class _UserListState extends State<UserList> {
         body: _buildBody(context),
         floatingActionButton: FloatingActionButton(
           onPressed: _userBloc.add,
-          tooltip: 'Add',
+          tooltip: S.of(context).add,
           child: Icon(Icons.add),
         ));
   }
@@ -69,14 +70,14 @@ class _UserListState extends State<UserList> {
                 actionPane: SlidableDrawerActionPane(),
                 actions: <Widget>[
                   IconSlideAction(
-                    caption: 'Share',
+                    caption: S.of(context).share,
                     color: Colors.indigo,
                     icon: Icons.share,
                   ),
                 ],
                 secondaryActions: <Widget>[
                   IconSlideAction(
-                    caption: 'Delete',
+                    caption: S.of(context).delete,
                     color: Colors.red,
                     icon: Icons.delete,
                     onTap: () =>
@@ -104,11 +105,6 @@ class _UserListState extends State<UserList> {
                     onTap: () => _userBloc.itemTap(index)),
               );
             })
-        : Center(child: Text('Data empty'));
+        : Center(child: Text(S.of(context).data_empty));
   }
-
-  /*_showDialog(BuildContext context) {
-    Scaffold.of(context)
-        .showSnackBar(SnackBar(content: Text('Submitting form')));
-  }*/
 }

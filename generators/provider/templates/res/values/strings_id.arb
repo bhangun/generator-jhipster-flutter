@@ -1,0 +1,13 @@
+{
+  "home": "Beranda",
+  "sign_in": "Masuk",
+  "forgot_password": "Lupa Sandi",
+  "please_fill_field": "Silahkan isi kolom",
+  "user_password": "Sandi",
+  "password": "Sandi",
+  "email": "Email",
+  "delete": "Hapus",
+  "share": "Sebar",
+  "add": "Tambah",
+  "data_empty": "Data Kosong"
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:<%= appsName %>/generated/i18n.dart';
 import 'package:<%= appsName %>/bloc/app/app_bloc.dart';
 import 'package:<%= appsName %>/bloc/authentication/authentication_bloc.dart';
 import 'package:<%= appsName %>/modules/account/bloc/user_bloc.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       key: _homeKey,
-      appBar: buildAppBar(context, 'Home'),
+      appBar: buildAppBar(context, S.of(context).home),
       body: _buildBody(),
       drawer: CommonDrawer(),
 

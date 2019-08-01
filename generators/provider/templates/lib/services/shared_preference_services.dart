@@ -1,6 +1,8 @@
 import 'dart:async';
-import 'package:<%= appsName %>/utils/preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:<%= appsName %>/utils/preferences.dart';
+
 
 
 class SharedPrefServices {
@@ -21,29 +23,18 @@ class SharedPrefServices {
       _preferences = await SharedPreferences.getInstance();
     return _singleton;
   }
+
   // General Methods: ----------------------------------------------------------
-  String get authToken {
-    return _preferences.getString(Preferences.auth_token);
-  }
+  String get authToken => _preferences.getString(Preferences.auth_token);
 
-  saveAuthToken(String authToken) {
-    _preferences.setString(Preferences.auth_token, authToken);
-  }
+  saveAuthToken(String authToken) => _preferences.setString(Preferences.auth_token, authToken);
 
-  removeAuthToken()  {
-    _preferences.remove(Preferences.auth_token);
-  }
+  removeAuthToken() => _preferences.remove(Preferences.auth_token);
 
-  bool get isLoggedIn {
-    return _preferences.getString(Preferences.auth_token) ?? false;
-  }
+  bool get isLoggedIn => _preferences.getString(Preferences.auth_token) ?? false;
 
-  setPrefs(String key,String value) {
-    _preferences.setString(key, value);
-  }
+  setPrefs(String key,String value) => _preferences.setString(key, value);
 
-  String prefs(String key)  {
-    return _preferences.getString(key);
-  }
+  String prefs(String key) => _preferences.getString(key);
 
 }

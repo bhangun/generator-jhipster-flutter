@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  
   Material _buildBody(BuildContext context) {
     return Material(
       child: Stack(
@@ -104,26 +105,23 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLeftSide() {
-    return SizedBox.expand(
-      child: Image.asset(Strings.login_image,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
+  Widget _buildLeftSide() => SizedBox.expand(
+      child: Image.asset(Preferences.login_image,
+        fit: BoxFit.cover)
+  );
 
-  Widget _buildRightSide(BuildContext context) {
-    return Form(
+
+  Widget _buildRightSide(BuildContext context) => Form(
      key: _formKey,
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              AppIconWidget(image: Strings.app_icon),
+              AppIconWidget(image: Preferences.app_icon),
               SizedBox(height: 24.0),
               _buildUserIdField(),
               _buildPasswordField(),
@@ -133,11 +131,10 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
+  );
 
-  Widget _buildUserIdField() {
-    return TextFieldWidget(
+
+  Widget _buildUserIdField() => TextFieldWidget(
           key: Key('user_id'),
           hint:  S.of(context).email,
           inputType: TextInputType.emailAddress,
@@ -149,11 +146,10 @@ class _LoginScreenState extends State<LoginScreen> {
             FocusScope.of(context).requestFocus(_passwordFocusNode);
           },
           errorText: _authBloc.userMessage,
-        );
-  }
+  );
 
-  Widget _buildPasswordField() {
-    return  TextFieldWidget(
+
+  Widget _buildPasswordField() => TextFieldWidget(
           key: Key('user_password'),
           hint: S.of(context).password,
           isObscure: true,
@@ -163,11 +159,10 @@ class _LoginScreenState extends State<LoginScreen> {
           textController: _passwordController,
           focusNode: _passwordFocusNode,
           errorText: _authBloc.passwordMessage,
-        );
-  }
+  );
 
-  Widget _buildForgotPasswordButton() {
-    return Align(
+
+  Widget _buildForgotPasswordButton() => Align(
       alignment: FractionalOffset.centerRight,
       child: FlatButton(
         key: Key('user_forgot_password'),
@@ -179,20 +174,15 @@ class _LoginScreenState extends State<LoginScreen> {
               .caption
               .copyWith(color: Colors.orangeAccent),
         ),
-        onPressed: () {},
-      ),
-    );
-  }
+        onPressed: () => _authBloc.forgotPassword()
+      )
+  );
 
-  Widget _buildSignInButton(BuildContext context) {
-    return RoundedButtonWidget(
+  Widget _buildSignInButton(BuildContext context) => RoundedButtonWidget(
       key: Key('user_sign_button'),
-      buttonText: S.of(context).sign_in,//Strings.login_btn_sign_in,
+      buttonText: S.of(context).sign_in,
       buttonColor:  Theme.of(context).buttonColor,
       textColor: Theme.of(context).textTheme.button.color,
-      onPressed: ()=>
-          _authBloc.login(_userEmailController.text,_passwordController.text)
-            //:showErrorMessage(context , S.of(context).please_fill_field)
+      onPressed: ()=> _authBloc.login()
     );
-  }
 }
