@@ -12,9 +12,9 @@ import 'package:<%= appsName %>/themes/theme_services.dart';
 import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/utils/routes.dart';
 
-import 'package:<%= appsName %>/account/bloc/user_bloc.dart';
-import 'package:<%= appsName %>/account/services/user_routes.dart';
-import 'package:<%= appsName %>/account/services/user_services.dart';
+import 'account/bloc/user_bloc.dart';
+import 'account/services/user_routes.dart';
+import 'account/services/user_services.dart';
 
 class MainModule implements Module{
   @override

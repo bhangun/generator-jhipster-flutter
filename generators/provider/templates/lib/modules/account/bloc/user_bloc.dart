@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:<%= appsName %>/modules/account/services/user_routes.dart';
 import 'package:<%= appsName %>/modules/account/services/user_services.dart';
 import 'package:<%= appsName %>/modules/account/models/user_model.dart';
 import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
-import 'package:<%= appsName %>/services/routes.dart';
-import 'package:<%= appsName %>/services/helper.dart';
+import 'package:<%= appsName %>/utils/helper.dart';
+
 
 class UserBloc extends ChangeNotifier {
 
@@ -38,7 +39,6 @@ class UserBloc extends ChangeNotifier {
   User userProfile;
 
   List<User> userList;
-
 
   String userName='';
 
@@ -88,7 +88,7 @@ class UserBloc extends ChangeNotifier {
       position = _position;
       itemDetail = userList[position];
       isItemEmpty = false;
-      getIt<NavigationServices>().navigateTo(Routes.userDetail);
+      getIt<NavigationServices>().navigateTo(UserRoutes.userDetail);
 
     } catch (e) {
       isItemEmpty = true;
@@ -98,7 +98,7 @@ class UserBloc extends ChangeNotifier {
   add() {
     itemDetail = null;
     isUpdated = false;
-    getIt<NavigationServices>().navigateTo(Routes.userForm);
+    getIt<NavigationServices>().navigateTo(UserRoutes.userForm);
   }
 
   save() {
@@ -107,10 +107,10 @@ class UserBloc extends ChangeNotifier {
     try {
       isUpdated ? getIt<UserServices>().updateUser(_toUser())
           :getIt<UserServices>().createUser(_toUser());
-      getIt<NavigationServices>().navigateTo(Routes.userList);
+      getIt<NavigationServices>().navigateTo(UserRoutes.userList);
       loading = false;
       success = true;
-      getUserList();
+
     }catch(e){
       print(e.toString());
     }
@@ -124,7 +124,7 @@ class UserBloc extends ChangeNotifier {
       isDeleted =true;
       loading = false;
       success = true;
-      getUserList();
+
     }catch(e){
       print(e.toString());
     }
@@ -134,17 +134,17 @@ class UserBloc extends ChangeNotifier {
     loading = true;
     success = false;
     try {
-      getIt<NavigationServices>().navigateTo(Routes.userForm);
+      getIt<NavigationServices>().navigateTo(UserRoutes.userForm);
       isUpdated = true;
       loading = false;
       success = true;
-      getUserList();
+
     }catch(e){
       print(e.toString());
     }
   }
 
-  Future getUserList() async {
+   getUserList() async {
     loading = true;
     success = false;
     isListEmpty = true;
@@ -165,6 +165,8 @@ class UserBloc extends ChangeNotifier {
     if (data != null) {
       userList = data;
       totalItem = data.length;
+     // notifyListeners();
+      print('userbloc>>> $userList');
     }
   }
 
@@ -191,6 +193,7 @@ class UserBloc extends ChangeNotifier {
 
   viewList() {
     getUserList();
-    getIt<NavigationServices>().navigateTo(Routes.userList);
+    getIt<NavigationServices>().navigateTo(UserRoutes.userList);
   }
 }
+

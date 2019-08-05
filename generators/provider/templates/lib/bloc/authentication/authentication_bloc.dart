@@ -6,7 +6,7 @@ import 'package:<%= appsName %>/modules/account/services/user_services.dart';
 import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/services/network/rest_http_services.dart';
-import 'package:<%= appsName %>/services/routes.dart';
+import 'package:<%= appsName %>/services/apps_routes.dart';
 import 'package:<%= appsName %>/services/shared_preference_services.dart';
 import 'package:<%= appsName %>/utils/preferences.dart';
 

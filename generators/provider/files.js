@@ -74,6 +74,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/modules/account/models/user_model.dart`, `${this.packageFolder}/lib/modules/account/models/user_model.dart`);
             this.template(`${flutterDir}lib/modules/account/models/user_profile.dart`, `${this.packageFolder}/lib/modules/account/models/user_profile.dart`);
             
+            this.template(`${flutterDir}lib/modules/account/services/user_routes.dart`, `${this.packageFolder}/lib/modules/account/services/user_routes.dart`);
             this.template(`${flutterDir}lib/modules/account/services/user_services.dart`, `${this.packageFolder}/lib/modules/account/services/user_services.dart`);
             
             this.template(`${flutterDir}lib/modules/account/views/user_detail.dart`, `${this.packageFolder}/lib/modules/account/views/user_detail.dart`);
@@ -83,7 +84,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/modules/administration/metrics_model.dart`, `${this.packageFolder}/lib/modules/administration/metrics_model.dart`);
 
             this.template(`${flutterDir}lib/modules/main_module.dart`, `${this.packageFolder}/lib/modules/main_module.dart`);
-            this.template(`${flutterDir}lib/modules/register_module.dart`, `${this.packageFolder}/lib/modules/register_module.dart`);
+            this.template(`${flutterDir}lib/modules/register_modules.dart`, `${this.packageFolder}/lib/modules/register_modules.dart`);
 
             // Services
             this.template(`${flutterDir}lib/services/local/app_database.dart`, `${this.packageFolder}/lib/services/local/app_database.dart`);
@@ -93,6 +94,7 @@ function writeFiles() {
             this.template(`${flutterDir}lib/services/network/rest_dio_services.dart`, `${this.packageFolder}/lib/services/network/rest_dio_services.dart`);
             this.template(`${flutterDir}lib/services/network/rest_http_services.dart`, `${this.packageFolder}/lib/services/network/rest_http_services.dart`);
             
+            this.template(`${flutterDir}lib/services/apps_routes.dart`, `${this.packageFolder}/lib/services/apps_routes.dart`);
             this.template(`${flutterDir}lib/services/getIt.dart`, `${this.packageFolder}/lib/services/getIt.dart`);
             this.template(`${flutterDir}lib/services/navigation.dart`, `${this.packageFolder}/lib/services/navigation.dart`);
             

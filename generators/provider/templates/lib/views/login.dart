@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:<%= appsName %>/bloc/authentication/authentication_bloc.dart';
 import 'package:<%= appsName %>/generated/i18n.dart';
-import 'package:<%= appsName %>/utils/strings.dart';
+import 'package:<%= appsName %>/utils/preferences.dart';
 import 'package:<%= appsName %>/widgets/app_icon_widget.dart';
 import 'package:<%= appsName %>/widgets/global_methods.dart';
 import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';

@@ -19,7 +19,7 @@ module.exports = class extends BaseGenerator {
                 /*  if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
                 }  */
-                this.log(this.destinationRoot());
+                // this.log(this.destinationRoot());
             },
             displayLogo() {
                 this.log(`${chalk.bold.cyan('_          _   _ _                   ')}`);
@@ -32,7 +32,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.cyan('                                |___/ ')}`);
 
                 // Have Yeoman greet the user.
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster-Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
         };
     }
@@ -44,7 +44,7 @@ module.exports = class extends BaseGenerator {
         }); */
         // this.log(this.auditedEntities[0]);
         const appsName = this.getDefaultAppName(); // `${this.jhipsterAppConfig.baseName}Apps`;
-        this.log(appsName);
+        // this.log(appsName);
         const prompts = [
             {
                 type: 'input',
@@ -78,6 +78,38 @@ module.exports = class extends BaseGenerator {
                 message: 'What is your package name?',
                 // default: this.jhipsterAppConfig.packageName,
                 store: true
+            },
+            {
+                type: 'list',
+                name: 'android',
+                message: 'Which Android native code do you want to use?',
+                choices: [
+                    {
+                        value: 'java',
+                        name: 'Java'
+                    },
+                    {
+                        value: 'kotlin',
+                        name: 'Kotlin'
+                    },
+                ],
+                default: 'java'
+            },
+            {
+                type: 'list',
+                name: 'ios',
+                message: 'Which iOS native code do you want to use?',
+                choices: [
+                    {
+                        value: 'objc',
+                        name: 'Objective-C'
+                    },
+                    {
+                        value: 'swift',
+                        name: 'Swift'
+                    },
+                ],
+                default: 'objc'
             },
             {
                 // when: response => applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa',
@@ -118,6 +150,8 @@ module.exports = class extends BaseGenerator {
                 this.config.set('packageName', this.props.packageName);
                 this.config.set('directoryPath', `${this.props.directoryPath}`);
                 this.config.set('packageFolder', `${this.props.appsName}`);
+                this.config.set('android', this.props.android);
+                this.config.set('ios', this.props.ios);
             }
         };
     }
@@ -142,6 +176,7 @@ module.exports = class extends BaseGenerator {
         this.packageFolder = this.destinationRoot(); // `${this.props.appsName}`;
         this.buildTool = this.props.buildTool;
 
+
         // variable from questions
         // show all variables
         this.log('\n--- some config read from config ---');
@@ -158,6 +193,9 @@ module.exports = class extends BaseGenerator {
         }
 
 
+        // variable for native code
+        this.nativeCode = ` -a ${this.props.android} -i ${this.props.ios} `;
+
         try {
             this.registerModule('generator-jhipster-kutilang', 'entity', 'post', 'entity', 'Generate Mobile Apps for Android & iOS using Flutter & Dart Language and JHipster as a backend');
         } catch (err) {
@@ -167,6 +205,7 @@ module.exports = class extends BaseGenerator {
 
     install() {
         this.spawnCommand('mv', ['.yo-rc.json', `${this.baseName}/`]);
+        // this.spawnCommand('cp', ['.yo-rc.json', `${this.baseName}/`]);
     }
 
     end() {

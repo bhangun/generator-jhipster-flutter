@@ -62,11 +62,12 @@
 
 _%>
 import 'package:flutter/material.dart';
-import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_services.dart';
-import 'package:<%= appsName %>/modules/<%= entityInstance %>/models/<%= entityInstance %>.dart';
 import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
-import 'package:<%= appsName %>/services/routes.dart';<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_routes.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_services.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/models/<%= entityInstance %>.dart';
+<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
 import '../../<%= idx %>/models/<%= idx %>.dart'; <%}}%>
 
 class <%= entityClass %>Bloc extends ChangeNotifier {
@@ -119,7 +120,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
       position = _position;
       itemDetail = <%= entityInstance %>List[position];
       isItemEmpty = false;
-      getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Detail);
+      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Detail);
 
     } catch (e) {
       isItemEmpty = true;
@@ -129,7 +130,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
   add() {
     itemDetail = null;
     isUpdated = false;
-    getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Form);
+    getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
   }
 
   save() {
@@ -138,7 +139,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
     try {
       isUpdated ? getIt<<%= entityClass %>Services>().update<%= entityClass %>(_to<%= entityClass %>())
           :getIt<<%= entityClass %>Services>().create<%= entityClass %>(_to<%= entityClass %>());
-      getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>List);
+      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
       loading = false;
       success = true;
       get<%= entityClass %>List();
@@ -165,7 +166,7 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
     loading = true;
     success = false;
     try {
-      getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>Form);
+      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
       isUpdated = true;
       loading = false;
       success = true;
@@ -207,6 +208,6 @@ class <%= entityClass %>Bloc extends ChangeNotifier {
 
   viewList() {
     get<%= entityClass %>List();
-    getIt<NavigationServices>().navigateTo(Routes.<%= entityInstance %>List);
+    getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
   }
 }

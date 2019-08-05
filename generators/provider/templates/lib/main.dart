@@ -17,15 +17,15 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/app/app_bloc.dart';
-import 'modules/account/bloc/user_bloc.dart';
-import 'utils/strings.dart';
-import 'bloc/authentication/authentication_bloc.dart';
 import 'generated/i18n.dart';
-import 'views/splash.dart';
 import 'services/getIt.dart';
-import 'services/routes.dart';
 import 'services/navigation.dart';
-// kutilang-needle-add-bloc-import - Don't remove, used by kutilang to add new import
+import 'utils/preferences.dart';
+import 'utils/providers.dart';
+import 'utils/modules_registry.dart';
+import 'utils/routes.dart';
+import 'views/splash.dart';
+
 
 void main() {
   SystemChrome.setPreferredOrientations([
@@ -34,13 +34,14 @@ void main() {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]).then((_) {
-    setupgetIt();
-    runApp(MultiProvider(providers: [
-      ChangeNotifierProvider(builder: (_) => AppBloc()),
-      ChangeNotifierProvider(builder: (_) => AuthenticationBloc()),
-      ChangeNotifierProvider(builder: (_) => UserBloc()),
-      // kutilang-needle-add-bloc - Don't remove, used by kutilang to add new import
-    ], child: KutilangApp()));
+
+    ModulesRegistry();
+
+    runApp(MultiProvider(
+        providers: getIt<AppProviders>().providers,
+        child: KutilangApp())
+    );
+    //);
   });
 }
 
@@ -62,13 +63,14 @@ class _KutilangAppState extends State<KutilangApp> {
         localizationsDelegates: [S.delegate],
         supportedLocales: S.delegate.supportedLocales,
         localeResolutionCallback:
-            S.delegate.resolution(fallback: new Locale("en", "")),
+            S.delegate.resolution(fallback: new Locale(Preferences.english, "")),
         key: _appKey,
         debugShowCheckedModeBanner: false,
-        title: Strings.appName,
+        title: Preferences.appName,
         theme: _appBloc.theme,
-        routes: Routes.routes,
+        routes: getIt<Routes>().routes,
         home: SplashScreen(),
-        navigatorKey: NavigationServices.navigatorKey);
+        navigatorKey: NavigationServices.navigatorKey
+    );
   }
 }

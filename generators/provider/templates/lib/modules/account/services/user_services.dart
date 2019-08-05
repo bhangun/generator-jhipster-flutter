@@ -3,10 +3,10 @@ import 'dart:convert';
 
 import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
-import 'package:<%= appsName %>/services/routes.dart';
+import 'package:<%= appsName %>/services/apps_routes.dart';
 import 'package:<%= appsName %>/services/shared_preference_services.dart';
 
-import '../../../services/helper.dart';
+import '../../../utils/helper.dart';
 import '../models/user_model.dart';
 import '../../../services/network/rest_http_services.dart';
 
@@ -72,7 +72,7 @@ class UserServices {
     String _token = json.decode(token)["id_token"];
     if (_token != null) {
       getIt<SharedPrefServices>().saveAuthToken(_token);
-      getIt<NavigationServices>().navigateTo(Routes.home);
+      getIt<NavigationServices>().navigateTo(AppsRoutes.home);
       return true;
     } else
       return false;

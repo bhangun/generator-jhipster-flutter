@@ -58,7 +58,7 @@ const flutterFiles = {
                 },
                 {
                     file: 'entity.route',
-                    renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_route.dart`
+                    renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_routes.dart`
                 },
                 {
                     file: 'entity.module',
@@ -89,9 +89,9 @@ function writeFiles() {
 
             // write client side files for angular
             this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
-            this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
-            this.addEntityToDrawer(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
-           
+            // this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
+            this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
+
             // Copy for each
             if (this.enableTranslation) {
                 const languages = this.languages || this.getAllInstalledLanguages();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:<%= appsName %>/services/getIt.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/themes/theme_services.dart';
 
 
