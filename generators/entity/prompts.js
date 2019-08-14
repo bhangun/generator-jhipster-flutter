@@ -34,6 +34,8 @@ module.exports = {
 };
 
 function askForBackendJson() {
+    this.directoryPath = this.config.get('directoryPath');
+
     const context = this.context;
     if (this.useConfigurationFile) {
         return;
@@ -53,7 +55,7 @@ function askForBackendJson() {
             type: 'input',
             name: 'backendPath',
             message: 'Enter the path to your JHipster app\'s root directory:',
-            default: '../',
+            default: this.directoryPath,
             store: true,
             validate: (input) => {
                 let fromPath = '';

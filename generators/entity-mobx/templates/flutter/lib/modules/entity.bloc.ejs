@@ -1,0 +1,224 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  function capitalize(text){
+    return text.substr( 0, 1 ).toUpperCase()+text.substr( 1 );
+  }
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = 'enum';
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+      } else if ( fieldType === 'Integer') {
+        dartType = 'int';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      dartCont = 'TextEditingController()';
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+
+  relationships.forEach(rela => { 
+    if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'one-to-one' && rela.ownerSide == true
+    || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
+        
+        const varValue = {};
+        varValue['type'] = capitalize(rela.otherEntityName);
+        varValue['name'] = rela.relationshipName;
+        varValue['desc'] = 'relationship';
+        varValue['isList'] = (rela.relationshipType=='many-to-many')?true:false;
+        
+        dartFields[rela.otherEntityName] = varValue;
+    }
+  });
+
+_%>
+import 'package:mobx/mobx.dart';
+import 'package:<%= appsName %>/services/getIt.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_routes.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_services.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/models/<%= entityInstance %>.dart';
+<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
+import '../../<%= idx %>/models/<%= idx %>.dart'; <%}}%>
+
+part '<%= entityInstance %>_bloc.g.dart';
+
+class <%= entityClass %>Store = _<%= entityClass %>Store with _$<%= entityClass %>Store;
+
+
+abstract class _<%= entityClass %>Store with Store {
+  @observable
+  bool isListEmpty = true;
+  @observable
+  bool isItemEmpty = true;
+  @observable
+  bool isUpdated = false;
+  @observable
+  bool isDeleted = false;
+
+  @observable
+  String errorMessage='error';
+  @observable
+  bool showError = false;
+  @observable
+  String title = '';
+
+  @observable
+  int totalItem = 0;
+  @observable
+  bool success = false;
+  @observable
+  bool loading = false;
+  @observable
+  int position = 0;
+
+  @observable
+  <%= entityClass %> itemDetail;
+
+  List<<%= entityClass %>> <%= entityInstance %>List;
+  <% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
+  String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %><% if(dartFields[idx]['isList']) {%>
+  List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;<% } else {%>
+  <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; <% } } else if(idx!='id'){%>
+  <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
+    
+
+  // actions:-------------------------------------------------------------------
+
+  String get formTitle => isUpdated? title='Update <%= entityClass %>':'Create <%= entityClass %>'; <% for (idx in dartFields) {  if(idx!='id') {%>
+  
+  void set<%= capitalize(dartFields[idx]['name'])%>(<% if(dartFields[idx]['type'] != 'enum' && dartFields[idx]['isList'])  {%>List<<%= dartFields[idx]['type'] %>><%} else{%><%= dartFields[idx]['type'] %><%}%> value) {
+    <%- dartFields[idx]['name'] %> = value;
+  }<%} } %>
+
+  @action
+  itemTap(int _position) {
+    try {
+      position = _position;
+      itemDetail = <%= entityInstance %>List[position];
+      isItemEmpty = false;
+      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Detail);
+
+    } catch (e) {
+      isItemEmpty = true;
+    }
+  }
+
+  @action
+  add() {
+    itemDetail = null;
+    isUpdated = false;
+    getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
+  }
+
+  @action
+  save() {
+    loading = true;
+    success = false;
+    try {
+      isUpdated ? getIt<<%= entityClass %>Services>().update<%= entityClass %>(_to<%= entityClass %>())
+          :getIt<<%= entityClass %>Services>().create<%= entityClass %>(_to<%= entityClass %>());
+      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
+      loading = false;
+      success = true;
+      get<%= entityClass %>List();
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  @action
+  delete(int id) {
+    loading = true;
+    success = false;
+    try {
+      getIt<<%= entityClass %>Services>().delete<%= entityClass %>(id);
+      isDeleted =true;
+      loading = false;
+      success = true;
+      get<%= entityClass %>List();
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  @action
+  update() {
+    loading = true;
+    success = false;
+    try {
+      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
+      isUpdated = true;
+      loading = false;
+      success = true;
+      get<%= entityClass %>List();
+    }catch(e){
+      print(e.toString());
+    }
+  }
+
+  Future get<%= entityClass %>List() async {
+    loading = true;
+    success = false;
+    isListEmpty = true;
+    try {
+      getIt<<%= entityClass %>Services>().<%= entityInstance %>s().then((data) => _set<%= entityClass %>List(data));
+      isListEmpty = false;
+      loading = false;
+      success = true;
+    } catch (e) {
+      showError = true;
+      errorMessage = 'Data Empty';
+      print(e.toString());
+    }
+
+  }
+
+  _set<%= entityClass %>List(List<<%= entityClass %>> data){
+    if (data != null) {
+      <%= entityInstance %>List = data;
+      totalItem = data.length;
+    }
+  }
+
+  <%= entityClass %> _to<%= entityClass %>() {
+    return <%= entityClass %>(<% for (idx in dartFields) { if(idx=='id') {%>
+    id: isUpdated ? itemDetail.id : '',<%} else {%>
+    <%= dartFields[idx]['name'] %>: <%= dartFields[idx]['name'] %>, <% }} %>);
+  }
+
+  @action
+  viewList() {
+    get<%= entityClass %>List();
+    getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
+  }
+}

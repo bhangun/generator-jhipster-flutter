@@ -152,6 +152,7 @@ module.exports = class extends BaseGenerator {
                 this.config.set('packageFolder', `${this.props.appsName}`);
                 this.config.set('android', this.props.android);
                 this.config.set('ios', this.props.ios);
+                this.config.set('stateManageType', this.props.stateManageType);
             }
         };
     }

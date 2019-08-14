@@ -1,0 +1,114 @@
+<%_
+const variables = {};
+const dartFields = {};
+const index = {};
+
+const defaultVariablesValues = {};
+let hasUserRelationship = false;
+let dartKeyType;
+if (pkType === 'String') {
+    dartKeyType = 'string';
+} else {
+    dartKeyType = 'number';
+}
+variables['id'] = 'id';
+
+const id = {};
+var i=0;
+id['type'] = 'int';
+id['name'] = 'id';
+id['i']=i;
+dartFields['id'] = id;
+
+function capitalize(text){
+    return text.substr( 0, 1 ).toUpperCase()+text.substr( 1 );
+}
+
+fields.forEach(field => {
+    i++;
+    const varValue = {};
+    const fieldType = field.fieldType;
+    const fieldName = field.fieldName;
+    let dartType;
+    let desc;
+    if (field.fieldIsEnum) {
+        dartType = 'enum';
+    } else if ( fieldType === 'UUID') {
+        dartType = 'String';
+    } else if ( fieldType === 'Integer') {
+        dartType = 'int';
+    }else if ( fieldType === 'Instant') {
+        dartType = 'DartTime';
+        desc = '.toIso8601String()' + 'Z';
+    } else {
+        dartType = fieldType ;
+    } 
+
+    varValue['type'] = dartType;
+    varValue['name'] = fieldName;
+    varValue['desc'] = desc;
+    varValue['i']=i;
+    
+    dartFields[fieldName] = varValue;
+    
+});
+
+relationships.forEach(rela => { 
+    if(rela.relationshipType == 'many-to-one' || rela.relationshipType == 'one-to-one' && rela.ownerSide == true
+    || rela.relationshipType == 'many-to-many'  && rela.ownerSide == true ){
+        
+        const varValue = {};
+        varValue['type'] = capitalize(rela.otherEntityName);
+        varValue['name'] = rela.relationshipName;
+        varValue['desc'] = 'relationship';
+        varValue['isList'] = (rela.relationshipType=='many-to-many')?true:false;
+        
+        dartFields[rela.otherEntityName] = varValue;
+    }
+});
+
+_%>
+import 'package:provider/provider.dart';
+
+import 'package:<%= appsName %>/services/getIt.dart';
+import 'package:<%= appsName %>/utils/routes.dart';
+import 'package:<%= appsName %>/models/module.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_routes.dart';
+
+import 'bloc/<%= entityInstance %>_bloc.dart';
+import 'services/<%= entityInstance %>_services.dart';
+
+class <%= entityClass %>Module implements Module {
+  @override
+  String name = '<%= entityClass %>';
+
+  @override
+  pages() {
+    return [
+      Page(title: '<%= entityClass %> Detail', route: <%= entityClass %>Routes.<%= entityInstance %>Detail),
+      Page(title: '<%= entityClass %> Form', route: <%= entityClass %>Routes.<%= entityInstance %>Form),
+      Page(
+          title: '<%= entityClass %> List',
+          route: <%= entityClass %>Routes.<%= entityInstance %>List,
+          showInDrawer: true,
+          showInHome: true)
+    ];
+  }
+
+  @override
+  services() {
+    getIt.registerFactory<<%= entityClass %>Services>(() => <%= entityClass %>Services());
+  }
+
+  @override
+  routes() {
+    getIt<Routes>().addRoutes(<%= entityClass %>Routes.routes);
+  }
+
+  @override
+  providers() {
+    return [
+      ChangeNotifierProvider(builder: (_) => <%= entityClass %>Bloc()),
+    ];
+  }
+}

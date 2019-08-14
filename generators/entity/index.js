@@ -99,6 +99,9 @@ module.exports = class extends BaseGenerator {
         if (useBlueprint) return;
         return {
             getConfig() {
+                // stateManageType
+                this.stateManageType = this.config.get('stateManageType');
+
                 const context = this.context;
                 context.useConfigurationFile = false;
                 this.env.options.appPath = this.config.get('appPath') || constants.CLIENT_MAIN_SRC_DIR;
@@ -633,20 +636,28 @@ module.exports = class extends BaseGenerator {
             composeClient() {
                 const context = this.context;
                 if (context.skipClient) return;
-
-                /* this.composeWith(require.resolve('../entity-client'), {
-                    context,
-                    'skip-install': context.options['skip-install'],
-                    force: context.options.force,
-                    debug: context.isDebugEnabled
-                }); */
-
-                this.composeWith(require.resolve('../entity-provider'), {
-                    context,
-                    'skip-install': context.options['skip-install'],
-                    force: context.options.force,
-                    debug: context.isDebugEnabled
-                });
+                if (this.stateManageType === 'basic') {
+                    this.composeWith(require.resolve('../entity-client'), {
+                        context,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
+                        debug: context.isDebugEnabled
+                    });
+                } else if (this.stateManageType === 'provider') {
+                    this.composeWith(require.resolve('../entity-provider'), {
+                        context,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
+                        debug: context.isDebugEnabled
+                    });
+                } else {
+                    this.composeWith(require.resolve('../entity-mobx'), {
+                        context,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
+                        debug: context.isDebugEnabled
+                    });
+                }
             }
         };
     }

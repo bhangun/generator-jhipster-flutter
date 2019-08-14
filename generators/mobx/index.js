@@ -59,7 +59,6 @@ module.exports = class extends BaseGenerator {
     install() {
         this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, '-a', `${this.android}`, '-i', `${this.ios}`, `${this.appsName}`]);
         // this.spawnCommand('pub', ['get']);
-        // this.spawnCommand('git', ['init']);
     }
 
     end() {

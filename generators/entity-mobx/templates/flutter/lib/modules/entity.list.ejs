@@ -1,0 +1,152 @@
+<%_
+  const dartFields = {};
+  const index = {};
+  let hasUserRelationship = false;
+  const id = {};
+  var i=0;
+
+  id['type'] = 'int';
+  id['name'] = 'id';
+  id['i']=i;
+  dartFields['id'] = id;
+
+  fields.forEach(field => {
+      i++;
+      const varValue = {};
+      const fieldType = field.fieldType;
+      const fieldName = field.fieldName;
+      let dartType;
+      let dartCont;
+      let desc;
+      if (field.fieldIsEnum) {
+          dartType = 'enum';
+      } else if ( fieldType === 'UUID' || fieldType === 'String') {
+          dartType = 'String';
+          dartCont = 'TextEditingController()';
+      } else if ( fieldType === 'Integer') {
+        dartType = 'int';
+      } else if ( fieldType === 'Instant') {
+          dartType = 'DartTime';
+          desc = '.toIso8601String()' + 'Z';
+      } else {
+          dartType = fieldType ;
+      } 
+
+      varValue['type'] = dartType;
+      varValue['name'] = fieldName;
+      varValue['desc'] = desc;
+      varValue['cont'] = dartCont;
+      varValue['i']=i;
+      
+      dartFields[fieldName] = varValue;
+  });
+_%>
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/bloc/<%= entityInstance %>_bloc.dart';
+import 'package:<%= appsName %>/widgets/appbar_widget.dart';
+import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
+
+
+class <%= entityClass %>List extends StatefulWidget {
+
+  @override
+  _<%= entityClass %>ListState createState() => _<%= entityClass %>ListState();
+}
+
+final String title = "<%= entityClass %> List";
+
+class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
+  final _listKey = GlobalKey<ScaffoldState>();
+  var _<%= entityInstance %>List;
+  <%= entityClass %>Bloc _<%= entityInstance %>Bloc;
+
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _<%= entityInstance %>Bloc = Provider.of<<%= entityClass %>Bloc>(context);
+
+    _<%= entityInstance %>Bloc.get<%= entityClass %>List();
+
+    int _total<%= entityClass %> = _<%= entityInstance %>Bloc.totalItem;
+    _<%= entityInstance %>List = _<%= entityInstance %>Bloc.<%= entityInstance %>List;
+
+    return Scaffold(
+        key: _listKey,
+        appBar: buildAppBar(context, '<%= entityClass %> List ( $_total<%= entityClass %> )'),
+        body: _buildBody(context),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _<%= entityInstance %>Bloc.add,
+          tooltip: 'Add',
+          child: Icon(Icons.add),
+        ));
+  }
+
+  _buildBody(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        _<%= entityInstance %>Bloc.loading
+            ? CustomProgressIndicatorWidget()
+            : Material(child: _buildSlidelist(context)),
+      ],
+    );
+  }
+
+  _buildSlidelist(BuildContext context) {
+    return !_<%= entityInstance %>Bloc.isListEmpty
+        ? ListView.separated(
+            itemCount: _<%= entityInstance %>Bloc.totalItem,
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
+            itemBuilder: (context, index) {
+              return Slidable(
+                key: ValueKey(index),
+                actionPane: SlidableDrawerActionPane(),
+                actions: <Widget>[
+                  IconSlideAction(
+                    caption: 'Share',
+                    color: Colors.indigo,
+                    icon: Icons.share,
+                  ),
+                ],
+                secondaryActions: <Widget>[
+                  IconSlideAction(
+                    caption: 'Delete',
+                    color: Colors.red,
+                    icon: Icons.delete,
+                    onTap: () =>
+                        _<%= entityInstance %>Bloc.delete(_<%= entityInstance %>Bloc.<%= entityInstance %>List[index].id),
+                  ),
+                ],
+                dismissal: SlidableDismissal(
+                  child: SlidableDrawerDismissal(),
+                ),
+                child: ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text(
+                      '${_<%= entityInstance %>List[index].id}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                    /*subtitle: Text(
+                      '${_<%= entityInstance %>List[index]<%= (dartFields[1]!=null)?dartFields[1]:dartFields[0] %>} ', 
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                    ),*/
+                    onTap: () => _<%= entityInstance %>Bloc.itemTap(index)),
+              );
+            })
+        : Center(child: Text('Data empty'));
+  }
+}
