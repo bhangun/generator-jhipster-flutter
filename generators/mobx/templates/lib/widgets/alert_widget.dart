@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../bloc/alert/index.dart';
+
+import 'package:<%= appsName %>/bloc/alert/alert_bloc.dart';
 
 class KutAlert extends StatelessWidget {
   

@@ -1,6 +1,6 @@
+import 'package:<%= appsName %>/utils/db_constants.dart';
 import 'package:sembast/sembast.dart';
 import '../../models/app_data.dart';
-import '../../constants/db_constants.dart';
 import 'app_database.dart';
 
 

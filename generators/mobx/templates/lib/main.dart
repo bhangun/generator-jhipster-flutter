@@ -14,18 +14,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'bloc/app/app_bloc.dart';
 import 'generated/i18n.dart';
 import 'services/getIt.dart';
 import 'services/navigation.dart';
-import 'utils/preferences.dart';
-import 'utils/providers.dart';
 import 'utils/modules_registry.dart';
-import 'utils/routes.dart';
+import 'utils/preferences.dart';
 import 'views/splash.dart';
-
+import 'utils/routes.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([
@@ -34,43 +32,35 @@ void main() {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]).then((_) {
-
     ModulesRegistry();
-
-    runApp(MultiProvider(
-        providers: getIt<AppProviders>().providers,
-        child: KutilangApp())
-    );
-    //);
+    runApp(KutilangApp());
   });
 }
 
-class KutilangApp extends StatefulWidget {
-  @override
-  _KutilangAppState createState() => _KutilangAppState();
-}
-
-class _KutilangAppState extends State<KutilangApp> {
-
+class KutilangApp extends StatelessWidget {
+  final _appBloc = AppStore();
   final _appKey = GlobalKey<State>();
-
+ 
   @override
   Widget build(BuildContext context) {
-    final AppBloc _appBloc = Provider.of<AppBloc>(context);
-
-    return MaterialApp(
-        locale: Locale(_appBloc.locale, ""),
-        localizationsDelegates: [S.delegate],
-        supportedLocales: S.delegate.supportedLocales,
-        localeResolutionCallback:
+    return Observer(
+      name: 'app',
+      builder: (context) {
+        return MaterialApp(
+            locale: Locale(_appBloc.locale, ""),
+            localizationsDelegates: [S.delegate],
+            supportedLocales: S.delegate.supportedLocales,
+            localeResolutionCallback:
             S.delegate.resolution(fallback: new Locale(Preferences.english, "")),
-        key: _appKey,
-        debugShowCheckedModeBanner: false,
-        title: Preferences.appName,
-        theme: _appBloc.theme,
-        routes: getIt<Routes>().routes,
-        home: SplashScreen(),
-        navigatorKey: NavigationServices.navigatorKey
+            key: _appKey,
+            debugShowCheckedModeBanner: false,
+            title: Preferences.appName,
+            theme: _appBloc.theme,
+            routes: getIt<Routes>().routes,
+            home: SplashScreen(),
+            navigatorKey: NavigationServices.navigatorKey
+        );
+        }
     );
   }
 }

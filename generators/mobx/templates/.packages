@@ -106,4 +106,4 @@ web_socket_channel:file:///Users/bhangun/.pub-cache/hosted/pub.dartlang.org/web_
 xml:file:///Users/bhangun/.pub-cache/hosted/pub.dartlang.org/xml-3.4.1/lib/
 xxtea:file:///Users/bhangun/.pub-cache/hosted/pub.dartlang.org/xxtea-2.0.2/lib/
 yaml:file:///Users/bhangun/.pub-cache/hosted/pub.dartlang.org/yaml-2.1.16/lib/
-jh_flutter_mobx:lib/
+<%= appsName %>:lib/

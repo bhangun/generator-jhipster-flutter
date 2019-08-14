@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../widgets/alert_widget.dart';
-import '../bloc/user/index.dart';
+import '../bloc/user_bloc.dart';
 import '../../../widgets/global_methods.dart';
 import '../../../widgets/progress_indicator_widget.dart';
 import '../models/user_model.dart';
@@ -23,26 +23,26 @@ class _UserFormState extends State<UserForm> {
   final _lastname = TextEditingController();
   final _email = TextEditingController();
 
-  final _userStore = UserStore();
+  final _userBloc = UserStore();
 
 @override
   void initState() {
     super.initState();
 
     _username.addListener(() {
-      _userStore.setUsername(_username.text);
+      _userBloc.setUsername(_username.text);
     });
 
     _firstname.addListener(() {
-      _userStore.setFirstname(_firstname.text);
+      _userBloc.setFirstname(_firstname.text);
     });
 
     _lastname.addListener(() {
-      _userStore.setLastname(_lastname.text);
+      _userBloc.setLastname(_lastname.text);
     });
 
     _email.addListener(() {
-      _userStore.setEmail(_email.text);
+      _userBloc.setEmail(_email.text);
     });
   }
 
@@ -73,7 +73,7 @@ class _UserFormState extends State<UserForm> {
         ),
         body: _buildBody(),
         floatingActionButton: FloatingActionButton(
-          onPressed: ()=> _userStore.save,
+          onPressed: ()=> _userBloc.save(),
           tooltip: 'Add',
           child: Icon(Icons.save),
         ));
@@ -85,7 +85,7 @@ class _UserFormState extends State<UserForm> {
         Observer(
           name: 'form',
           builder: (context) {
-            return _userStore.loading
+            return _userBloc.loading
                 ? CustomProgressIndicatorWidget()
                 : Material(child: _buildForm());
           },
@@ -93,15 +93,15 @@ class _UserFormState extends State<UserForm> {
         Observer(
           name: 'error',
           builder: (context) {
-            return _userStore.success
+            return _userBloc.success
                 ? Container()
-                : showErrorMessage(context, _userStore.errorStore.errorMessage);
+                : showErrorMessage(context, _userBloc.errorMessage);
           },
         ),
         Observer(
           name: 'dialog',
           builder: (context) {
-            return _userStore.isModified ? KutAlert():Container();
+            return _userBloc.isModified ? KutAlert():Container();
           }
         ),
       ],
@@ -149,10 +149,11 @@ class _UserFormState extends State<UserForm> {
       ),
       Checkbox(
           value: _activated,
-          onChanged: (bool newValue) =>_userStore.setActivated(_email.text)
+          onChanged: (bool newValue) =>_userBloc.setActivated(_email.text)
       ),
-      RaisedButton(
+      FlatButton(
           child: Text('Profile'),
+
           onPressed: () {}
       ),
     ];

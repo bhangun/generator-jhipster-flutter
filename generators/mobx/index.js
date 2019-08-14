@@ -23,6 +23,8 @@ module.exports = class extends BaseGenerator {
                 this.baseName = this.config.get('baseName');
                 this.appsName = this.config.get('appsName');
                 this.packageName = this.config.get('packageName');
+                this.android = this.config.get('android');
+                this.ios = this.config.get('ios');
                 this.packageFolder = `${this.destinationRoot()}/${this.appsName}`; // this.config.get('packageFolder');
             },
         };
@@ -55,10 +57,9 @@ module.exports = class extends BaseGenerator {
     }
 
     install() {
-        this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, `${this.appsName}`]);
+        this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, '-a', `${this.android}`, '-i', `${this.ios}`, `${this.appsName}`]);
         // this.spawnCommand('pub', ['get']);
-        // this.spawnCommand('flutter', ['packages', 'pub', 'run', 'build_runner', 'clean']);
-        this.spawnCommand('git', ['init']);
+        // this.spawnCommand('git', ['init']);
     }
 
     end() {

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class NavigationService {
+class NavigationServices {
   
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   

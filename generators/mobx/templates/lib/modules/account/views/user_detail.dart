@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:jh_flutter_mobx/widgets/appbar_widget.dart';
-import '../bloc/user/index.dart';
+import 'package:<%= appsName %>/widgets/appbar_widget.dart';
+import '../bloc/user_bloc.dart';
 
 class UserDetail extends StatefulWidget {
   @override
@@ -10,20 +10,20 @@ class UserDetail extends StatefulWidget {
 
 class _UserDetailState extends State<UserDetail> {
   //User data;
-  final _userStore = UserStore();
+  final _userBloc = UserStore();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: buildAppBar(context, 'User Detail '),//${_userStore.itemDetail.firstName}'),
-        body:  Observer(
+        appBar: buildAppBar(context, 'User Detail >>${_userBloc.isItemEmpty}'),//${_userBloc.itemDetail.firstName}'),
+        body:  /* Observer(
           name: 'userdetail',
           builder: (context) {
-            return _userStore.isItemEmpty?
-            Center(child: Text('User data are empty >> ${_userStore.userList}')):
-             userDetail();
+            return  */_userBloc.isItemEmpty?
+            Center(child: Text('User data are empty >> ${_userBloc.position}')):
+             userDetail(context)/* ;
             }
-        ),
+        ) */,
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             /* Navigator.push(
@@ -36,10 +36,13 @@ class _UserDetailState extends State<UserDetail> {
         ));
   }
 
-  userDetail() {
+  userDetail(BuildContext context) {
 
-    //print(_userStore.itemDetail.email);
-    return 
+    //print(_userBloc.itemDetail.email);
+    return Observer(
+          name: 'userdetail',
+          builder: (context) {
+            return 
     ListView(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         children: <Widget>[
@@ -47,14 +50,15 @@ class _UserDetailState extends State<UserDetail> {
           Icon(Icons.person, size: 100, color: Colors.blue[500]),
          Column(
               children: <Widget>[
-                Text('${_userStore.itemDetail }'),
-                Text('${_userStore.itemDetail.firstName}'),
-                Text(_userStore.itemDetail.lastName),
-                Text(_userStore.itemDetail.email),
-                Text(_userStore.itemDetail.authorities.toString()),
-                Text(_userStore.itemDetail.lastModifiedDate.toString()),
-                Text(_userStore.itemDetail.createdDate.toString()),
+                Text('${_userBloc.itemDetail }'),
+                Text('${_userBloc.itemDetail.firstName}'),
+                Text(_userBloc.itemDetail.lastName),
+                Text(_userBloc.itemDetail.email),
+                Text(_userBloc.itemDetail.authorities.toString()),
+                Text(_userBloc.itemDetail.lastModifiedDate.toString()),
+                Text(_userBloc.itemDetail.createdDate.toString()),
               ])
         ]);
+          });
   }
 }

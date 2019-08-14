@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'package:<%= appsName %>/services/apps_routes.dart';
+import 'package:<%= appsName %>/utils/preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/strings.dart';
-import '../services/routes.dart';
-import '../services/sharedpref/preferences.dart';
+import '../utils/routes.dart';
 import '../widgets/app_icon_widget.dart';
 
 
@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Center(child: AppIconWidget(image: Strings.splash_image)),
+      child: Center(child: AppIconWidget(image: Preferences.splash_image)),
     );
   }
 
@@ -36,9 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
 
     if (preferences.getBool(Preferences.is_logged_in) ?? false) {
-      Navigator.of(context).pushReplacementNamed(Routes.login);
+      Navigator.of(context).pushReplacementNamed(AppsRoutes.login);
     } else {
-      Navigator.of(context).pushReplacementNamed(Routes.login);
+      Navigator.of(context).pushReplacementNamed(AppsRoutes.login);
     }
   }
 }

@@ -1,29 +1,41 @@
 import 'package:flutter/material.dart';
-import '../services/routes.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:<%= appsName %>/modules/account/bloc/user_bloc.dart';
+import 'package:<%= appsName %>/modules/account/services/user_routes.dart';
 
-class CommonDrawer extends StatelessWidget {
-  final String accountName;
-  final String accountEmail;
-  
-  CommonDrawer({this.accountName, this.accountEmail});
+class CommonDrawer extends StatefulWidget {
+  @override
+  _CommonDrawerState createState() => _CommonDrawerState();
+}
+
+class _CommonDrawerState extends State<CommonDrawer> {
+  String _firstName = '';
+  String _email = '';
+
+  UserStore _userBloc = UserStore();
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+    try{
+   
+      _userBloc.getProfile();
+      _firstName = _userBloc.userProfile.firstName;
+      _email = _userBloc.userProfile.email;
+    }catch(e){
+      print(e.toString());
+    }
+    return Observer(name: 'drawer',
+          builder: (context) { return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: _listMenu(context),
       ),
-    );
+    );});
   }
 
   Widget _header(String imgPath) => UserAccountsDrawerHeader(
-        accountName: Text(
-          accountName,
-        ),
-        accountEmail: Text(
-          accountEmail,
-        ),
+        accountName: Text(_firstName),
+        accountEmail: Text(_email),
         currentAccountPicture: CircleAvatar(
             // backgroundImage: ,
             ),
@@ -38,7 +50,7 @@ class CommonDrawer extends StatelessWidget {
           Icons.person,
           color: Colors.blue,
         ),
-        onTap: () => Navigator.pushReplacementNamed(context, Routes.userList),
+        onTap: () => Navigator.pushReplacementNamed(context, UserRoutes.userList),
       );
 
   _listMenu(BuildContext context) {

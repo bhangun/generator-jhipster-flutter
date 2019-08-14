@@ -23,7 +23,6 @@ module.exports = class extends BaseGenerator {
                 this.baseName = this.config.get('baseName');
                 this.appsName = this.config.get('appsName');
                 this.packageName = this.config.get('packageName');
-                this.nativeCode = this.config.get('nativeCode');
                 this.android = this.config.get('android');
                 this.ios = this.config.get('ios');
                 this.packageFolder = `${this.destinationRoot()}/${this.appsName}`; // this.config.get('packageFolder');
@@ -37,7 +36,6 @@ module.exports = class extends BaseGenerator {
             setSharedConfigOptions() {
                 this.configOptions.packageName = this.packageName;
                 this.configOptions.baseName = this.baseName;
-                this.configOptions.nativeCode = this.nativeCode;
             }
         };
     }
@@ -50,7 +48,6 @@ module.exports = class extends BaseGenerator {
                 this.config.set('appsName', this.appsName);
                 this.config.set('packageName', this.packageName);
                 this.config.set('packageFolder', `${this.packageFolder}`);
-                this.config.set('nativeCode', this.nativeCode);
             }
         };
     }
@@ -60,12 +57,8 @@ module.exports = class extends BaseGenerator {
     }
 
     install() {
-        // this.log(`>>>>>>${this.android}>>>>>${this.ios}>>>>>>>>>> ${this.nativeCode}`);
-
         this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, '-a', `${this.android}`, '-i', `${this.ios}`, `${this.appsName}`]);
         // this.spawnCommand('git', ['init']);
-        // this.spawnCommand('flutter', ['create', '--org', `${this.packageName}`, '--project-name', `${this.appsName}`, `${this.appsName}`]);
-        // this.spawnCommand('pub', ['get']);
         // this.spawnCommand('flutter', ['packages', 'pub', 'run', 'build_runner', 'clean']);
     }
 
