@@ -75,7 +75,6 @@ import 'package:<%= appsName %>/utils/routes.dart';
 import 'package:<%= appsName %>/models/module.dart';
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_routes.dart';
 
-import 'bloc/<%= entityInstance %>_bloc.dart';
 import 'services/<%= entityInstance %>_services.dart';
 
 class <%= entityClass %>Module implements Module {
@@ -108,7 +107,7 @@ class <%= entityClass %>Module implements Module {
   @override
   providers() {
     return [
-      ChangeNotifierProvider(builder: (_) => <%= entityClass %>Bloc()),
+      
     ];
   }
 }

@@ -84,7 +84,7 @@ class _<%= entityClass %>FormState extends State<<%= entityClass %>Form> {
   var _<%= dartFields[idx]['name'] %> = ''; <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
 
-  <%= entityClass %>Bloc _<%= entityInstance %>Bloc;<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
+  <%= entityClass %>Store _<%= entityInstance %>Bloc;<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
   <%= capitalize(idx) %>Bloc _<%= idx %>Bloc; <%}}%>
   @override
   void dispose() {<% for (idx in dartFields) { %><% if (dartFields[idx]['type'] != 'enum' && idx!='id' && dartFields[idx]['desc'] != 'relationship') {%>
@@ -95,9 +95,7 @@ class _<%= entityClass %>FormState extends State<<%= entityClass %>Form> {
   @override
   Widget build(BuildContext context) {
 
-    _<%= entityInstance %>Bloc = Provider.of<<%= entityClass %>Bloc>(context);<% for (idx in dartFields) { if (dartFields[idx]['desc']=='relationship') {%>
-    _<%= idx %>Bloc = Provider.of<<%= capitalize(idx) %>Bloc>(context);<%}}%>
-
+   
     <% for (idx in dartFields) { if (idx != 'id' && dartFields[idx]['type'] != 'enum' && dartFields[idx]['desc'] != 'relationship')  {%>
     _<%= dartFields[idx]['name'] %>.addListener(() {
       _<%= entityInstance %>Bloc.set<%= capitalize(dartFields[idx]['name'])%>(_<%= dartFields[idx]['name'] %>.text);

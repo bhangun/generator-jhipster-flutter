@@ -61,7 +61,7 @@ final String title = "<%= entityClass %> List";
 class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
   final _listKey = GlobalKey<ScaffoldState>();
   var _<%= entityInstance %>List;
-  <%= entityClass %>Bloc _<%= entityInstance %>Bloc;
+  <%= entityClass %>Store _<%= entityInstance %>Bloc;
 
   @override
   void dispose() {
@@ -71,8 +71,7 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
 
   @override
   Widget build(BuildContext context) {
-    _<%= entityInstance %>Bloc = Provider.of<<%= entityClass %>Bloc>(context);
-
+    
     _<%= entityInstance %>Bloc.get<%= entityClass %>List();
 
     int _total<%= entityClass %> = _<%= entityInstance %>Bloc.totalItem;
