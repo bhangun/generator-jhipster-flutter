@@ -1,38 +1,36 @@
 import 'dart:convert';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
-class User extends Equatable{
+class User extends Equatable {
   User(
-      {this.id,
-      @required this.login,
-      @required this.firstName,
-      @required this.lastName,
-      @required this.email,
+      { this.id,
+      this.login,
+      this.firstName,
+      this.lastName,
+      this.email,
       this.imageUrl,
-      @required this.activated,
+      this.activated,
       this.langKey,
-      @required this.authorities,
+      this.authorities,
       this.createdBy,
       this.createdDate,
       this.lastModifiedBy,
-      this.lastModifiedDate}): 
-      super([id,login,firstName,lastName,email,imageUrl,activated,
-      langKey,authorities,createdBy,createdDate,lastModifiedBy,lastModifiedDate]);
+      this.lastModifiedDate})
+      : super();
 
-  final int id;
-  final String login;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String imageUrl;
-  final bool activated;
-  final String langKey;
-  final List<dynamic> authorities;
-  final String createdBy;
-  final DateTime createdDate;
-  final String lastModifiedBy;
-  final DateTime lastModifiedDate;
+  final int? id;
+  final String? login;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? imageUrl;
+  final bool? activated;
+  final String? langKey;
+  final List<dynamic>? authorities;
+  final String? createdBy;
+  final DateTime? createdDate;
+  final String? lastModifiedBy;
+  final DateTime? lastModifiedDate;
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -66,29 +64,38 @@ class User extends Equatable{
         '"langKey"': '"$langKey"',
         '"authorities"': '$authorities',
         '"createdBy"': '"$createdBy"',
-        '"createdDate"': '"' + createdDate.toIso8601String() + 'Z"',
+        '"createdDate"': '"' + createdDate!.toIso8601String() + 'Z"',
         '"lastModifiedBy"': '"$lastModifiedBy"',
-        '"lastModifiedDate"': '"' + lastModifiedDate.toIso8601String() + 'Z"'
+        '"lastModifiedDate"': '"' + lastModifiedDate!.toIso8601String() + 'Z"'
       };
 
-  static List<User> listFromString(String str) => new List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
+  static List<User> listFromString(String str) =>
+      new List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
 
   static List<User> listFromJson(List<dynamic> data) {
     return data.map((post) => User.fromJson(post)).toList();
   }
 
-  static String listUserToJson(List<User> data) => json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
+  static String listUserToJson(List<User> data) =>
+      json.encode(new List<dynamic>.from(data.map((x) => x.toJson())));
+
+  static const empty = null;
+
+  @override
+  List<Object> get props =>
+      [/* login, firstName!, lastName!, email!, authorities!, langKey! */];
+
 }
 
 class UserList {
-  final List<User> users;
+  final List<User>? users;
 
   UserList({
     this.users,
   });
 
   factory UserList.fromJson(List<dynamic> json) {
-    List<User> users = List<User>();
+    List<User> users = <User>[];
     users = json.map((post) => User.fromJson(post)).toList();
 
     return UserList(
@@ -96,7 +103,3 @@ class UserList {
     );
   }
 }
-
-/* final parsed = json.decode('data').cast<Map<String, dynamic>>();
-    List<User> _items = json.decode('data').cast<Map<String, dynamic>>().map<User>((json) => User.fromJson(json)).toList();
- */

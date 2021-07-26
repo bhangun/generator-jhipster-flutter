@@ -4,12 +4,11 @@ class NavigationServices {
   
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   
-  Future<dynamic> navigateTo(String routeName) {
-    return navigatorKey.currentState.pushNamed(routeName);
+  static Future<dynamic> navigateTo(String routeName, {data}) {
+    return navigatorKey.currentState!.pushNamed(routeName,  arguments: data);
   }
 
-  bool close() {
-    return navigatorKey.currentState.pop(true);
+  static close() {
+    return navigatorKey.currentState!.pop(true);
   }
 }
-

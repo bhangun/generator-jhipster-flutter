@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomProgressIndicatorWidget extends StatelessWidget {
-  const CustomProgressIndicatorWidget({
-    Key key,
-  }) : super(key: key);
+  const CustomProgressIndicatorWidget(
+   // Key key,
+  );
 
   @override
   Widget build(BuildContext context) {

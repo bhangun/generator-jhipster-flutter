@@ -1,50 +1,40 @@
-
-import 'package:<%= appsName %>/models/module.dart';
-import 'package:<%= appsName %>/services/apps_routes.dart';
-import 'package:<%= appsName %>/services/navigation.dart';
-import 'package:<%= appsName %>/services/network/rest_dio_services.dart';
-import 'package:<%= appsName %>/services/network/rest_http_services.dart';
-import 'package:<%= appsName %>/services/shared_preference_services.dart';
-import 'package:<%= appsName %>/themes/theme_services.dart';
-import 'package:<%= appsName %>/services/getIt.dart';
-import 'package:<%= appsName %>/utils/routes.dart';
+import 'package:kutilang_example/store/auth_store/auth_store.dart';
+import 'package:provider/provider.dart';
+import '../services/apps_routes.dart';
+import '../store/app_store/app_store.dart';
+import '../utils/modules/module.dart';
 import 'account/services/user_routes.dart';
-import 'account/services/user_services.dart';
 
-class MainModule implements Module{
+class MainModule implements Module {
   @override
-  String name = 'Main';
-
-  @override
-  pages() {
-    return [
-            Page(title: 'User Detail', route: UserRoutes.userDetail),
-            Page(title: 'User Form', route: UserRoutes.userForm),
-            Page(title: 'User List', route: UserRoutes.userList, showInDrawer: true, showInHome: true)
-    ];
-  }
+  String? name = 'Main';
 
   @override
-  services(){
-    getIt.registerFactory<NavigationServices>(() => NavigationServices());
-    getIt.registerFactory<SharedPrefServices>(() => SharedPrefServices());
-    getIt.registerFactory<ThemeServices>(() => ThemeServices());
-    getIt.registerFactory<RestDioServices>(() => RestDioServices());
-    getIt.registerFactory<RestHttpServices>(() => RestHttpServices());
-    getIt.registerFactory<UserServices>(() => UserServices());
-  }
+  pages() => [
+        Page(title: 'User Detail', route: UserRoutes.userDetail),
+        Page(title: 'User Form', route: UserRoutes.userForm),
+        Page(
+            title: 'User List',
+            route: UserRoutes.userList,
+            showInDrawer: true,
+            showInHome: true)
+      ];
 
   @override
-  providers() {
-    return [
-      
-    ];
-  }
+  services() {}
 
   @override
-  void routes() {
-    getIt<Routes>().addRoutes(AppsRoutes.routes);
-    getIt<Routes>().addRoutes(UserRoutes.routes);
-  }
+  providers() => [
+        Provider<AppStore>(
+          create: (_) => AppStore(),
+          dispose: (_, store) => store.dispose(),
+        ),
+         Provider<AuthStore>(
+          create: (_) => AuthStore(),
+          dispose: (_, store) => store.dispose(),
+        ),
+      ];
 
+  @override
+  routes() => [AppsRoutes.routes, UserRoutes.routes];
 }

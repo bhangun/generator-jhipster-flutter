@@ -1,18 +1,25 @@
+/// [AppData]
 class AppData {
+  /// [id] unique
   int id;
-  String title;
-  String message;
-  String status;
-  String flag;
+  /// [title]
+  String? title;
+  /// [message] message
+  String? message;
+  /// [status] status
+  String? status;
+  /// [flag] status
+  String? flag;
 
   AppData({
-    this.id,
+    required this.id,
     this.title,
     this.message,
     this.status,
     this.flag
   });
 
+  /// [fromMap]
   factory AppData.fromMap(Map<String, dynamic> json) => AppData(
         id: json["id"],
         title: json["title"],
@@ -21,6 +28,7 @@ class AppData {
         flag: json["flag"],
       );
 
+  /// [toMap]
   Map<String, dynamic> toMap() => {
         "id": id,
         "title": title,

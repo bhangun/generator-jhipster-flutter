@@ -1,10 +1,10 @@
-import 'package:flushbar/flushbar_helper.dart';
+//import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 
 
 listMenuDrawer(){
    var list = <Widget>[];
-   list.add(Text(null));
+   list.add(Text(""));
    return list;
 }
 
@@ -36,13 +36,9 @@ Widget header(String accountName,String accountEmail,String imgPath) =>
  // General Methods:-----------------------------------------------------------
   showErrorMessage(BuildContext context, String message) {
     Future.delayed(Duration(milliseconds: 0), () {
-      if (message != null) {
-        FlushbarHelper.createError(
-          message: message,
-          title: 'Error',
-          duration: Duration(seconds: 3),
-        )..show(context);
-      }
+     /*  if (message != null) {
+        
+      } */
     });
 
     return Container();

@@ -1,5 +1,5 @@
-import 'package:<%= appsName %>/models/module.dart';
-import 'package:<%= appsName %>/modules/main_module.dart';
+import 'main_module.dart';
+import '../utils/modules/module.dart';
 // kutilang-needle-import-module -- don't remove this line
 
 List<Module> registerModules(){

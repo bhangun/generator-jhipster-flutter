@@ -1,28 +1,34 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:<%= appsName %>/services/apps_routes.dart';
-import 'package:<%= appsName %>/utils/preferences.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+class KutAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String? title;
+  final VoidCallback? onLogout;
+  const KutAppBar({this.title, this.onLogout});
 
-buildAppBar(BuildContext context, String title) {
-    return AppBar(
-      title: Text(title),
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {
-            SharedPreferences.getInstance().then((preference) {
-              preference.setBool(Preferences.is_logged_in, false);
-              Navigator.of(context).pushReplacementNamed(AppsRoutes.login);
-            });
-          },
-          icon: Icon(
-            Icons.power_settings_new,
-          ),
-        )
-      ],
-    );
+  @override
+  Widget build(BuildContext context) {
+    return PreferredSize(
+            preferredSize: Size.fromHeight(100.0),
+            child: AppBar(
+              title: Text(title!),
+              actions: <Widget>[
+                IconButton(
+                  splashRadius: 15,
+                  onPressed: () => onLogout,//context.read<AuthBloc>().logout(),
+                  icon: Icon(
+                    Icons.power_settings_new,
+                  ),
+                )
+              ],
+            )
+            );
   }
 
+  logout(BuildContext context){
+    print('<><>logout<><>');
+    //context.read<AuthBloc>().add(LoggedOut());
+  }
 
+  @override
+  Size get preferredSize => Size.fromHeight(100.0);
+}

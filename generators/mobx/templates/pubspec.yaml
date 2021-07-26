@@ -33,7 +33,7 @@ dependencies:
 
   # This package provides internationalization and localization facilities, including message translation,
   # plurals and genders, date/number formatting and parsing, and bidirectional text
-  intl: ^0.15.8
+  intl: ^0.16.1
 
   # The following adds the launcher icon support to your application.
   # run below mentioned commands to generate launcher icons

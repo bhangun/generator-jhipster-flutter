@@ -1,131 +1,86 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:<%= appsName %>/services/apps_routes.dart';
-import 'package:<%= appsName %>/services/getIt.dart';
-import 'package:<%= appsName %>/services/navigation.dart';
-import 'package:<%= appsName %>/services/shared_preference_services.dart';
+import 'package:f_logs/f_logs.dart';
+import 'package:kutilang_example/utils/helper.dart';
+import 'package:logging/logging.dart';
 
-import '../../../utils/helper.dart';
+import '../../../services/network/rest_services.dart';
 import '../models/user_model.dart';
-import '../../../services/network/rest_http_services.dart';
 
 class UserServices {
-  static const API = '/api/';
+  static final log = Logger('UserServices');
+  // GET getAllUsers
+  // POST createUser
+  // PUT updateUser
+  static const API_USERS = "users";
 
-  static const API_ACCOUNT = API + 'account';
+  // GET getUser
+  // DELETE deleteUser
+  static const API_USER = "users/";
 
-  static const PROFILE = API + 'profile';
-// POST saveAccount
-  static const API_ACCOUNT_SAVE = API + "account";
+   // Regex for acceptable logins
+  static final String loginRegex = "^(?>[a-zA-Z0-9!\$${'&'}*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)|(?>[_.@A-Za-z0-9-]+)\$";
 
-// POST changePassword
-  static const API_ACCOUNT_CHANGE_PASSWORD = API + "account/change-password";
-
-//POST finishPasswordReset
-  static const API_ACCOUNT_RESET_FINISH = API + "account/reset-password/finish";
-
-// POST requestPasswordReset
-  static const API_ACCOUNT_RESET_INIT = API + "account/reset-password/init";
-
-// GET activateAccount
-  static const API_ACTIVATE = API + "activate";
-
-// POST registerAccount
-  static const API_REGISTER = API + "register";
-
-// GET getActiveProfiles
-  static const API_PROFILE_INFO = API + "profile-info";
-
-// POST authorize
-//GET isAuthenticated
-  static const API_USERS_AUTHENTICATE = API + "authenticate";
-
-// GET getAuthorities
-  static const API_USERS_AUTHORITIES = API + "users/authorities";
-
-// GET getAllUsers
-// POST createUser
-// PUT updateUser
-  static const API_USERS = API + "users";
-
-// GET getUser
-// DELETE deleteUser
-  static const API_USER = API + "users/";
-
-  login(String _username, String _password, [bool _rememberMe = false]) {
-    var body = jsonEncode({
-      "username": _username,
-      "password": _password,
-      "rememberMe": _rememberMe
-    });
-    try {
-      getIt<RestHttpServices>()
-          .post(UserServices.API_USERS_AUTHENTICATE, body)
-          .then((d) => _saveToken(d.toString()));
-    } catch (e) {
-      print(e.toString());
+  static regex(String login){
+    // Iterable<RegExpMatch> matches;
+    try{
+    RegExp exp = new RegExp(loginRegex);
+    return exp.stringMatch(login);
+     // if () return login;
+    }catch(e){
+      log.info('>>>>>>>>>>>>>>>>> '+e.toString());
+      return login;
     }
   }
 
-  bool _saveToken(var token) {
-    String _token = json.decode(token)["id_token"];
-    if (_token != null) {
-      getIt<SharedPrefServices>().saveAuthToken(_token);
-      getIt<NavigationServices>().navigateTo(AppsRoutes.home);
-      return true;
-    } else
-      return false;
+  // Fetch single user
+  static Future<User> user(String login) async {
+    //String param = '{"login":"'+login+'"}';
+    String param = '{login:$login}';
+    var response = await RestServices.fetch(API_USER + regex(param)); //param);//
+    return User.fromJson(response);//User.fromJson(json.decode(response));
   }
 
-  Future<User> user(String id) async {
-    var response = await getIt<RestHttpServices>().fetch(API_USER + id);
-    return User.fromJson(json.decode(response));
+
+  // Fetch all user
+  static Future<List<User>> users([var page, var size, var sort]) async {
+    FLog.info(text: '--------1--------');
+    List<dynamic> data = await RestServices.fetch(API_USERS);
+    FLog.info(text: '--------2--------');
+    return User.listFromJson(data);
   }
 
-  Future<List<User>> users([var page, var size, var sort]) async {
-    var data = await getIt<RestHttpServices>().fetch(API_USERS);
-    return User.listFromString(data);
+  // Create user
+  static createUser(User user) async {
+    await RestServices.post(API_USER, user);
   }
 
-  //
-  createUser(User user) async {
-    //return await restPost(API_USER, user.toJson().toString(), true);
+  // Update user
+  static updateUser(User user) async {
+    await RestServices.put(API_USER, user);
   }
 
-  //
-  updateUser(User user) async {
-    //return await restPut(API_USER, user.toJson().toString(), true);
+  // Delete user
+  static deleteUser(String userID) async {
+    await RestServices.delete(API_USER, userID);
   }
 
-  //
-  deleteUser(String userid) async {
-    //return await restDelete(API_USER + userid);
-  }
 
-  changePassword(String currentPassword, String newPassword) async {
-    //var body = '{"currentPassword": "$currentPassword","newPassword": "$newPassword"}';
-  }
-
-  authorities() {}
-
-  activate() async {
-    // ?key=
-  }
-
-  resetPasswordFinish(String key, String newPassword) async {
-    // var body = '{"key": "$key","newPassword": "$newPassword"}';
-  }
-
-  resetPasswordInit(String email) async {}
-
-  profileInfo() async {
-    var data = await getIt<RestHttpServices>().fetch(API_ACCOUNT);
+  /// Path profile-info
+  /// GET getActiveProfiles
+  static profileInfo() async {
+    var data = await RestServices.fetch('profile-info');
     User user = User.fromJson(json.decode(data.toString()));
     return user;
   }
 
-  register() {}
+  /// registerAccount
+  static register(
+      String login, String email, String password, String langkey) async {
+    var body = '{ $login, $email, $password, $langkey }';
+    await RestServices.post('register', body);
+  }
 
   List<User> usersData(String data) {
     final parsed = json.decode(data).cast<Map<String, dynamic>>();
@@ -133,8 +88,9 @@ class UserServices {
     return lu;
   }
 
+  /// profile
   Future<User> userProfile() async {
-    String profile = await prefs(PROFILE);
+    String profile = await prefs('profile');
     return User.fromJson(json.decode(profile));
   }
 }

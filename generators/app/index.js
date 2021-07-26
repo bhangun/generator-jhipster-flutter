@@ -198,7 +198,7 @@ module.exports = class extends BaseGenerator {
         this.nativeCode = ` -a ${this.props.android} -i ${this.props.ios} `;
 
         try {
-            this.registerModule('generator-jhipster-kutilang', 'entity', 'post', 'entity', 'Generate Mobile Apps for Android & iOS using Flutter & Dart Language and JHipster as a backend');
+            this.registerModule('generator-jhipster-kutilang', 'entity', 'post', 'entity', 'Generate Mobile (iOS/Andoird), Web and Desktop(Linux, MacOS, Windows) Apps using Flutter & Dart Language and JHipster as a backend');
         } catch (err) {
             this.log(`${chalk.red.bold('WARN!')} Could not register as a jhipster entity post creation hook...\n`);
         }
