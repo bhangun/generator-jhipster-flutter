@@ -32,7 +32,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.cyan('                                |___/ ')}`);
 
                 // Have Yeoman greet the user.
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster-Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nWelcome to the ${chalk.bold.yellow('Flutter Apps')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
         };
     }
@@ -210,7 +210,7 @@ module.exports = class extends BaseGenerator {
     }
 
     end() {
-        this.log('End of generated kutilang packages');
+        this.log('Finish generated kutilang packages');
     }
 };
 

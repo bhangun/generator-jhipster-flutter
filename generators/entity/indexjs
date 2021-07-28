@@ -26,6 +26,7 @@ const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const constants = require('generator-jhipster/generators/generator-constants');
 const jhipsterUtils = require('generator-jhipster/generators/utils');
 const prompts = require('./prompts');
+const packagejs = require('../../package.json');
 
 /* constants used throughout */
 const SUPPORTED_VALIDATION_RULES = constants.SUPPORTED_VALIDATION_RULES;
@@ -35,9 +36,7 @@ module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
 
-console.log(this.cont)
-
-       // jhipsterUtils.copyObjectProps(this, this.options.context);
+        jhipsterUtils.copyObjectProps(this, this.options.context);
         // This makes `name` a required argument.
         this.argument('name', {
             type: String,
@@ -46,7 +45,7 @@ console.log(this.cont)
         });
 
         // This method adds support for a `--[no-]regenerate` flag
-      /*   this.option('regenerate', {
+        this.option('regenerate', {
             desc: 'Regenerate the entity without presenting an option to update it',
             type: Boolean,
             defaults: false
@@ -89,36 +88,65 @@ console.log(this.cont)
         this.option('db', {
             desc: 'Provide DB option for the application when using skip-server flag',
             type: String
-        }); */
+        });
 
-        /* this.context = {};
+       /*  this.context = {};
         this.setupEntityOptions(this, this, this.context);
         const blueprint = this.config.get('blueprint');
         useBlueprint = this.composeBlueprint(blueprint, 'entity');  */// use global variable since getters don't have access to instance property
     }
 
     get initializing() {
-       // if (useBlueprint) return;
+ 
         return {
-            readConfig(){
-               // console.log(this.config)
-                this.baseName = this.config.get('baseName');
-                this.appsName = this.config.get('appsName');
-                this.packageName = this.config.get('packageName');
-               
+            /* readConfig() {
+                this.entityConfig = this.options.entityConfig;
+                this.jhipsterAppConfig = this.getJhipsterConfig('.yo-rc.json').createProxy();
+                if (!this.jhipsterAppConfig) {
+                    this.error('Cannot read .yo-rc.json');
+                }
+                console.log('------readConfig-0------')
+                console.log(this.entityConfig)
+               // console.log(this.jhipsterAppConfig)
+                console.log('------readConfig-1------')
+            }, */
+            displayLogo() {
+                this.log(`${chalk.bold.cyan(' _          _   _ _                   ')}`);
+                this.log(`${chalk.bold.cyan('| |        | | (_) |                  ')}`);
+                this.log(`${chalk.bold.cyan('| | ___   _| |_ _| | __ _ _ __   __ _ ')}`);
+                this.log(`${chalk.bold.cyan('| |/ / | | | __| | |/ _` | \'_ \\ / _` |')}`);
+                this.log(`${chalk.bold.cyan('|   <| |_| | |_| | | (_| | | | | (_| |')}`);
+                this.log(`${chalk.bold.cyan('|_\\_\\\\__,_|\\__|_|_|\\__,_|_| |_|\\__,  |')}`);
+                this.log(`${chalk.bold.cyan('                                 __/ |')}`);
+                this.log(`${chalk.bold.cyan('                                |___/ ')}`);
+
+                // Have Yeoman greet the user.
+                this.log(`\nGenerate entity. ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
-/* 
+            validate() {
+                console.log('------validate-0------')
+                // this shouldn't be run directly
+               /*  if (!this.entityConfig) {
+                    this.env.error(`${chalk.red.bold('ERROR!')} This sub generator should be used only from JHipster and cannot be run directly...\n`);
+                } */
+                console.log('------validate-end------')
+            },
             getConfig() {
+                console.log('------getConfig-0------')
+                console.log(this.context)
+               // console.log(this.jhipsterAppConfig)
+                console.log('------getConfig-0------')
+            },
+                /*
                 // stateManageType
                 this.stateManageType = this.config.get('stateManageType');
 
-                const context = this;
-                console.log(context)
-
-                context.useConfigurationFile = false;
+                const context = this.context;
+                //context.useConfigurationFile = false;
                 this.env.options.appPath = this.config.get('appPath') || constants.CLIENT_MAIN_SRC_DIR;
-                context.options = this.options;
-                context.baseName = this.config.get('baseName');
+                //context.options = this.options;
+                
+                //context.baseName = this.config.get('baseName');
                 context.packageName = this.config.get('packageName');
                 context.applicationType = this.config.get('applicationType');
                 context.packageFolder = this.config.get('packageFolder');
@@ -173,8 +201,10 @@ console.log(this.cont)
             }, */
 
             validateEntityName() {
-                console.log('---validateEntityName---')
-               /*  const entityName = this.context.name;
+                console.log('------validateEntity-0------')
+                console.log(this.context)
+                console.log('------validateEntity-1------')
+                const entityName = this.context.name;
                 if (!(/^([a-zA-Z0-9_]*)$/.test(entityName))) {
                     this.error(chalk.red('The entity name cannot contain special characters'));
                 } else if ((/^[0-9].*$/.test(entityName))) {
@@ -185,13 +215,13 @@ console.log(this.cont)
                     this.error(chalk.red('The entity name cannot end with \'Detail\''));
                 } else if (!this.skipServer && jhiCore.isReservedClassName(entityName)) {
                     this.error(chalk.red('The entity name cannot contain a Java or JHipster reserved keyword'));
-                } */
-                console.log('---validateEntityName--end-')
+                }
+                console.log('------validateEntity-end------')
             },
 
             setupconsts() {
-                console.log('---setupconst---')
-                /* const context = this.context;
+                console.log('------setupconst-1------')
+                const context = this.context;
                 const entityName = context.name;
                 // Specific Entity sub-generator constiables
                 if (!context.useConfigurationFile) {
@@ -208,16 +238,14 @@ console.log(this.cont)
                     // existing entity reading values from file
                     this.log(`\nThe entity ${entityName} is being updated.\n`);
                     this.loadEntityJson();
-                } */
-
-                console.log('---setup--end-')
+                }
+                console.log('------setupconst-end------')
             }
         };
     }
 
     get prompting() {
-        console.log('---promting---')
-       // if (useBlueprint) return;
+        //if (useBlueprint) return;
         return {
             /* pre entity hook needs to be written here */
             askForBackendJson: prompts.askForBackendJson,
@@ -235,8 +263,8 @@ console.log(this.cont)
         };
     }
 
-    /* get configuring() {
-        //if (useBlueprint) return;
+    get configuring() {
+       // if (useBlueprint) return;
         return {
             validateFile() {
                 const context = this.context;
@@ -373,13 +401,13 @@ console.log(this.cont)
                     this.data.pagination = 'no';
                 }
                 this.data.javadoc = context.javadoc;
-                if (context.entityAngularJSSuffix) {
+               /*  if (context.entityAngularJSSuffix) {
                     this.data.angularJSSuffix = context.entityAngularJSSuffix;
-                }
-                if (context.applicationType === 'microservice') {
+                } */
+                /* if (context.applicationType === 'microservice') {
                     this.data.microserviceName = context.baseName;
                     this.data.searchEngine = context.searchEngine;
-                }
+                } */
                 if (context.applicationType === 'gateway' && context.useBackendJson) {
                     this.data.microserviceName = context.microserviceName;
                     this.data.searchEngine = context.searchEngine;
@@ -646,38 +674,36 @@ console.log(this.cont)
                 context.pkType = this.getPkType(context.databaseType);
             },
         };
-    } */
+    }
 
     get writing() {
-        //if (useBlueprint) return;
+        if (useBlueprint) return;
         return {
             composeClient() {
-                console.log('---compose---')
-               /*  const context = this.context;
+                const context = this.context;
                 if (context.skipClient) return;
                 if (this.stateManageType === 'basic') {
                     this.composeWith(require.resolve('../entity-client'), {
                         context,
-                        //'skip-install': context.options['skip-install'],
-                      //  force: context.options.force,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
                         debug: context.isDebugEnabled
                     });
                 } else if (this.stateManageType === 'provider') {
                     this.composeWith(require.resolve('../entity-provider'), {
                         context,
-                      //  'skip-install': context.options['skip-install'],
-                       // force: context.options.force,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
                         debug: context.isDebugEnabled
                     });
                 } else {
                     this.composeWith(require.resolve('../entity-mobx'), {
                         context,
-                        //'skip-install': context.options['skip-install'],
-                        //force: context.options.force,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
                         debug: context.isDebugEnabled
                     });
-                } */
-                console.log('---compose--end-')
+                }
             }
         };
     }

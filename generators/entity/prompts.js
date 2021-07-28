@@ -34,6 +34,7 @@ module.exports = {
 };
 
 function askForBackendJson() {
+    console.log('----askForBackend-----')
     this.directoryPath = this.config.get('directoryPath');
 
     const context = this.context;
@@ -97,17 +98,20 @@ function askForBackendJson() {
             }
         }
         done();
+        console.log('----askForBackend---end--')
     });
 }
 
 function askForUpdate() {
+    console.log('----askForUpdate-----')
     const context = this.context;
+    console.log(this.context)
     // ask only if running an existing entity without arg option --force or --regenerate
-    const isForce = context.options.force || context.regenerate;
+   /*  const isForce = context.options.force || context.regenerate;
     context.updateEntity = 'regenerate'; // default if skipping questions by --force
     if (isForce || !context.useConfigurationFile) {
         return;
-    }
+    } */
     const done = this.async();
     const prompts = [
         {
@@ -142,6 +146,7 @@ function askForUpdate() {
         }
         done();
     });
+    console.log('----askForUpdate---end--')
 }
 
 function askForFields() {
@@ -654,8 +659,8 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && (response.fieldType === 'String'
+                && response.fieldValidate === true
+                && (response.fieldType === 'String'
                     || response.fieldTypeBlobContent === 'text'),
             type: 'checkbox',
             name: 'fieldValidateRules',
@@ -682,8 +687,8 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && (response.fieldType === 'Integer'
+                && response.fieldValidate === true
+                && (response.fieldType === 'Integer'
                     || response.fieldType === 'Long'
                     || response.fieldType === 'Float'
                     || response.fieldType === 'Double'
@@ -709,9 +714,9 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldType === 'byte[]'
-                    && response.fieldTypeBlobContent !== 'text',
+                && response.fieldValidate === true
+                && response.fieldType === 'byte[]'
+                && response.fieldTypeBlobContent !== 'text',
             type: 'checkbox',
             name: 'fieldValidateRules',
             message: 'Which validation rules do you want to add?',
@@ -733,8 +738,8 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && (response.fieldType === 'LocalDate'
+                && response.fieldValidate === true
+                && (response.fieldType === 'LocalDate'
                     || response.fieldType === 'Instant'
                     || response.fieldType === 'ZonedDateTime'
                     || response.fieldType === 'UUID'
@@ -754,8 +759,8 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('minlength') !== -1,
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('minlength') !== -1,
             type: 'input',
             name: 'fieldValidateRulesMinlength',
             validate: input => (this.isNumber(input) ? true : 'Minimum length must be a positive number'),
@@ -764,8 +769,8 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('maxlength') !== -1,
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('maxlength') !== -1,
             type: 'input',
             name: 'fieldValidateRulesMaxlength',
             validate: input => (this.isNumber(input) ? true : 'Maximum length must be a positive number'),
@@ -774,9 +779,9 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('min') !== -1
-                    && (response.fieldType === 'Integer'
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('min') !== -1
+                && (response.fieldType === 'Integer'
                     || response.fieldType === 'Long'),
             type: 'input',
             name: 'fieldValidateRulesMin',
@@ -786,9 +791,9 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('max') !== -1
-                    && (response.fieldType === 'Integer'
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('max') !== -1
+                && (response.fieldType === 'Integer'
                     || response.fieldType === 'Long'),
             type: 'input',
             name: 'fieldValidateRulesMax',
@@ -798,9 +803,9 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('min') !== -1
-                    && (response.fieldType === 'Float'
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('min') !== -1
+                && (response.fieldType === 'Float'
                     || response.fieldType === 'Double'
                     || response.fieldType === 'BigDecimal'),
             type: 'input',
@@ -811,9 +816,9 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('max') !== -1
-                    && (response.fieldType === 'Float'
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('max') !== -1
+                && (response.fieldType === 'Float'
                     || response.fieldType === 'Double'
                     || response.fieldType === 'BigDecimal'),
             type: 'input',
@@ -824,10 +829,10 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('minbytes') !== -1
-                    && response.fieldType === 'byte[]'
-                    && response.fieldTypeBlobContent !== 'text',
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('minbytes') !== -1
+                && response.fieldType === 'byte[]'
+                && response.fieldTypeBlobContent !== 'text',
             type: 'input',
             name: 'fieldValidateRulesMinbytes',
             message: 'What is the minimum byte size of your field?',
@@ -836,10 +841,10 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('maxbytes') !== -1
-                    && response.fieldType === 'byte[]'
-                    && response.fieldTypeBlobContent !== 'text',
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('maxbytes') !== -1
+                && response.fieldType === 'byte[]'
+                && response.fieldTypeBlobContent !== 'text',
             type: 'input',
             name: 'fieldValidateRulesMaxbytes',
             message: 'What is the maximum byte size of your field?',
@@ -848,8 +853,8 @@ function askForField(done) {
         },
         {
             when: response => response.fieldAdd === true
-                    && response.fieldValidate === true
-                    && response.fieldValidateRules.indexOf('pattern') !== -1,
+                && response.fieldValidate === true
+                && response.fieldValidateRules.indexOf('pattern') !== -1,
             type: 'input',
             name: 'fieldValidateRulesPattern',
             message: 'What is the regular expression pattern you want to apply on your field?',
@@ -1000,7 +1005,7 @@ function askForRelationship(done) {
         {
             when: response => (response.relationshipAdd === true && (response.relationshipType === 'one-to-many'
                 || ((response.relationshipType === 'many-to-many'
-                || response.relationshipType === 'one-to-one') && response.otherEntityName.toLowerCase() !== 'user'))),
+                    || response.relationshipType === 'one-to-one') && response.otherEntityName.toLowerCase() !== 'user'))),
             type: 'input',
             name: 'otherEntityRelationshipName',
             message: 'What is the name of this relationship in the other entity?',
