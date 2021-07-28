@@ -1,5 +1,5 @@
 //import 'package:f_logs/f_logs.dart';
-import 'package:kutilang_example/models/app_data.dart';
+import 'package:<%= appsName %>/models/app_data.dart';
 import 'package:sembast/sembast.dart';
 
 import 'database.dart';

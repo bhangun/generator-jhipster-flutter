@@ -19,7 +19,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'services/apps_routes.dart';
 import 'services/navigation.dart';
 import 'services/preferences_service.dart';
-import 'store/settings_store/settings_store.dart';
+import 'store/settings/settings_store.dart';
 import 'utils/config.dart';
 import 'utils/modules/modules_registry.dart';
 import 'utils/routes.dart';
@@ -34,7 +34,7 @@ Future<void> main() async {
   ModulesRegistry.registry();
 
   // Observe mobx state change
-  // mainContext.spy(print);
+  mainContext.spy(print);
 
   // Run main app
   runApp(KutilangApp(sharedPreferences));

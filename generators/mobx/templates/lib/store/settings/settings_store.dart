@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/services/preferences_service.dart';
-import 'package:kutilang_example/utils/themes/theme_services.dart';
+import 'package:<%= appsName %>/services/preferences_service.dart';
+import 'package:<%= appsName %>/utils/themes/theme_services.dart';
 import 'package:mobx/mobx.dart';
 
 part 'settings_store.g.dart';

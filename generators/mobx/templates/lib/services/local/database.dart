@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:kutilang_example/utils/encryption/xxtea.dart';
+import 'package:<%= appsName %>/utils/encryption/xxtea.dart';
 
 import 'local_db_constants.dart';
 import 'package:path/path.dart';

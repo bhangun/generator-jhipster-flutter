@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/dashboard_screen.dart';
+import '../screens/dashboard_screen.dart';
 
 
 class AdminRoutes {

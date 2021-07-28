@@ -63,16 +63,14 @@
 _%>
 import 'package:flutter/material.dart';
 
-import 'package:provider/provider.dart';
-
-import '../bloc/<%= entityInstance %>_bloc.dart';
+import '../store/<%= entityInstance %>_store.dart';
 import 'package:<%= appsName %>/widgets/global_methods.dart';
 import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
 import '../models/<%= entityInstance %>.dart';<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
-import '../../<%= idx %>/bloc/<%= idx %>_bloc.dart'; <%}}%>
+import '../../<%= idx %>/store/<%= idx %>_store.dart'; <%}}%>
 
 class <%= entityClass %>Form extends StatefulWidget {
-  final <%= entityClass %> data;
+  final <%= entityClass %>? data;
   <%= entityClass %>Form({this.data});
   @override
   _<%= entityClass %>FormState createState() => _<%= entityClass %>FormState();
@@ -84,8 +82,9 @@ class _<%= entityClass %>FormState extends State<<%= entityClass %>Form> {
   var _<%= dartFields[idx]['name'] %> = ''; <%} else {%>
   final _<%= dartFields[idx]['name'] %> = <%= dartFields[idx]['cont'] %>;<%}%><%}%>
 
-  <%= entityClass %>Store _<%= entityInstance %>Bloc;<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
-  <%= capitalize(idx) %>Bloc _<%= idx %>Bloc; <%}}%>
+  late <%= entityClass %>Store _<%= entityInstance %>Store = <%= entityClass %>Store();<% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
+  late <%= capitalize(idx) %>Store _<%= idx %>Store = <%= entityClass %>Store(); <%}}%>
+
   @override
   void dispose() {<% for (idx in dartFields) { %><% if (dartFields[idx]['type'] != 'enum' && idx!='id' && dartFields[idx]['desc'] != 'relationship') {%>
     _<%= dartFields[idx]['name'] %>.dispose();<%}%><%}%>
@@ -98,16 +97,16 @@ class _<%= entityClass %>FormState extends State<<%= entityClass %>Form> {
    
     <% for (idx in dartFields) { if (idx != 'id' && dartFields[idx]['type'] != 'enum' && dartFields[idx]['desc'] != 'relationship')  {%>
     _<%= dartFields[idx]['name'] %>.addListener(() {
-      _<%= entityInstance %>Bloc.set<%= capitalize(dartFields[idx]['name'])%>(_<%= dartFields[idx]['name'] %>.text);
+      _<%= entityInstance %>Store.set<%= capitalize(dartFields[idx]['name'])%>(_<%= dartFields[idx]['name'] %>.text);
     }); <%}}%>
 
     return  Scaffold(
             appBar: AppBar(
-              title: Text(_<%= entityInstance %>Bloc.formTitle),
+              title: Text(_<%= entityInstance %>Store.formTitle),
             ),
             body: _buildBody(),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => _<%= entityInstance %>Bloc.save(),
+              onPressed: () => _<%= entityInstance %>Store.save(),
               tooltip: 'Add',
               child: Icon(Icons.save),
             ));
@@ -116,13 +115,13 @@ class _<%= entityClass %>FormState extends State<<%= entityClass %>Form> {
   _buildBody() {
     return Stack(
       children: <Widget>[
-        _<%= entityInstance %>Bloc.loading
+        _<%= entityInstance %>Store.loading
             ? CustomProgressIndicatorWidget()
             : Material(child: _buildForm()),
-        _<%= entityInstance %>Bloc.success
+        _<%= entityInstance %>Store.success
             ? Container()
             : showErrorMessage(context, '') 
-        //_<%= entityInstance %>Bloc.isModified ? KutAlert() : Container(),
+        //_<%= entityInstance %>Store.isModified ? KutAlert() : Container(),
       ],
     );
   }

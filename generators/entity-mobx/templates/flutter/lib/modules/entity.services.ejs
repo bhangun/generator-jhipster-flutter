@@ -1,35 +1,33 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:<%= appsName %>/services/getIt.dart';
-
 import '../models/<%= entityInstance %>.dart';
-import '../../../services/network/rest_http_services.dart';
+import '../../../services/network/rest_services.dart';
 
 
 class <%= entityClass %>Services {
 
-  Future<<%= entityClass %>> <%= entityInstance %>(String id) async {
-    var response = await getIt<RestHttpServices>().fetch('/api/<%= entityInstance %>' + id);
+  static Future<<%= entityClass %>> <%= entityInstance %>(String id) async {
+    var response = await RestServices.fetch('/api/<%= entityInstance %>' + id);
     return <%= entityClass %>.fromJson(json.decode(response));
   }
 
-  Future<List<<%= entityClass %>>> <%= entityInstance %>s([var page, var size, var sort]) async {
-    var data = await getIt<RestHttpServices>().fetch('/api/<%= entityInstance %>s');
+  static Future<List<<%= entityClass %>>> <%= entityInstance %>s([var page, var size, var sort]) async {
+    var data = await RestServices.fetch('/api/<%= entityInstance %>s');
     return <%= entityClass %>.listFromString(data);
   }
 
-  create<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+  static create<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
     
   }
 
   //
-  update<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
+  static update<%= entityClass %>(<%= entityClass %> <%= entityInstance %>) async {
     
   }
 
   //
-  delete<%= entityClass %>(int id) async {
+  static delete<%= entityClass %>(int id) async {
     
   }
 

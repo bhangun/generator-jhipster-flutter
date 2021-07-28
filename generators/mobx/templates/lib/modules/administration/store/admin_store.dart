@@ -1,9 +1,9 @@
 // import 'package:f_logs/f_logs.dart';
-import 'package:kutilang_example/modules/account/services/user_routes.dart';
-import 'package:kutilang_example/services/navigation.dart';
+import 'package:<%= appsName %>/modules/account/services/user_routes.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
 
-import 'package:kutilang_example/modules/account/models/user_model.dart';
-import 'package:kutilang_example/utils/helper.dart';
+import 'package:<%= appsName %>/modules/account/models/user_model.dart';
+import 'package:<%= appsName %>/utils/helper.dart';
 
 
 class AdminStore {

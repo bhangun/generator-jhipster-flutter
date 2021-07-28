@@ -5,12 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../services/apps_routes.dart';
-import '../store/auth_store/auth_store.dart';
+import '../store/auth/auth_store.dart';
 
 import '../layout/mobile.dart';
-import '../modules/kojek/ko_routes.dart';
 import '../services/navigation.dart';
-import '../store/settings_store/settings_store.dart';
+import '../store/settings/settings_store.dart';
 import '../utils/config.dart';
 import '../utils/helper.dart';
 import '../widgets/textfield_widget.dart';
@@ -71,13 +70,6 @@ class _Loginpagestate extends State<LoginScreen> {
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 elevation: 0,
                 actions: [
-                  IconButton(
-                    splashRadius: 15,
-                    color: Theme.of(context).buttonColor,
-                    icon: Icon(Icons.pedal_bike),
-                    onPressed: () =>
-                        NavigationServices.navigateTo(KoRoutes.koHome),
-                  ),
                   IconButton(
                     splashRadius: 15,
                     color: Theme.of(context).buttonColor,

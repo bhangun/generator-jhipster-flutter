@@ -62,7 +62,6 @@
 
 _%>
 import 'package:mobx/mobx.dart';
-import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/services/navigation.dart';
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_routes.dart';
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_services.dart';
@@ -70,7 +69,7 @@ import 'package:<%= appsName %>/modules/<%= entityInstance %>/models/<%= entityI
 <% for (idx in dartFields) { %><% if (dartFields[idx]['desc'] == 'relationship') {%>
 import '../../<%= idx %>/models/<%= idx %>.dart'; <%}}%>
 
-part '<%= entityInstance %>_bloc.g.dart';
+part '<%= entityInstance %>_store.g.dart';
 
 class <%= entityClass %>Store = _<%= entityClass %>Store with _$<%= entityClass %>Store;
 
@@ -102,14 +101,14 @@ abstract class _<%= entityClass %>Store with Store {
   int position = 0;
 
   @observable
-  <%= entityClass %> itemDetail;
+  <%= entityClass %>? itemDetail;
 
-  List<<%= entityClass %>> <%= entityInstance %>List;
+  List<<%= entityClass %>>? <%= entityInstance %>List;
   <% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
-  String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %><% if(dartFields[idx]['isList']) {%>
-  List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;<% } else {%>
-  <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; <% } } else if(idx!='id'){%>
-  <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
+  String? <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %><% if(dartFields[idx]['isList']) {%>
+  List<<%- dartFields[idx]['type'] %>>? <%- dartFields[idx]['name'] %>;<% } else {%>
+  <%= dartFields[idx]['type'] %>? <%= dartFields[idx]['name'] %>; <% } } else if(idx!='id'){%>
+  <%- dartFields[idx]['type'] %>? <%- dartFields[idx]['name'] %>;<% }} %>
     
 
   // actions:-------------------------------------------------------------------
@@ -124,9 +123,9 @@ abstract class _<%= entityClass %>Store with Store {
   itemTap(int _position) {
     try {
       position = _position;
-      itemDetail = <%= entityInstance %>List[position];
+      itemDetail = <%= entityInstance %>List![position];
       isItemEmpty = false;
-      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Detail);
+      NavigationServices.navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Detail);
 
     } catch (e) {
       isItemEmpty = true;
@@ -137,7 +136,7 @@ abstract class _<%= entityClass %>Store with Store {
   add() {
     itemDetail = null;
     isUpdated = false;
-    getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
+    NavigationServices.navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
   }
 
   @action
@@ -145,9 +144,9 @@ abstract class _<%= entityClass %>Store with Store {
     loading = true;
     success = false;
     try {
-      isUpdated ? getIt<<%= entityClass %>Services>().update<%= entityClass %>(_to<%= entityClass %>())
-          :getIt<<%= entityClass %>Services>().create<%= entityClass %>(_to<%= entityClass %>());
-      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
+      isUpdated ? <%= entityClass %>Services.update<%= entityClass %>(_to<%= entityClass %>())
+          :<%= entityClass %>Services.create<%= entityClass %>(_to<%= entityClass %>());
+      NavigationServices.navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
       loading = false;
       success = true;
       get<%= entityClass %>List();
@@ -161,7 +160,7 @@ abstract class _<%= entityClass %>Store with Store {
     loading = true;
     success = false;
     try {
-      getIt<<%= entityClass %>Services>().delete<%= entityClass %>(id);
+      <%= entityClass %>Services.delete<%= entityClass %>(id);
       isDeleted =true;
       loading = false;
       success = true;
@@ -176,7 +175,7 @@ abstract class _<%= entityClass %>Store with Store {
     loading = true;
     success = false;
     try {
-      getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
+      NavigationServices.navigateTo(<%= entityClass %>Routes.<%= entityInstance %>Form);
       isUpdated = true;
       loading = false;
       success = true;
@@ -191,7 +190,7 @@ abstract class _<%= entityClass %>Store with Store {
     success = false;
     isListEmpty = true;
     try {
-      getIt<<%= entityClass %>Services>().<%= entityInstance %>s().then((data) => _set<%= entityClass %>List(data));
+      <%= entityClass %>Services.<%= entityInstance %>s().then((data) => _set<%= entityClass %>List(data));
       isListEmpty = false;
       loading = false;
       success = true;
@@ -212,13 +211,13 @@ abstract class _<%= entityClass %>Store with Store {
 
   <%= entityClass %> _to<%= entityClass %>() {
     return <%= entityClass %>(<% for (idx in dartFields) { if(idx=='id') {%>
-    id: isUpdated ? itemDetail.id : '',<%} else {%>
+    id: isUpdated ? itemDetail!.id : null,<%} else {%>
     <%= dartFields[idx]['name'] %>: <%= dartFields[idx]['name'] %>, <% }} %>);
   }
 
   @action
   viewList() {
     get<%= entityClass %>List();
-    getIt<NavigationServices>().navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
+    NavigationServices.navigateTo(<%= entityClass %>Routes.<%= entityInstance %>List);
   }
 }

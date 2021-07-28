@@ -60,10 +60,10 @@ function writeFiles() {
 
             this.template(`${flutterDir}lib/generated/i18n.dart`, `${this.packageFolder}/lib/generated/i18n.dart`);
 
-            // this.template(`${flutterDir}lib/pages/entity/entity.dart`, `${this.packageFolder}/lib/pages/entity/entity.dart`);
-            // this.template(`${flutterDir}lib/pages/entity/entity.form.dart`, `${this.packageFolder}/lib/pages/entity/entity.form.dart`);
-            this.template(`${flutterDir}lib/pages/home.dart`, `${this.packageFolder}/lib/pages/home.dart`);
-            this.template(`${flutterDir}lib/pages/login.dart`, `${this.packageFolder}/lib/pages/login.dart`);
+            // this.template(`${flutterDir}lib/screens/entity/entity.dart`, `${this.packageFolder}/lib/screens/entity/entity.dart`);
+            // this.template(`${flutterDir}lib/screens/entity/entity.form.dart`, `${this.packageFolder}/lib/screens/entity/entity.form.dart`);
+            this.template(`${flutterDir}lib/screens/home.dart`, `${this.packageFolder}/lib/screens/home.dart`);
+            this.template(`${flutterDir}lib/screens/login.dart`, `${this.packageFolder}/lib/screens/login.dart`);
 
             this.template(`${flutterDir}lib/services/config.dart`, `${this.packageFolder}/lib/services/config.dart`);
             this.template(`${flutterDir}lib/services/connection.dart`, `${this.packageFolder}/lib/services/connection.dart`);

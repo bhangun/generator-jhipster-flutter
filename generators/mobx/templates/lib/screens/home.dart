@@ -4,7 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:kutilang_example/widgets/drawer_widget.dart';
+import 'package:<%= appsName %>/widgets/drawer_widget.dart';
 
 import '../widgets/bottom_bar_widget.dart';
 import '../widgets/appbar_widget.dart';

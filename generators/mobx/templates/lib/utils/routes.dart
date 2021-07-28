@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/services/apps_routes.dart';
+import 'package:<%= appsName %>/services/apps_routes.dart';
 
 class RoutesService {
   static final RoutesService _singleton = RoutesService._();

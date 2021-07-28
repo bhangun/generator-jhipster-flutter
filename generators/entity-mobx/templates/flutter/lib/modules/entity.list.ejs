@@ -43,10 +43,8 @@
 _%>
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
 
-import 'package:<%= appsName %>/modules/<%= entityInstance %>/bloc/<%= entityInstance %>_bloc.dart';
-import 'package:<%= appsName %>/widgets/appbar_widget.dart';
+import 'package:<%= appsName %>/modules/<%= entityInstance %>/store/<%= entityInstance %>_store.dart';
 import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
 
 
@@ -61,7 +59,7 @@ final String title = "<%= entityClass %> List";
 class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
   final _listKey = GlobalKey<ScaffoldState>();
   var _<%= entityInstance %>List;
-  <%= entityClass %>Store _<%= entityInstance %>Bloc;
+  late <%= entityClass %>Store _<%= entityInstance %>Store = <%= entityClass %>Store();
 
   @override
   void dispose() {
@@ -72,17 +70,17 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
   @override
   Widget build(BuildContext context) {
     
-    _<%= entityInstance %>Bloc.get<%= entityClass %>List();
+    _<%= entityInstance %>Store.get<%= entityClass %>List();
 
-    int _total<%= entityClass %> = _<%= entityInstance %>Bloc.totalItem;
-    _<%= entityInstance %>List = _<%= entityInstance %>Bloc.<%= entityInstance %>List;
+    int _total<%= entityClass %> = _<%= entityInstance %>Store.totalItem;
+    _<%= entityInstance %>List = _<%= entityInstance %>Store.<%= entityInstance %>List;
 
     return Scaffold(
         key: _listKey,
-        appBar: buildAppBar(context, '<%= entityClass %> List ( $_total<%= entityClass %> )'),
+        appBar: AppBar(title: Text('<%= entityClass %> List ( $_total<%= entityClass %> )')),
         body: _buildBody(context),
         floatingActionButton: FloatingActionButton(
-          onPressed: _<%= entityInstance %>Bloc.add,
+          onPressed: _<%= entityInstance %>Store.add,
           tooltip: 'Add',
           child: Icon(Icons.add),
         ));
@@ -91,7 +89,7 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
   _buildBody(BuildContext context) {
     return Stack(
       children: <Widget>[
-        _<%= entityInstance %>Bloc.loading
+        _<%= entityInstance %>Store.loading
             ? CustomProgressIndicatorWidget()
             : Material(child: _buildSlidelist(context)),
       ],
@@ -99,9 +97,9 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
   }
 
   _buildSlidelist(BuildContext context) {
-    return !_<%= entityInstance %>Bloc.isListEmpty
+    return !_<%= entityInstance %>Store.isListEmpty
         ? ListView.separated(
-            itemCount: _<%= entityInstance %>Bloc.totalItem,
+            itemCount: _<%= entityInstance %>Store.totalItem,
             separatorBuilder: (context, index) {
               return Divider();
             },
@@ -122,7 +120,7 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
                     color: Colors.red,
                     icon: Icons.delete,
                     onTap: () =>
-                        _<%= entityInstance %>Bloc.delete(_<%= entityInstance %>Bloc.<%= entityInstance %>List[index].id),
+                        _<%= entityInstance %>Store.delete(_<%= entityInstance %>Store.<%= entityInstance %>List![index].id!),
                   ),
                 ],
                 dismissal: SlidableDismissal(
@@ -143,7 +141,7 @@ class _<%= entityClass %>ListState extends State<<%= entityClass %>List> {
                       overflow: TextOverflow.ellipsis,
                       softWrap: false,
                     ),*/
-                    onTap: () => _<%= entityInstance %>Bloc.itemTap(index)),
+                    onTap: () => _<%= entityInstance %>Store.itemTap(index)),
               );
             })
         : Center(child: Text('Data empty'));

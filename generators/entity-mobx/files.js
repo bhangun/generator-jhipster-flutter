@@ -38,23 +38,23 @@ const flutterFiles = {
                 },
                 {
                     file: 'entity.list',
-                    renameTo: generator => `${generator.entityFolderName}/views/${generator.entityFileName}_list.dart`
+                    renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_list.dart`
                 },
                 {
                     file: 'entity.detail',
-                    renameTo: generator => `${generator.entityFolderName}/views/${generator.entityFileName}_detail.dart`
+                    renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_detail.dart`
                 },
                 {
                     file: 'entity.form',
-                    renameTo: generator => `${generator.entityFolderName}/views/${generator.entityFileName}_form.dart`
+                    renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_form.dart`
                 },
                 {
                     file: 'entity.services',
                     renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_services.dart`
                 },
                 {
-                    file: 'entity.bloc',
-                    renameTo: generator => `${generator.entityFolderName}/bloc/${generator.entityFileName}_bloc.dart`
+                    file: 'entity.store',
+                    renameTo: generator => `${generator.entityFolderName}/store/${generator.entityFileName}_store.dart`
                 },
                 {
                     file: 'entity.route',

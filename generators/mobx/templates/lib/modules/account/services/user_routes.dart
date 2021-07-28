@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../pages/user_list.dart';
-import '../pages/user_detail.dart';
-import '../pages/user_form.dart';
+import '../screens/user_list.dart';
+import '../screens/user_detail.dart';
+import '../screens/user_form.dart';
 
 class UserRoutes {
 

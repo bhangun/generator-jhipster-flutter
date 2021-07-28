@@ -40,7 +40,7 @@ module.exports = class extends BaseGenerator {
 
     end() {
         if (useBlueprint) return;
-        this.log(chalk.bold.green('Entity generation completed. You may need to click "r" or "R" in your terminal to see your new entity.'));
+        this.log(chalk.bold.green('Entity generation completed. You may need to click "r" or "R" in your terminal to see your changes on your apps.'));
     }
 
 

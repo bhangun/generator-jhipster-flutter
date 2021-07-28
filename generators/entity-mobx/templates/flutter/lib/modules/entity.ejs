@@ -96,10 +96,10 @@ import '../../<%- idx %>/models/<%- idx %>.dart';<%}} %>
 
 class <%= entityClass %> {
     <% for (idx in dartFields) { if (dartFields[idx]['type'] == 'enum') {%>
-    final String <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %>
-    <% if(dartFields[idx]['isList']) {%>final List<<%- dartFields[idx]['type'] %>> <%- dartFields[idx]['name'] %>;
-    <% } else {%>final <%= dartFields[idx]['type'] %> <%= dartFields[idx]['name'] %>; 
-    <% } } else {%>final <%- dartFields[idx]['type'] %> <%- dartFields[idx]['name'] %>;<% }} %>
+    final String? <%- dartFields[idx]['name'] %>;<%} else if (dartFields[idx]['desc'] == 'relationship') { %>
+    <% if(dartFields[idx]['isList']) {%>final List<<%- dartFields[idx]['type'] %>>? <%- dartFields[idx]['name'] %>;
+    <% } else {%>final <%= dartFields[idx]['type'] %>? <%= dartFields[idx]['name'] %>; 
+    <% } } else {%>final <%- dartFields[idx]['type'] %>? <%- dartFields[idx]['name'] %>;<% }} %>
     
     const <%= entityClass %> ({ <% for (idx in dartFields) { if (dartFields[idx]['desc'] == 'relationship') { %>
         this.<%- dartFields[idx]['name'] %>,<%} else {%> 
@@ -130,14 +130,14 @@ class <%= entityClass %> {
 }
 
 class <%= entityClass %>List {
-  final List<<%= entityClass %>> <%= entityInstance %>s;
+  final List<<%= entityClass %>>? <%= entityInstance %>s;
 
   <%= entityClass %>List({
     this.<%= entityInstance %>s,
   });
 
   factory <%= entityClass %>List.fromJson(List<dynamic> json) {
-    List<<%= entityClass %>> <%= entityInstance %>s = List<<%= entityClass %>>();
+    List<<%= entityClass %>> <%= entityInstance %>s = [];
     <%= entityInstance %>s = json.map((post) => <%= entityClass %>.fromJson(post)).toList();
 
     return <%= entityClass %>List(

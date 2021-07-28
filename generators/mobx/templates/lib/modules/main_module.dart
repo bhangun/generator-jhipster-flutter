@@ -1,7 +1,7 @@
-import 'package:kutilang_example/store/auth_store/auth_store.dart';
+import 'package:<%= appsName %>/store/auth/auth_store.dart';
 import 'package:provider/provider.dart';
 import '../services/apps_routes.dart';
-import '../store/app_store/app_store.dart';
+import '../store/app/app_store.dart';
 import '../utils/modules/module.dart';
 import 'account/services/user_routes.dart';
 

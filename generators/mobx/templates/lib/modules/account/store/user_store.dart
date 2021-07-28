@@ -1,12 +1,12 @@
 import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/modules/account/models/user_model.dart';
-import 'package:kutilang_example/modules/account/pages/user_form.dart';
-import 'package:kutilang_example/modules/account/services/user_routes.dart';
-import 'package:kutilang_example/modules/account/services/user_services.dart';
-import 'package:kutilang_example/services/navigation.dart';
-import 'package:kutilang_example/store/alert/alert_store.dart';
-import 'package:kutilang_example/utils/helper.dart';
+import 'package:<%= appsName %>/modules/account/models/user_model.dart';
+import 'package:<%= appsName %>/modules/account/screens/user_form.dart';
+import 'package:<%= appsName %>/modules/account/services/user_routes.dart';
+import 'package:<%= appsName %>/modules/account/services/user_services.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
+import 'package:<%= appsName %>/store/alert/alert_store.dart';
+import 'package:<%= appsName %>/utils/helper.dart';
 import 'package:mobx/mobx.dart';
 
 part 'user_store.g.dart';

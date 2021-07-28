@@ -117,14 +117,14 @@ module.exports = class extends BaseGenerator {
                 name: 'stateManageType',
                 message: 'Which State-Management style do you want to use?',
                 choices: [
-                    {
+                   /*  {
                         value: 'basic',
                         name: 'Basic state-management'
                     },
                     {
                         value: 'provider',
                         name: 'Provider state-management'
-                    },
+                    }, */
                     {
                         value: 'mobx',
                         name: 'MobX state-management'
@@ -206,11 +206,11 @@ module.exports = class extends BaseGenerator {
 
     install() {
         this.spawnCommand('mv', ['.yo-rc.json', `${this.baseName}/`]);
-        // this.spawnCommand('cp', ['.yo-rc.json', `${this.baseName}/`]);
+        this.spawnCommand('chmod','a+x', ['run_watcher', `${this.baseName}/`]);
     }
 
     end() {
-        this.log('End of flutter generator');
+        this.log('End of generated kutilang packages');
     }
 };
 

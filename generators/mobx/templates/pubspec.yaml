@@ -1,16 +1,20 @@
 name: <%= appsName %>
-description: A new Flutter project using Kutilang JHipster Module.
+description: A new Flutter project.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
 # Both the version and the builder number may be overridden in flutter
 # build by specifying --build-name and --build-number, respectively.
-# Read more about versioning at semver.org.
-version: 1.0.0+1
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -20,79 +24,89 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.2
 
-  # The following decoding jwt
-  corsac_jwt: ^0.1.2
+  # State management using blutter_bloc
+  mobx: ^2.0.0
+  flutter_mobx: ^2.0.0
 
-  # The following adds the shared pref as a dependency in your application
-  shared_preferences: ^0.5.3+4
+  provider: ^5.0.0
 
-  # A composable, Future-based library for making HTTP requests.
-  http: ^0.12.0+2
+  # Utils
+  equatable: ^2.0.0
 
-  # This package provides internationalization and localization facilities, including message translation,
-  # plurals and genders, date/number formatting and parsing, and bidirectional text
-  intl: ^0.16.1
+  # Local database
+  sembast: ^3.0.0+2 
 
-  # The following adds the launcher icon support to your application.
-  # run below mentioned commands to generate launcher icons
-  # flutter packages get
-  # flutter packages pub run flutter_launcher_icons:main
-  flutter_launcher_icons: ^0.7.2+1
+  # Encryption
+  xxtea: ^2.1.0
 
-  # Flogs, a powerful logging framework
-  f_logs: ^1.2.0
+  # REST connection
+  dio: ^4.0.0
 
-  # dependency injection
-  get_it: ^1.0.3+2
+  intl: ^0.17.0
 
-  # slidable list
-  flutter_slidable: ^0.5.3
+  #intl_translation: ^0.17.10+1
 
-  # MobX is a library for reactively managing the state of your applications. Use the power of
-  # observables, actions, and reactions to supercharge your Dart and Flutter apps.
-  mobx: ^0.3.5
-  flutter_mobx: ^0.3.0+1
-  mobx_codegen: ^0.3.3+1
+  # Network connection
+  connectivity: ^3.0.2
 
-  # We are able to compare different instances og object
-  equatable: ^0.3.0
+  # Logging
+  f_logs: ^2.0.0
 
-  # An helper to easily exposes a value using InheritedWidget without having to write one.
-  provider: ^3.0.0+1
+  #biometric_storage: ^2.0.1
 
-  # String validation and sanitization for Dart. Dart 2-compatible version of validator
-  validators: ^2.0.0+1
+  # JWT decoder
+  jwt_decoder: ^2.0.1
 
-  # Provides Dart Build System builders for handling JSON.
-  json_serializable: ^3.1.0
 
-  # A powerful Http client for Dart
-  dio: ^2.1.13
+  cached_network_image: ^3.0.0
 
-  # A flexible widget for user notification.
-  flushbar: ^1.8.2
+
+  path_provider: ^2.0.1
+
+  flutter_svg: ^0.22.0
+
+  json_annotation: ^4.0.0
+
+  #another_flushbar: ^1.10.13
+
+  flutter_slidable: ^0.6.0-nullsafety.0
+
+  
+  built_value: ^8.0.2
+
+  # plugin provides an API for querying information about an application package.
+  package_info_plus: ^1.0.3
+
+  sensors_plus: ^1.0.2
+
+  shared_preferences:
+
+  responsive_builder: ^0.4.1
+  #responsive_framework: ^0.1.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_driver:
+  integration_test:
     sdk: flutter
-  test: any
-  build_runner: ^1.6.5
+  test: any 
+  build_runner: ^2.0.5
+  build: ^2.0.1
+  mobx_codegen: ^2.0.0
 
-flutter_icons:
-  image_path: "assets/icons/ic_launcher.png"
-  android: true
-  ios: true
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # For information on the generic Dart part of this file, see the
-# following page: https://www.dartlang.org/tools/pub/pubspec
+# following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -103,12 +117,13 @@ flutter:
   assets:
   - assets/images/
   - assets/icons/
+  - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.io/assets-and-images/#resolution-aware.
+  # https://flutter.dev/assets-and-images/#resolution-aware.
 
   # For details regarding adding assets from package dependencies, see
-  # https://flutter.io/assets-and-images/#from-packages
+  # https://flutter.dev/assets-and-images/#from-packages
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
@@ -121,7 +136,11 @@ flutter:
     - asset: assets/fonts/Product-Sans-Regular.ttf
     - asset: assets/fonts/Product-Sans-Italic.ttf
       style: italic
-    # - asset: assets/fonts/Product-Sans-Bold.ttf
-      weight: 700
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
   # For details regarding fonts from package dependencies,
-  # see https://flutter.io/custom-fonts/#from-packages
+  # see https://flutter.dev/custom-fonts/#from-packages

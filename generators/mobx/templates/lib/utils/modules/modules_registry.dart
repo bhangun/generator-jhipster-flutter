@@ -1,4 +1,4 @@
-import 'package:kutilang_example/modules/register_modules.dart';
+import 'package:<%= appsName %>/modules/register_modules.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/single_child_widget.dart';
 

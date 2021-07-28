@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/widgets/appbar_widget.dart';
+import 'package:<%= appsName %>/widgets/appbar_widget.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AboutPage extends StatefulWidget {

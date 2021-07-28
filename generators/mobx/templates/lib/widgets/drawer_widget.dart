@@ -1,6 +1,6 @@
 // import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/modules/account/services/user_routes.dart';
+import 'package:<%= appsName %>/modules/account/services/user_routes.dart';
 
 class KutDrawer extends StatefulWidget {
   @override

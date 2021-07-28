@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/services/apps_routes.dart';
-import 'package:kutilang_example/services/navigation.dart';
-import 'package:kutilang_example/utils/themes/theme_services.dart';
+import 'package:<%= appsName %>/services/apps_routes.dart';
+import 'package:<%= appsName %>/services/navigation.dart';
+import 'package:<%= appsName %>/utils/themes/theme_services.dart';
 
 import 'package:mobx/mobx.dart';
 

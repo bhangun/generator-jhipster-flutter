@@ -70,16 +70,15 @@ relationships.forEach(rela => {
 _%>
 import 'package:provider/provider.dart';
 
-import 'package:<%= appsName %>/services/getIt.dart';
 import 'package:<%= appsName %>/utils/routes.dart';
-import 'package:<%= appsName %>/models/module.dart';
+import 'package:<%= appsName %>/utils/modules/module.dart';
 import 'package:<%= appsName %>/modules/<%= entityInstance %>/services/<%= entityInstance %>_routes.dart';
 
 import 'services/<%= entityInstance %>_services.dart';
 
 class <%= entityClass %>Module implements Module {
   @override
-  String name = '<%= entityClass %>';
+  String? name = '<%= entityClass %>';
 
   @override
   pages() {
@@ -95,14 +94,11 @@ class <%= entityClass %>Module implements Module {
   }
 
   @override
-  services() {
-    getIt.registerFactory<<%= entityClass %>Services>(() => <%= entityClass %>Services());
-  }
+  services() {}
 
   @override
-  routes() {
-    getIt<Routes>().addRoutes(<%= entityClass %>Routes.routes);
-  }
+  routes() =>[<%= entityClass %>Routes.routes];
+  
 
   @override
   providers() {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:kutilang_example/modules/account/user_store/user_store.dart';
-import 'package:kutilang_example/widgets/alert_widget.dart';
-import 'package:kutilang_example/widgets/bottom_bar_widget.dart';
-import 'package:kutilang_example/widgets/global_methods.dart';
-import 'package:kutilang_example/widgets/progress_indicator_widget.dart';
+import 'package:<%= appsName %>/modules/account/store/user_store.dart';
+import 'package:<%= appsName %>/widgets/alert_widget.dart';
+import 'package:<%= appsName %>/widgets/bottom_bar_widget.dart';
+import 'package:<%= appsName %>/widgets/global_methods.dart';
+import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
 
 import '../models/user_model.dart';
 

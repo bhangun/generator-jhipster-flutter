@@ -18,7 +18,7 @@
  */
 const _ = require('lodash');
 
-const FLUTTER_DIR = 'lib/pages/';
+const FLUTTER_DIR = 'lib/screens/';
 
 const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:f_logs/f_logs.dart';
-import 'package:kutilang_example/utils/config.dart';
+import 'package:<%= appsName %>/utils/config.dart';
 
 import '../auth_jwt_services.dart';
 import 'rest_error_util.dart';

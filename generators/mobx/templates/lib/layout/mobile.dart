@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kutilang_example/widgets/progress_indicator_widget.dart';
+import 'package:<%= appsName %>/widgets/progress_indicator_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class MobileLayout extends StatelessWidget {

@@ -40,10 +40,8 @@
   });
 _%>
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:<%= appsName %>/widgets/appbar_widget.dart';
-import '../bloc/<%= entityInstance %>_bloc.dart';
+import '../store/<%= entityInstance %>_store.dart';
 
 
 class <%= entityClass %>Detail extends StatefulWidget {
@@ -52,7 +50,7 @@ class <%= entityClass %>Detail extends StatefulWidget {
 }
 
 class _<%= entityClass %>DetailState extends State<<%= entityClass %>Detail> {
-  <%= entityClass %>Store _<%= entityInstance %>Bloc;
+  late <%= entityClass %>Store _<%= entityInstance %>Store = <%= entityClass %>Store();
 
   @override
   void dispose() {
@@ -63,12 +61,12 @@ class _<%= entityClass %>DetailState extends State<<%= entityClass %>Detail> {
   Widget build(BuildContext context) {
    
     return Scaffold(
-            appBar: buildAppBar(context, '<%= entityClass %> Detail'),
-            body: _<%= entityInstance %>Bloc.isItemEmpty
+            appBar: AppBar(title: Text('<%= entityClass %> Detail')),
+            body: _<%= entityInstance %>Store.isItemEmpty
                 ? Center(child: Text('<%= entityClass %> data are empty'))
                 : <%= entityInstance %>Detail(),
             floatingActionButton: FloatingActionButton(
-              onPressed: () => _<%= entityInstance %>Bloc.update(),
+              onPressed: () => _<%= entityInstance %>Store.update(),
               tooltip: 'Edit',
               child: Icon(Icons.edit),
             ));
@@ -81,7 +79,7 @@ class _<%= entityClass %>DetailState extends State<<%= entityClass %>Detail> {
           SizedBox(height: 100.0),
           Icon(Icons.person, size: 100, color: Colors.blue[500]),
           Column(children: <Widget>[<%for (idx in dartFields) { %><%if(idx!='id'){%>
-            Text(_<%= entityInstance %>Bloc.itemDetail.<%= dartFields[idx]['name'] %><%if(['int','Integer'].includes(dartFields[idx]['type']) ){%>.toString()<%}%>),<%}}%>
+            Text(_<%= entityInstance %>Store.itemDetail!.<%= dartFields[idx]['name'] %>!<%if(['int','Integer'].includes(dartFields[idx]['type']) ){%>.toString()<%}%>),<%}}%>
           ])
         ]);
   }

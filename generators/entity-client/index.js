@@ -64,7 +64,7 @@ module.exports = class extends BaseGenerator {
         }
         const entityPagePath = 'lib/services/routes.dart';
         try {
-            const page2 = `import '../pages/${entityInstance}/${entityInstance}.list.dart';`;
+            const page2 = `import '../screens/${entityInstance}/${entityInstance}.list.dart';`;
             utils.rewriteFile({
                 file: entityPagePath,
                 needle: 'kutilang-needle-add-import-route',

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:f_logs/f_logs.dart';
-import 'package:kutilang_example/utils/helper.dart';
+import 'package:<%= appsName %>/utils/helper.dart';
 import 'package:logging/logging.dart';
 
 import '../../../services/network/rest_services.dart';
