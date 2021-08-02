@@ -1,0 +1,132 @@
+
+
+<ref *1> {
+  sharedData: {},
+  forwardErrorToEnvironment: false,
+  skipLocalCache: true,
+  initialGenerator: true,
+  env: <ref *2> Environment {
+    _events: [Object: null prototype] {
+      end: [Array],
+      error: [Function (anonymous)],
+      'generator:reject': [Function (anonymous)],
+      'generator:resolve': [Function (anonymous)],
+      run: [Function]
+    },
+    _eventsCount: 5,
+    _maxListeners: 100,
+    options: {},
+    adapter: TerminalAdapter {
+      promptModule: [Function],
+      console: [Console [console]],
+      log: [Function],
+      tracker: [EventEmitter]
+    },
+    cwd: '/Users/bhangun/workopen/JHipster-Generator/jh5',
+    logCwd: '/Users/bhangun/workopen/JHipster-Generator/jh5',
+    store: Store {
+      _generators: [Object],
+      _meta: [Object],
+      _packagesPaths: [Object],
+      _packagesNS: [Array]
+    },
+    command: undefined,
+    runLoop: Queue {
+      queueNames: [Array],
+      __queues__: [Object],
+      runOnAdd: false,
+      _maxListeners: 0,
+      _events: [Object: null prototype],
+      _eventsCount: 3,
+      running: true
+    },
+    sharedFs: Store {
+      _events: [Object: null prototype],
+      _eventsCount: 1,
+      _maxListeners: 0,
+      store: [Object],
+      [Symbol(kCapture)]: false
+    },
+    fs: EditionInterface { store: [Store] },
+    lookups: [ '.', 'generators', 'lib/generators', 'dist/generators' ],
+    aliases: [ [Object] ],
+    sharedOptions: {
+      sharedData: {},
+      forwardErrorToEnvironment: false,
+      skipLocalCache: true
+    },
+    repository: YeomanRepository {
+      log: [Function],
+      tracker: [EventEmitter],
+      _repositoryPath: '/Users/bhangun/workopen/JHipster-Generator/jh5/.yo-repository',
+      _nodeModulesPath: '/Users/bhangun/workopen/JHipster-Generator/jh5/.yo-repository/node_modules'
+    },
+    _generatorsForPath: { '/Users/bhangun/workopen/JHipster-Generator/jh5': [Object] },
+    _generators: {},
+    _composeStore: {},
+    compatibilityMode: false,
+    _rootGenerator: JHipsterBaseGenerator {
+      _events: [Object: null prototype] {},
+      _eventsCount: 0,
+      _maxListeners: undefined,
+      options: [Circular *1],
+      _initOptions: [Object],
+      _args: [Array],
+      _options: [Object],
+      _arguments: [],
+      _prompts: [],
+      _composedWith: [],
+      _namespace: 'jhipster-kutilang:entity',
+      _namespaceId: undefined,
+      yoGeneratorVersion: '5.3.0',
+      features: [Object],
+      args: [Array],
+      arguments: [Array],
+      env: [Circular *2],
+      resolved: '/Users/bhangun/workopen/JHipster-Generator/generator-jhipster-flutter/generators/entity/index.js',
+      description: '',
+      contextRoot: '/Users/bhangun/workopen/JHipster-Generator/jh5',
+      _destinationRoot: '/Users/bhangun/workopen/JHipster-Generator/jh5',
+      _config: [Storage],
+      _packageJson: undefined,
+      _sourceRoot: '/Users/bhangun/workopen/JHipster-Generator/generator-jhipster-flutter/generators/entity/templates',
+      fs: [EditionInterface],
+      _debug: [Function],
+      _: [Function],
+      log: [Function],
+      async: [Function (anonymous)],
+      appname: 'jh5',
+      _globalConfig: [Storage],
+      _queues: [Object],
+      compose: undefined,
+      configOptions: [Object],
+      jhipsterConfig: [Storage],
+      _environmentOptions: [Object],
+      _running: true,
+      _taskStatus: [Object],
+      runningState: [Object],
+      entityConfig: undefined,
+      jhipsterAppConfig: [Storage],
+      [Symbol(kCapture)]: false
+    },
+    conflicter: Conflicter {
+      adapter: [TerminalAdapter],
+      force: undefined,
+      bail: undefined,
+      ignoreWhitespace: undefined,
+      regenerate: undefined,
+      dryRun: undefined,
+      cwd: '/Users/bhangun/workopen/JHipster-Generator/jh5',
+      diffOptions: undefined,
+      queue: [Queue]
+    },
+    [Symbol(kCapture)]: false
+  },
+  resolved: '/Users/bhangun/workopen/JHipster-Generator/generator-jhipster-flutter/generators/entity/index.js',
+  namespace: 'jhipster-kutilang:entity',
+  _: [ 'Kami' ],
+  'skip-cache': false,
+  'skip-install': false,
+  'force-install': false,
+  'ask-answered': false
+} 
