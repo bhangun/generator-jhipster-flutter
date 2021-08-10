@@ -12,11 +12,11 @@ In the first generated apps there would error dependancy to this package.
 
 but don't worry, when you run the Flutter apps this package is generated and it should be solved. Waht you you have to todo.
 
-`flutter clean`
-
-then
-
 `flutter run`
+
+but if there still error, some time you have to:
+
+`flutter clean` and then `flutter run` again
 
 
 ### Clean and remove all generated files

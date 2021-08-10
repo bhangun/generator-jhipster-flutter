@@ -158,6 +158,10 @@ function writeFiles() {
             this.template(`${flutterDir}lib/layout/mobile.dart`, `${this.packageFolder}/lib/layout/mobile.dart`);
             this.template(`${flutterDir}lib/layout/web.dart`, `${this.packageFolder}/lib/layout/web.dart`);
            
+            // macos
+            this.template(`${flutterDir}macos/Runner/DebugProfile.entitlements`, `${this.packageFolder}/macos/Runner/DebugProfile.entitlements`);
+            this.template(`${flutterDir}macos/Runner/Release.entitlements`, `${this.packageFolder}/macos/Runner/Release.entitlements`);
+
             // test
             this.template(`${flutterDir}test/widget_test.dart`, `${this.packageFolder}/test/widget_test.dart`);
         }
