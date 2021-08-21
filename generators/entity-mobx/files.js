@@ -22,6 +22,9 @@ const FLUTTER_DIR = 'lib/modules/';
 
 const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 
+
+
+
 /**
  * The default is to use a file path string. It implies use of the template method.
  * For any other config an object { file:.., method:.., template:.. } can be used
@@ -76,6 +79,10 @@ module.exports = {
 };
 
 function writeFiles() {
+
+    console.log(this.context)
+    console.log('----write entity mobx-------')
+
     return {
         /* saveRemoteEntityPath() {
             if (_.isUndefined(this.microservicePath)) {
@@ -89,6 +96,9 @@ function writeFiles() {
 
             // write client side files for angular
             this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
+
+            console.log(this.context)
+            
             // this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
             this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
 

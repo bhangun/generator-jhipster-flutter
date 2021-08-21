@@ -15,7 +15,7 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-            //  this.jhipsterAppConfig = this.getAllJhipsterConfig();
+                //  this.jhipsterAppConfig = this.getAllJhipsterConfig();
                 /*  if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
                 }  */
@@ -30,8 +30,6 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.cyan('|_\\_\\\\__,_|\\__|_|_|\\__,_|_| |_|\\__,  |')}`);
                 this.log(`${chalk.bold.cyan('                                 __/ |')}`);
                 this.log(`${chalk.bold.cyan('                                |___/ ')}`);
-
-                // Have Yeoman greet the user.
                 this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster-Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
         };
@@ -43,15 +41,15 @@ module.exports = class extends BaseGenerator {
             this.log(entity);
         }); */
         // this.log(this.auditedEntities[0]);
-        const appsName = this.getDefaultAppName(); // `${this.jhipsterAppConfig.baseName}Apps`;
-        // this.log(appsName);
+        const appsName = this.getDefaultAppName();
+
         const prompts = [
             {
                 type: 'input',
                 name: 'appsName',
                 message: 'What is your Flutter application name?',
                 default: appsName,
-                // store: true
+                store: true
             },
             {
                 type: 'input',
@@ -85,15 +83,15 @@ module.exports = class extends BaseGenerator {
                 message: 'Which Android native code do you want to use?',
                 choices: [
                     {
-                        value: 'java',
-                        name: 'Java'
-                    },
-                    {
                         value: 'kotlin',
                         name: 'Kotlin'
                     },
+                    {
+                        value: 'java',
+                        name: 'Java'
+                    },
                 ],
-                default: 'java'
+                default: 'kotlin'
             },
             {
                 type: 'list',
@@ -101,35 +99,34 @@ module.exports = class extends BaseGenerator {
                 message: 'Which iOS native code do you want to use?',
                 choices: [
                     {
-                        value: 'objc',
-                        name: 'Objective-C'
-                    },
-                    {
                         value: 'swift',
                         name: 'Swift'
                     },
+                    {
+                        value: 'objc',
+                        name: 'Objective-C'
+                    },
                 ],
-                default: 'objc'
+                default: 'swift'
             },
             {
-                // when: response => applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa',
                 type: 'list',
                 name: 'stateManageType',
                 message: 'Which State-Management style do you want to use?',
                 choices: [
-                   /*  {
-                        value: 'basic',
-                        name: 'Basic state-management'
-                    },
-                    {
-                        value: 'provider',
-                        name: 'Provider state-management'
-                    }, */
+                    /*  {
+                         value: 'basic',
+                         name: 'Basic state-management'
+                     },
+                     {
+                         value: 'provider',
+                         name: 'Provider state-management'
+                     }, */
                     {
                         value: 'mobx',
                         name: 'MobX state-management'
                     },
-                    
+
                 ],
                 default: 'basic'
             },
@@ -143,7 +140,6 @@ module.exports = class extends BaseGenerator {
     }
 
     get configuring() {
-        // if (useBlueprint) return;
         return {
             saveConfig() {
                 this.config.set('appsName', this.props.appsName);
@@ -174,13 +170,12 @@ module.exports = class extends BaseGenerator {
         this.message = this.props.message;
         this.baseName = this.props.appsName;
         this.packageName = this.props.packageName;
-        this.packageFolder = this.destinationRoot(); // `${this.props.appsName}`;
+        this.packageFolder = this.destinationRoot();
         this.buildTool = this.props.buildTool;
-
 
         // variable from questions
         // show all variables
-        this.log('\n--- some config read from config ---');
+        // this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
         this.log(`packageName=${this.packageName}`);
         this.log(`packageFolder=${this.packageFolder}`);
@@ -192,7 +187,6 @@ module.exports = class extends BaseGenerator {
         } else {
             this.composeWith(require.resolve('../basic'));
         }
-
 
         // variable for native code
         this.nativeCode = ` -a ${this.props.android} -i ${this.props.ios} `;
@@ -206,7 +200,7 @@ module.exports = class extends BaseGenerator {
 
     install() {
         this.spawnCommand('mv', ['.yo-rc.json', `${this.baseName}/`]);
-        this.spawnCommand('chmod','a+x', ['run_watcher', `${this.baseName}/`]);
+        this.spawnCommand('chmod', 'a+x', ['run_watcher', `${this.baseName}/`]);
     }
 
     end() {
