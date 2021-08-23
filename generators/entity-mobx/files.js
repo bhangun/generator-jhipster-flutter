@@ -22,55 +22,26 @@ const FLUTTER_DIR = 'lib/modules/';
 
 const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 
-
-
-
 /**
  * The default is to use a file path string. It implies use of the template method.
  * For any other config an object { file:.., method:.., template:.. } can be used
  */
-
 const flutterFiles = {
     client: [
         {
             path: FLUTTER_DIR,
             templates: [
-                {
-                    file: 'entity',
-                    renameTo: generator => `${generator.entityFolderName}/models/${generator.entityFileName}.dart`
-                },
-                {
-                    file: 'entity.list',
-                    renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_list.dart`
-                },
-                {
-                    file: 'entity.detail',
-                    renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_detail.dart`
-                },
-                {
-                    file: 'entity.form',
-                    renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_form.dart`
-                },
-                {
-                    file: 'entity.services',
-                    renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_services.dart`
-                },
-                {
-                    file: 'entity.store',
-                    renameTo: generator => `${generator.entityFolderName}/store/${generator.entityFileName}_store.dart`
-                },
-                {
-                    file: 'entity.route',
-                    renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_routes.dart`
-                },
-                {
-                    file: 'entity.module',
-                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}_module.dart`
-                },
+                { file: 'entity', renameTo: generator => `${generator.entityFolderName}/models/${generator.entityFileName}.dart` },
+                { file: 'entity.list', renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_list.dart` },
+                { file: 'entity.detail', renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_detail.dart` },
+                { file: 'entity.form', renameTo: generator => `${generator.entityFolderName}/screens/${generator.entityFileName}_form.dart` },
+                { file: 'entity.services', renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_services.dart` },
+                { file: 'entity.store', renameTo: generator => `${generator.entityFolderName}/store/${generator.entityFileName}_store.dart` },
+                { file: 'entity.route', renameTo: generator => `${generator.entityFolderName}/services/${generator.entityFileName}_routes.dart` },
+                { file: 'entity.module', renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}_module.dart` },
             ]
         }
     ]
-    // todo: add tests
 };
 
 module.exports = {
@@ -84,31 +55,27 @@ function writeFiles() {
     console.log('----write entity mobx-------')
 
     return {
-        /* saveRemoteEntityPath() {
-            if (_.isUndefined(this.microservicePath)) {
-                return;
-            }
-            this.copy(`${this.microservicePath}/${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`, this.destinationPath(`${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`));
-        }, */
 
         writeClientFiles() {
+            console.log('-----writeClientFiles------')
             if (this.skipClient) return;
-
-            // write client side files for angular
+            console.log('-----writeClientFiles---0---')
+           
             this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
 
-            console.log(this.context)
+            //console.log(this.options)
             
+            console.log('-----writeClientFiles---1---')
             // this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
-            this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
-
+            this.addEntityToModule(this.entityInstance, this.entityClass, this.entityFolderName, this.entityFileName, this.enableTranslation);
+            console.log('-----writeClientFiles---2---')
             // Copy for each
-            if (this.enableTranslation) {
+            /* if (this.enableTranslation) {
                 const languages = this.languages || this.getAllInstalledLanguages();
                 languages.forEach((language) => {
                     // this.copyI18n(language, CLIENT_I18N_TEMPLATES_DIR);
                 });
-            }
+            } */
 
             // Run build_runner to generate MobX Store 
             this.spawnCommand('flutter', ['packages', 'pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs']);

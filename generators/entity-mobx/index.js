@@ -25,49 +25,49 @@ const writeFiles = require('./files').writeFiles;
 let useBlueprint;
 
 module.exports = class extends BaseGenerator {
+
     constructor(args, opts) {
         super(args, opts);
         utils.copyObjectProps(this, this.options.context);
-        const blueprint = this.config.get('blueprint');
+        //const blueprint = this.config.get('blueprint');
+        
         this.appsName = this.config.get('appsName');
-        useBlueprint = this.composeBlueprint(blueprint, 'entity'); // use global variable since getters dont have access to instance property
+        console.log('--------construct entity-mobx-------')
+        console.log(this.opts)
+        console.log(this.args)
+        console.log(this.config)
+        console.log(this.options)
+        console.log(this.context)
+        // useBlueprint = this.composeBlueprint(blueprint, 'entity'); // use global variable since getters dont have access to instance property
     }
 
     get writing() {
+        console.log('--------writing-------')
         if (useBlueprint) return;
         return writeFiles();
     }
 
     end() {
+        console.log('--------end-------')
         if (useBlueprint) return;
         this.log(chalk.bold.green('Entity generation completed. You may need to click "r" or "R" in your terminal to see your changes on your apps.'));
     }
 
-
     /**
      * Add a new entity in the TS modules file.
      *
      * @param {string} entityInstance - Entity Instance
      * @param {string} entityClass - Entity Class
-     * @param {string} entityClass - Entity Angular Name
      * @param {string} entityFolderName - Entity Folder Name
      * @param {string} entityFileName - Entity File Name
      * @param {boolean} enableTranslation - If translations are enabled or not
      */
-    
-
-    /**
-     * Add a new entity in the TS modules file.
-     *
-     * @param {string} entityInstance - Entity Instance
-     * @param {string} entityClass - Entity Class
-     * @param {string} entityClass - Entity Angular Name
-     * @param {string} entityFolderName - Entity Folder Name
-     * @param {string} entityFileName - Entity File Name
-     * @param {boolean} enableTranslation - If translations are enabled or not
-     */
-    addEntityToModule(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
+    addEntityToModule(entityInstance, entityClass, entityFolderName, entityFileName, enableTranslation) {
         // workaround method being called on initialization
+        console.log('--------addEntityToModule-------')
+        console.log(entityInstance)
+        console.log(entityClass)
+        console.log(entityFolderName)
         if (!entityClass) {
             return;
         }
@@ -91,10 +91,9 @@ module.exports = class extends BaseGenerator {
                 ]
             }, this);
         } catch (e) {
-            this.log(`${chalk.yellow('\nUnable to find ') + registerPath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityClass} ${chalk.yellow(`not added to ${registerPath}.\n`)}`);
+            this.log(`${chalk.yellow('\nUnable to find ') + registerPath + chalk.yellow(' or missing required kutilang-needle. Reference to ') + entityClass} ${chalk.yellow(`not added to ${registerPath}.\n`)}`);
             this.debug('Error:', e);
         }
-
     }
 
     /**
@@ -106,6 +105,9 @@ module.exports = class extends BaseGenerator {
      * @returns {{queries: Array, variables: Array, hasManyToMany: boolean}}
      */
     generateEntityQueries(relationships, entityInstance, dto) {
+        console.log('--------generateEntityQueries-------')
+        console.log(relationships)
+        console.log(entityInstance)
         // workaround method being called on initialization
         if (!relationships) {
             return;

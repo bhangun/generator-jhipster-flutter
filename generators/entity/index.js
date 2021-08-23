@@ -96,6 +96,7 @@ module.exports = class extends BaseGenerator {
     }
 
     get initializing() {
+        console.log('--------initializing-------')
         if (useBlueprint) return;
         return {
             getConfig() {
@@ -161,6 +162,7 @@ module.exports = class extends BaseGenerator {
             },
 
             validateEntityName() {
+                console.log('--------validateEntityName-------')
                 const entityName = this.context.name;
                 if (!(/^([a-zA-Z0-9_]*)$/.test(entityName))) {
                     this.error(chalk.red('The entity name cannot contain special characters'));
@@ -176,6 +178,7 @@ module.exports = class extends BaseGenerator {
             },
 
             setupconsts() {
+                console.log('--------setupConst-------')
                 const context = this.context;
                 const entityName = context.name;
                 // Specific Entity sub-generator constiables
@@ -199,6 +202,7 @@ module.exports = class extends BaseGenerator {
     }
 
     get prompting() {
+        console.log('--------prompting-------')
         if (useBlueprint) return;
         return {
             /* pre entity hook needs to be written here */
@@ -218,9 +222,11 @@ module.exports = class extends BaseGenerator {
     }
 
     get configuring() {
+        console.log('--------configuring-------')
         if (useBlueprint) return;
         return {
             validateFile() {
+                console.log('--------validateFile-------')
                 const context = this.context;
                 if (!context.useConfigurationFile) {
                     return;
@@ -332,6 +338,7 @@ module.exports = class extends BaseGenerator {
             },
 
             writeEntityJson() {
+                console.log('--------writingEntityJson-------')
                 const context = this.context;
                 if (context.useConfigurationFile && context.updateEntity === 'regenerate') {
                     return; // do not update if regenerating entity
@@ -370,6 +377,7 @@ module.exports = class extends BaseGenerator {
             },
 
             loadInMemoryData() {
+                console.log('--------loadinmemory-------')
                 const context = this.context;
                 const entityName = context.name;
                 const entityNamePluralizedAndSpinalCased = _.kebabCase(pluralize(entityName));
@@ -631,11 +639,11 @@ module.exports = class extends BaseGenerator {
     }
 
     get writing() {
-        if (useBlueprint) return;
+        console.log('--------writing-------')
         return {
             composeClient() {
                 const context = this.context;
-                if (context.skipClient) return;
+               /* 
                 if (this.stateManageType === 'basic') {
                     this.composeWith(require.resolve('../entity-client'), {
                         context,
@@ -650,19 +658,20 @@ module.exports = class extends BaseGenerator {
                         force: context.options.force,
                         debug: context.isDebugEnabled
                     });
-                } else {
+                } else { */
                     this.composeWith(require.resolve('../entity-mobx'), {
                         context,
                         'skip-install': context.options['skip-install'],
                         force: context.options.force,
                         debug: context.isDebugEnabled
                     });
-                }
+               // }
             }
         };
     }
 
     get install() {
+        console.log('--------install-------')
         if (useBlueprint) return;
         return {
             afterRunHook() {
