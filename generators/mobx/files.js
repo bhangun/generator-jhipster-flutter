@@ -39,6 +39,7 @@ function writeFiles() {
         },
 
         writeGlobalFiles() {
+            this.template(`gitignore`, `${this.packageFolder}/.gitignore`);
             this.template('pubspec.yaml', `${this.packageFolder}/pubspec.yaml`);
             this.template('README.md', `${this.packageFolder}/README.md`);
             this.template('run_watcher', `${this.packageFolder}/run_watcher`);
