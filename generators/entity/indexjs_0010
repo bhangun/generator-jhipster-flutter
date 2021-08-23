@@ -35,9 +35,7 @@ module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
 
-console.log(this.cont)
-
-       // jhipsterUtils.copyObjectProps(this, this.options.context);
+        jhipsterUtils.copyObjectProps(this, this.options.context);
         // This makes `name` a required argument.
         this.argument('name', {
             type: String,
@@ -46,7 +44,7 @@ console.log(this.cont)
         });
 
         // This method adds support for a `--[no-]regenerate` flag
-      /*   this.option('regenerate', {
+        this.option('regenerate', {
             desc: 'Regenerate the entity without presenting an option to update it',
             type: Boolean,
             defaults: false
@@ -89,37 +87,22 @@ console.log(this.cont)
         this.option('db', {
             desc: 'Provide DB option for the application when using skip-server flag',
             type: String
-        }); */
+        });
 
-        /* this.context = {};
+        this.context = {};
         this.setupEntityOptions(this, this, this.context);
         const blueprint = this.config.get('blueprint');
-        useBlueprint = this.composeBlueprint(blueprint, 'entity');  */// use global variable since getters don't have access to instance property
+        useBlueprint = this.composeBlueprint(blueprint, 'entity'); // use global variable since getters don't have access to instance property
     }
 
     get initializing() {
-<<<<<<< HEAD
-       // if (useBlueprint) return;
-=======
-        console.log('--------initializing-------')
         if (useBlueprint) return;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
         return {
-            readConfig(){
-               // console.log(this.config)
-                this.baseName = this.config.get('baseName');
-                this.appsName = this.config.get('appsName');
-                this.packageName = this.config.get('packageName');
-               
-            },
-/* 
             getConfig() {
                 // stateManageType
                 this.stateManageType = this.config.get('stateManageType');
 
-                const context = this;
-                console.log(context)
-
+                const context = this.context;
                 context.useConfigurationFile = false;
                 this.env.options.appPath = this.config.get('appPath') || constants.CLIENT_MAIN_SRC_DIR;
                 context.options = this.options;
@@ -175,16 +158,10 @@ console.log(this.cont)
                     context.useConfigurationFile = true;
                     context.fromPath = this.filename;
                 }
-            }, */
+            },
 
             validateEntityName() {
-<<<<<<< HEAD
-                console.log('---validateEntityName---')
-               /*  const entityName = this.context.name;
-=======
-                console.log('--------validateEntityName-------')
                 const entityName = this.context.name;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
                 if (!(/^([a-zA-Z0-9_]*)$/.test(entityName))) {
                     this.error(chalk.red('The entity name cannot contain special characters'));
                 } else if ((/^[0-9].*$/.test(entityName))) {
@@ -195,18 +172,11 @@ console.log(this.cont)
                     this.error(chalk.red('The entity name cannot end with \'Detail\''));
                 } else if (!this.skipServer && jhiCore.isReservedClassName(entityName)) {
                     this.error(chalk.red('The entity name cannot contain a Java or JHipster reserved keyword'));
-                } */
-                console.log('---validateEntityName--end-')
+                }
             },
 
             setupconsts() {
-<<<<<<< HEAD
-                console.log('---setupconst---')
-                /* const context = this.context;
-=======
-                console.log('--------setupConst-------')
                 const context = this.context;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
                 const entityName = context.name;
                 // Specific Entity sub-generator constiables
                 if (!context.useConfigurationFile) {
@@ -223,21 +193,13 @@ console.log(this.cont)
                     // existing entity reading values from file
                     this.log(`\nThe entity ${entityName} is being updated.\n`);
                     this.loadEntityJson();
-                } */
-
-                console.log('---setup--end-')
+                }
             }
         };
     }
 
     get prompting() {
-<<<<<<< HEAD
-        console.log('---promting---')
-       // if (useBlueprint) return;
-=======
-        console.log('--------prompting-------')
         if (useBlueprint) return;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
         return {
             /* pre entity hook needs to be written here */
             askForBackendJson: prompts.askForBackendJson,
@@ -255,17 +217,10 @@ console.log(this.cont)
         };
     }
 
-<<<<<<< HEAD
-    /* get configuring() {
-        //if (useBlueprint) return;
-=======
     get configuring() {
-        console.log('--------configuring-------')
         if (useBlueprint) return;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
         return {
             validateFile() {
-                console.log('--------validateFile-------')
                 const context = this.context;
                 if (!context.useConfigurationFile) {
                     return;
@@ -377,7 +332,6 @@ console.log(this.cont)
             },
 
             writeEntityJson() {
-                console.log('--------writingEntityJson-------')
                 const context = this.context;
                 if (context.useConfigurationFile && context.updateEntity === 'regenerate') {
                     return; // do not update if regenerating entity
@@ -416,7 +370,6 @@ console.log(this.cont)
             },
 
             loadInMemoryData() {
-                console.log('--------loadinmemory-------')
                 const context = this.context;
                 const entityName = context.name;
                 const entityNamePluralizedAndSpinalCased = _.kebabCase(pluralize(entityName));
@@ -675,56 +628,41 @@ console.log(this.cont)
                 context.pkType = this.getPkType(context.databaseType);
             },
         };
-    } */
+    }
 
     get writing() {
-<<<<<<< HEAD
-        //if (useBlueprint) return;
-        return {
-            composeClient() {
-                console.log('---compose---')
-               /*  const context = this.context;
-                if (context.skipClient) return;
-=======
-        console.log('--------writing-------')
+        if (useBlueprint) return;
         return {
             composeClient() {
                 const context = this.context;
-               /* 
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
+                if (context.skipClient) return;
                 if (this.stateManageType === 'basic') {
                     this.composeWith(require.resolve('../entity-client'), {
                         context,
-                        //'skip-install': context.options['skip-install'],
-                      //  force: context.options.force,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
                         debug: context.isDebugEnabled
                     });
                 } else if (this.stateManageType === 'provider') {
                     this.composeWith(require.resolve('../entity-provider'), {
                         context,
-                      //  'skip-install': context.options['skip-install'],
-                       // force: context.options.force,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
                         debug: context.isDebugEnabled
                     });
-                } else { */
+                } else {
                     this.composeWith(require.resolve('../entity-mobx'), {
                         context,
-                        //'skip-install': context.options['skip-install'],
-                        //force: context.options.force,
+                        'skip-install': context.options['skip-install'],
+                        force: context.options.force,
                         debug: context.isDebugEnabled
                     });
-<<<<<<< HEAD
-                } */
-                console.log('---compose--end-')
-=======
-               // }
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
+                }
             }
         };
     }
 
     get install() {
-        console.log('--------install-------')
         if (useBlueprint) return;
         return {
             afterRunHook() {

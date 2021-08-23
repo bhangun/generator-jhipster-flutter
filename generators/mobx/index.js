@@ -2,17 +2,25 @@
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const writeFiles = require('./files').writeFiles;
 
-// const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
-
-// let useBlueprint;
-
 module.exports = class extends BaseGenerator {
+
     constructor(args, opts) {
         super(args, opts);
         this.configOptions = this.options.configOptions || {};
+ 
+        if (opts.entities) {
+            this.config.set('baseName', opts.appsName)
+            this.config.set('appsName', opts.appsName)
+            this.config.set('packageName', opts.packageName)
+            this.config.set('packageFolder', opts.appsName)
+            this.config.set('android', opts.android);
+            this.config.set('ios', opts.ios);
+            this.config.set('stateManageType', opts.stateManageType);
+        }
     }
 
     get initializing() {
+
         return {
             init(args) {
                 if (args === 'default') {
@@ -20,19 +28,19 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.baseName = this.config.get('baseName');
+                this.baseName = this.config.get('appsName');
                 this.appsName = this.config.get('appsName');
                 this.packageName = this.config.get('packageName');
                 this.android = this.config.get('android');
                 this.ios = this.config.get('ios');
-                this.packageFolder = `${this.destinationRoot()}/${this.appsName}`; // this.config.get('packageFolder');
+                this.packageFolder = `${this.destinationRoot()}/${this.appsName}`;
             },
         };
     }
 
     get prompting() {
         return {
-        // askForModuleName: prompts.askForModuleName,
+
             setSharedConfigOptions() {
                 this.configOptions.packageName = this.packageName;
                 this.configOptions.baseName = this.baseName;
@@ -41,7 +49,6 @@ module.exports = class extends BaseGenerator {
     }
 
     get configuring() {
-    // if (useBlueprint) return;
         return {
             saveConfig() {
                 this.config.set('baseName', this.baseName);
@@ -53,7 +60,7 @@ module.exports = class extends BaseGenerator {
     }
 
     get writing() {
-        return writeFiles();
+        return writeFiles(this.config);
     }
 
     install() {
