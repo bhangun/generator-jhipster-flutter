@@ -98,12 +98,6 @@ console.log(this.cont)
     }
 
     get initializing() {
-<<<<<<< HEAD
-       // if (useBlueprint) return;
-=======
-        console.log('--------initializing-------')
-        if (useBlueprint) return;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
         return {
             readConfig(){
                // console.log(this.config)
@@ -178,13 +172,7 @@ console.log(this.cont)
             }, */
 
             validateEntityName() {
-<<<<<<< HEAD
-                console.log('---validateEntityName---')
-               /*  const entityName = this.context.name;
-=======
-                console.log('--------validateEntityName-------')
-                const entityName = this.context.name;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
+
                 if (!(/^([a-zA-Z0-9_]*)$/.test(entityName))) {
                     this.error(chalk.red('The entity name cannot contain special characters'));
                 } else if ((/^[0-9].*$/.test(entityName))) {
@@ -195,18 +183,11 @@ console.log(this.cont)
                     this.error(chalk.red('The entity name cannot end with \'Detail\''));
                 } else if (!this.skipServer && jhiCore.isReservedClassName(entityName)) {
                     this.error(chalk.red('The entity name cannot contain a Java or JHipster reserved keyword'));
-                } */
-                console.log('---validateEntityName--end-')
+                } 
+               
             },
 
             setupconsts() {
-<<<<<<< HEAD
-                console.log('---setupconst---')
-                /* const context = this.context;
-=======
-                console.log('--------setupConst-------')
-                const context = this.context;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
                 const entityName = context.name;
                 // Specific Entity sub-generator constiables
                 if (!context.useConfigurationFile) {
@@ -223,21 +204,13 @@ console.log(this.cont)
                     // existing entity reading values from file
                     this.log(`\nThe entity ${entityName} is being updated.\n`);
                     this.loadEntityJson();
-                } */
-
+                } 
                 console.log('---setup--end-')
             }
         };
     }
 
     get prompting() {
-<<<<<<< HEAD
-        console.log('---promting---')
-       // if (useBlueprint) return;
-=======
-        console.log('--------prompting-------')
-        if (useBlueprint) return;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
         return {
             /* pre entity hook needs to be written here */
             askForBackendJson: prompts.askForBackendJson,
@@ -255,14 +228,8 @@ console.log(this.cont)
         };
     }
 
-<<<<<<< HEAD
-    /* get configuring() {
-        //if (useBlueprint) return;
-=======
     get configuring() {
         console.log('--------configuring-------')
-        if (useBlueprint) return;
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
         return {
             validateFile() {
                 console.log('--------validateFile-------')
@@ -675,23 +642,21 @@ console.log(this.cont)
                 context.pkType = this.getPkType(context.databaseType);
             },
         };
-    } */
+    } 
 
     get writing() {
-<<<<<<< HEAD
-        //if (useBlueprint) return;
         return {
             composeClient() {
                 console.log('---compose---')
                /*  const context = this.context;
                 if (context.skipClient) return;
-=======
+
         console.log('--------writing-------')
         return {
             composeClient() {
                 const context = this.context;
                /* 
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
+
                 if (this.stateManageType === 'basic') {
                     this.composeWith(require.resolve('../entity-client'), {
                         context,
@@ -713,13 +678,7 @@ console.log(this.cont)
                         //force: context.options.force,
                         debug: context.isDebugEnabled
                     });
-<<<<<<< HEAD
-                } */
-                console.log('---compose--end-')
-=======
-               // }
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
-            }
+                } 
         };
     }
 

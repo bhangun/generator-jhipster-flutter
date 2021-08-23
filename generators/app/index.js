@@ -30,13 +30,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.cyan('|_\\_\\\\__,_|\\__|_|_|\\__,_|_| |_|\\__,  |')}`);
                 this.log(`${chalk.bold.cyan('                                 __/ |')}`);
                 this.log(`${chalk.bold.cyan('                                |___/ ')}`);
-<<<<<<< HEAD
-
-                // Have Yeoman greet the user.
                 this.log(`\nWelcome to the ${chalk.bold.yellow('Flutter Apps')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
-=======
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster-Flutter')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
             },
         };
     }

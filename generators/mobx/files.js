@@ -29,29 +29,19 @@ let flutterDir;
 // let projectName;
 
 function writeFiles(param) {
-    console.log(param)
+ 
     const packageFolder = param.get('packageFolder')//this.packageFolder?this.config.get('appsName'):param.packageFolder
-
-    console.log(this.packageFolder)
-    console.log(packageFolder)
     return {
         setUpJavaDir() {
             flutterDir = `${constants.FLUTTER_TEMPLATE}`;
         },
 
         writeGlobalFiles() {
-<<<<<<< HEAD
-            this.template(`gitignore`, `${this.packageFolder}/.gitignore`);
             this.template('pubspec.yaml', `${this.packageFolder}/pubspec.yaml`);
             this.template('README.md', `${this.packageFolder}/README.md`);
             this.template('run_watcher', `${this.packageFolder}/run_watcher`);
             this.template('l10n.yaml', `${this.packageFolder}/l10n.yaml`);
-=======
-            this.template('pubspec.yaml', `${packageFolder}/pubspec.yaml`);
-            this.template('README.md', `${packageFolder}/README.md`);
-            this.template('run_watcher', `${packageFolder}/run_watcher`);
-            this.template('l10n.yaml', `${packageFolder}/l10n.yaml`);
->>>>>>> b14931bc79abc260f5f3efd9d859c19331b3aa0b
+            this.template(`gitignore`, `${this.packageFolder}/.gitignore`);
         },
 
         writeClientResourceFiles() {
